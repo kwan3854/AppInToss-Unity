@@ -5,8 +5,8 @@
  */
 
 import { openURL } from "@apps-in-toss/web-framework";
-import { OpenURLServiceBase } from "../../../generated/OpenURLService/typescript/ait_openurl_OpenURLServiceBase";
-import type { OpenURLRequest, OpenURLResponse } from "../../../generated/OpenURLService/typescript/ait_openurl_OpenURLServiceBase";
+import { OpenURLServiceBase } from "../../../generated/OpenURLService/javascript/ait_openurl_OpenURLServiceBase";
+import type { OpenURLRequest, OpenURLResponse } from "../../../generated/OpenURLService/javascript/ait_openurl_OpenURLServiceBase";
 
 /**
  * OpenURL Service Implementation
