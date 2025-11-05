@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.kwanjoong.webviewrpc": "https://github.com/kwan3854/Unity-WebViewRpc.git?path=/Packages/WebviewRpc",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.collab-proxy": "2.10.1",
     "com.unity.ide.rider": "3.0.38",

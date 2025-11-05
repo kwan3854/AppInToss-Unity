@@ -1,8 +1,7 @@
 import { Unity, useUnityContext } from "react-unity-webgl";
-// 앱인토스(AIT) SDK에서 Safe Area 값을 가져오는 함수를 import 합니다.
 import { getSafeAreaInsets } from "@apps-in-toss/web-framework";
-// 2. 방금 분리한 '브릿지 로직' 훅을 import 합니다.
-import { useAitBridge } from "./hooks/useAitBridge";
+// WebView RPC hook for Unity ↔ React communication
+import { useWebViewRpc } from "./hooks/useWebViewRpc";
 
 function App() {
   // 3. useUnityContext에서 provider와 *나머지 컨텍스트*를 분리합니다.
@@ -17,9 +16,9 @@ function App() {
     codeUrl: "unity-build/mygame.wasm",
   });
 
-  // 4. 브릿지 훅을 호출하고, Unity 컨텍스트를 넘겨줍니다.
-  // 이 한 줄이 모든 통신(openURL 등)을 활성화시킵니다.
-  useAitBridge(unityContext);
+  // Initialize WebView RPC server
+  // This enables Unity to call AIT SDK functions via RPC
+  useWebViewRpc(unityContext, "AitRpcBridge");
 
   // AIT SDK가 현재 기기의 상단(상태바)과 하단(홈 인디케이터)의
   // 여백(px)을 반환합니다. (예: { top: 44, bottom: 34 })
