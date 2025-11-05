@@ -5,7 +5,8 @@
  */
 
 import { openURL } from "@apps-in-toss/web-framework";
-import { OpenURLServiceBase } from "../../generated/ait_openurl_OpenURLServiceBase";
+import { OpenURLServiceBase } from "../../../generated/OpenURLService/typescript/ait_openurl_OpenURLServiceBase";
+import type { OpenURLRequest, OpenURLResponse } from "../../../generated/OpenURLService/typescript/ait_openurl_OpenURLServiceBase";
 
 /**
  * OpenURL Service Implementation
@@ -14,10 +15,10 @@ import { OpenURLServiceBase } from "../../generated/ait_openurl_OpenURLServiceBa
 export class OpenURLServiceImpl extends OpenURLServiceBase {
   /**
    * Handle OpenURL request from Unity
-   * @param requestObj - { url: string }
-   * @returns Promise<{ success: boolean, error_message?: string }>
+   * @param requestObj - OpenURLRequest
+   * @returns Promise<OpenURLResponse>
    */
-  async OpenURL(requestObj: { url: string }) {
+  async OpenURL(requestObj: OpenURLRequest): Promise<OpenURLResponse> {
     console.log(`[OpenURLService] Received request to open URL: ${requestObj.url}`);
 
     try {

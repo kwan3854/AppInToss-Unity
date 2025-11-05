@@ -152,3 +152,4 @@ https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask
 → 생성된 코드 파일이 있는지 확인: `Assets/AIT-SDK/Generated/`
 → Unity Editor에서 Refresh (Cmd/Ctrl + R)
 
+

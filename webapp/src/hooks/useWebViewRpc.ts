@@ -8,7 +8,7 @@
 import { useEffect, useRef } from "react";
 import { WebViewRpcServer } from "app-webview-rpc";
 import { ReactUnityBridge } from "../bridge/ReactUnityBridge";
-import { OpenURLService } from "../generated/ait_openurl_OpenURLServiceBase";
+import { OpenURLService } from "../../generated/OpenURLService/typescript/ait_openurl_OpenURLServiceBase";
 import { OpenURLServiceImpl } from "../services/ait-rpc/OpenURLServiceImpl";
 import type { UnityContextType } from "../services/ait/types";
 

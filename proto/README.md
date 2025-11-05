@@ -69,15 +69,29 @@ service OpenURLService {
 brew install protobuf
 npm install -g pbjs
 
-# 수동 생성
+# C# 코드 생성 (Unity용)
 protoc \
   -Iproto \
-  --csharp_out=unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/ \
+  --csharp_out=generated/OpenURLService/csharp/ \
   --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
-  --webviewrpc_out=cs_client,cs_server:unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/ \
+  --webviewrpc_out=cs_client,cs_server:generated/OpenURLService/csharp/ \
   proto/ait_openurl.proto
 
-npx pbjs proto/ait_openurl.proto --es6 webapp/src/generated/OpenURLService.js
+# JavaScript 코드 생성 (React용)
+npx pbjs proto/ait_openurl.proto --es6 generated/OpenURLService/javascript/OpenURLService.js
+
+protoc \
+  -Iproto \
+  --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+  --webviewrpc_out=js_client,js_server:generated/OpenURLService/javascript/ \
+  proto/ait_openurl.proto
+
+# TypeScript 코드 생성 (React용 - v2.1.0+)
+protoc \
+  -Iproto \
+  --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+  --webviewrpc_out=ts_server:generated/OpenURLService/typescript/ \
+  proto/ait_openurl.proto
 ```
 
 ### 4. 자동 생성 (GitHub Actions)
@@ -91,9 +105,9 @@ git push
 ```
 
 GitHub Actions가 자동으로:
-1. C# 코드 생성 → `unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/`
-2. JavaScript 코드 생성 → `webapp/src/generated/`
-3. Unity .meta 파일 생성
+1. C# 코드 생성 → `generated/ServiceName/csharp/`
+2. JavaScript 코드 생성 → `generated/ServiceName/javascript/`
+3. TypeScript 코드 생성 → `generated/ServiceName/typescript/` (v2.1.0+)
 4. 자동 커밋 및 푸시
 
 ## 📝 Proto 파일 작성 가이드

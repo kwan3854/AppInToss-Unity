@@ -105,6 +105,13 @@ jobs:
               --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
               --webviewrpc_out=js_client,js_server:"${{ github.workspace }}/${js_dir}" \
               "${proto_file}"
+            
+            # TypeScript 서버 코드 생성 (React용)
+            protoc \
+              -Iproto \
+              --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+              --webviewrpc_out=ts_server:"${{ github.workspace }}/${js_dir}" \
+              "${proto_file}"
           done
 
       - name: Commit and push generated files
@@ -113,7 +120,7 @@ jobs:
           commit_message: "chore: auto-generate protobuf code"
           # 현재 브랜치에 커밋 및 푸시합니다.
           branch: ${{ github.head_ref || github.ref_name }}
-          file_pattern: 'generated/**/*.cs generated/**/*.js'
+          file_pattern: 'generated/**/*.cs generated/**/*.js generated/**/*.ts'
           commit_user_name: "GitHub Actions"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions <actions@github.com>"
