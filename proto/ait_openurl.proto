@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ait;
+
+option csharp_namespace = "AitBridge.Generated";
+
+// OpenURL Request
+// Unity에서 React로 URL 열기 요청
+message OpenURLRequest {
+  // URL to open
+  string url = 1;
+}
+
+// OpenURL Response
+// React에서 Unity로 결과 반환
+message OpenURLResponse {
+  // Whether the URL was opened successfully
+  bool success = 1;
+  // Error message if failed
+  string error_message = 2;
+}
+
+// OpenURL Service
+// Opens a URL in the device's default browser or associated app
+service OpenURLService {
+  rpc OpenURL(OpenURLRequest) returns (OpenURLResponse);
+}
+
