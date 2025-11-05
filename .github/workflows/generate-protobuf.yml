@@ -34,7 +34,7 @@ jobs:
       - name: Generate code from all .proto files
         run: |
           # Unity C# 출력 디렉토리
-          UNITY_OUTPUT_DIR="${{ github.workspace }}/unity/AIT-SDK-Project/Assets/Scripts/Generated"
+          UNITY_OUTPUT_DIR="${{ github.workspace }}/unity/AIT-SDK-Project/Assets/AIT-SDK/Generated"
           # React JavaScript 출력 디렉토리
           WEBAPP_OUTPUT_DIR="${{ github.workspace }}/webapp/src/generated"
           
@@ -117,7 +117,7 @@ jobs:
         run: |
           # Unity는 새 파일에 대해 .meta 파일이 필요합니다.
           # 간단한 스크립트로 .meta 파일 생성 (GUID는 파일 경로 기반 해시)
-          find unity/AIT-SDK-Project/Assets/Scripts/Generated -type f \( -name "*.cs" -o -name "*.js" \) ! -name "*.meta" | while read file; do
+          find unity/AIT-SDK-Project/Assets/AIT-SDK/Generated -type f \( -name "*.cs" -o -name "*.js" \) ! -name "*.meta" | while read file; do
             if [ ! -f "${file}.meta" ]; then
               guid=$(echo -n "${file}" | md5sum | cut -d' ' -f1 | tr '[:lower:]' '[:upper:]')
               cat > "${file}.meta" <<EOF
@@ -142,8 +142,8 @@ jobs:
           commit_message: "chore: auto-generate protobuf code from .proto files"
           branch: ${{ github.head_ref || github.ref_name }}
           file_pattern: |
-            unity/AIT-SDK-Project/Assets/Scripts/Generated/**/*.cs
-            unity/AIT-SDK-Project/Assets/Scripts/Generated/**/*.meta
+            unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.cs
+            unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.meta
             webapp/src/generated/**/*.js
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"

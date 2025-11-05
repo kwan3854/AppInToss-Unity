@@ -123,7 +123,7 @@ webapp/*.sw?
 # ===================================
 # Auto-generated code from .proto files (managed by GitHub Actions)
 # These files are automatically regenerated, so we don't track them
-unity/*/Assets/Scripts/Generated/
+unity/*/Assets/AIT-SDK/Generated/
 webapp/src/generated/
 
 # Legacy generated protobuf files (if any)

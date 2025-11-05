@@ -6,7 +6,7 @@
 
 WebView RPC를 사용하여 Unity와 React 간의 타입 안전한 통신을 구현합니다.
 
-- **Unity**: C# 코드 자동 생성 → `unity/AIT-SDK-Project/Assets/Scripts/Generated/`
+- **Unity**: C# 코드 자동 생성 → `unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/`
 - **React**: JavaScript 코드 자동 생성 → `webapp/src/generated/`
 
 ## 📁 구조
@@ -72,9 +72,9 @@ npm install -g pbjs
 # 수동 생성
 protoc \
   -Iproto \
-  --csharp_out=unity/AIT-SDK-Project/Assets/Scripts/Generated/ \
+  --csharp_out=unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/ \
   --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
-  --webviewrpc_out=cs_client,cs_server:unity/AIT-SDK-Project/Assets/Scripts/Generated/ \
+  --webviewrpc_out=cs_client,cs_server:unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/ \
   proto/ait_openurl.proto
 
 npx pbjs proto/ait_openurl.proto --es6 webapp/src/generated/OpenURLService.js
@@ -91,7 +91,7 @@ git push
 ```
 
 GitHub Actions가 자동으로:
-1. C# 코드 생성 → `unity/AIT-SDK-Project/Assets/Scripts/Generated/`
+1. C# 코드 생성 → `unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/`
 2. JavaScript 코드 생성 → `webapp/src/generated/`
 3. Unity .meta 파일 생성
 4. 자동 커밋 및 푸시
@@ -224,7 +224,7 @@ chmod +x proto/protoc-gen-webviewrpc
 
 - Unity Editor에서 Refresh (Cmd/Ctrl + R)
 - `.meta` 파일이 생성되었는지 확인
-- `Assets/Scripts/Generated/` 폴더 확인
+- `Assets/AIT-SDK/Generated/` 폴더 확인
 
 ## 📚 참고 문서
 
