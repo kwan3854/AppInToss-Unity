@@ -76,8 +76,8 @@ jobs:
           fi
           
           # 나머지 proto 파일들 처리
-          for proto_file in $(find proto -name "*.proto" | grep -v "common.proto"); do
-            echo "Processing ${proto_file}..."
+          for proto_file in $(find proto -name "*.proto" | grep -v "common.proto" | grep -v ".example"); do
+            echo "==== Processing ${proto_file} ===="
             
             # .proto 파일에서 서비스 이름을 추출합니다.
             service_name=$(grep -E '^service' "${proto_file}" | head -n 1 | awk '{print $2}')
@@ -90,27 +90,40 @@ jobs:
             # 서비스별 출력 디렉토리 생성
             csharp_dir="${UNITY_OUTPUT_DIR}/${service_name}"
             js_dir="${WEBAPP_OUTPUT_DIR}/${service_name}"
+            echo "Creating directories:"
+            echo "  C#: ${csharp_dir}"
+            echo "  JS: ${js_dir}"
             mkdir -p "${csharp_dir}" "${js_dir}"
             
             # C# 코드 생성 (Unity용)
+            echo "Generating C# code..."
             protoc \
               -Iproto \
               --csharp_out="${csharp_dir}" \
               --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
               --webviewrpc_out=cs_client,cs_server:"${csharp_dir}" \
-              "${proto_file}"
+              "${proto_file}" || { echo "Error: C# code generation failed"; exit 1; }
+            
+            echo "Generated C# files:"
+            ls -la "${csharp_dir}" || echo "  (none)"
             
             # JavaScript 공용 코드 생성 (React용)
+            echo "Generating JavaScript common code..."
             npx pbjs \
               "${{ github.workspace }}/${proto_file}" \
-              --es6 "${js_dir}/${service_name}.js"
+              --es6 "${js_dir}/${service_name}.js" || { echo "Error: pbjs failed"; exit 1; }
             
             # JavaScript 클라이언트/서버 코드 생성
+            echo "Generating JavaScript client/server code..."
             protoc \
               -Iproto \
               --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
               --webviewrpc_out=js_client,js_server:"${js_dir}" \
-              "${proto_file}"
+              "${proto_file}" || { echo "Error: JS code generation failed"; exit 1; }
+            
+            echo "Generated JS files:"
+            ls -la "${js_dir}" || echo "  (none)"
+            echo "==== Completed ${proto_file} ===="
           done
 
       - name: Commit and push generated files
