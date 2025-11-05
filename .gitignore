@@ -121,22 +121,11 @@ webapp/*.sw?
 # ===================================
 # Protobuf (WebView RPC)
 # ===================================
-# Auto-generated code from .proto files (managed by GitHub Actions)
-# These files are automatically regenerated, so we don't track them
-unity/*/Assets/AIT-SDK/Generated/
-webapp/src/generated/
-
-# Legacy generated protobuf files (if any)
-*_pb.js
-*_pb.cs
-*_pb.ts
-*_pb.d.ts
+# Generated code IS tracked by git (auto-committed by GitHub Actions)
+# Do NOT exclude generated/ folder
 
 # Proto temp files
 *.proto~
-
-# Note: .meta files for Unity Generated folder WILL be tracked
-# They are created by GitHub Actions and needed for Unity
 
 # ===================================
 # macOS
