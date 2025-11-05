@@ -53,7 +53,10 @@ namespace AitBridge.RPC
             Debug.Log($"[ReactUnityWebGLBridge] Received message from React (length: {message.Length})");
             OnMessageReceived?.Invoke(message);
         }
+
+        public void Dispose()
+        {
+            OnMessageReceived = null;
+        }
     }
 }
-
-

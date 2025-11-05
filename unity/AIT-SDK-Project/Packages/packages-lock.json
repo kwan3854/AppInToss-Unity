@@ -1,13 +1,27 @@
 {
   "dependencies": {
-    "com.kwanjoong.webviewrpc": {
-      "version": "https://github.com/kwan3854/Unity-WebViewRpc.git?path=/Packages/WebviewRpc",
+    "com.cysharp.unitask": {
+      "version": "2.5.10",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "4.5.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.kwanjoong.webviewrpc": {
+      "version": "2.1.0",
+      "depth": 0,
+      "source": "registry",
       "dependencies": {
         "com.cysharp.unitask": "2.5.10"
       },
-      "hash": "d5e06ed965d96e39217260da8f0b5dc9df1e65bc"
+      "url": "https://package.openupm.com"
     },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
