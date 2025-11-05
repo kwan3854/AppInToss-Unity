@@ -1,0 +1,24 @@
+{
+    "name": "com.kwanjoong.ait-sdk",
+    "version": "0.1.0",
+    "displayName": "AppInToss SDK",
+    "description": "Unofficial AppInToss SDK for Unity",
+    "unity": "6000.0.0",
+    "documentationUrl": "https://github.com/kwan3854/AppInToss-Unity",
+    "keywords": [
+        "Toss",
+        "SDK"
+    ],
+    "author": {
+      "name": "Kwanjoong Lee",
+      "url": "https://github.com/kwan3854"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/kwan3854/AppInToss-Unity.git"
+    },
+    "dependencies": {
+      "com.kwanjoong.webviewrpc": "https://github.com/kwan3854/Unity-WebViewRpc.git?path=/Packages/WebviewRpc"
+    },
+    "license": "MIT"
+  }
