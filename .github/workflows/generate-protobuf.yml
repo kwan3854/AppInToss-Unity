@@ -113,29 +113,6 @@ jobs:
               "${proto_file}"
           done
 
-      - name: Generate Unity .meta files
-        run: |
-          # Unity는 새 파일에 대해 .meta 파일이 필요합니다.
-          # 간단한 스크립트로 .meta 파일 생성 (GUID는 파일 경로 기반 해시)
-          find unity/AIT-SDK-Project/Assets/AIT-SDK/Generated -type f \( -name "*.cs" -o -name "*.js" \) ! -name "*.meta" | while read file; do
-            if [ ! -f "${file}.meta" ]; then
-              guid=$(echo -n "${file}" | md5sum | cut -d' ' -f1 | tr '[:lower:]' '[:upper:]')
-              cat > "${file}.meta" <<EOF
-          fileFormatVersion: 2
-          guid: ${guid}
-          MonoImporter:
-            externalObjects: {}
-            serializedVersion: 2
-            defaultReferences: []
-            executionOrder: 0
-            icon: {instanceID: 0}
-            userData: 
-            assetBundleName: 
-            assetBundleVariant: 
-          EOF
-            fi
-          done
-
       - name: Commit and push generated files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
