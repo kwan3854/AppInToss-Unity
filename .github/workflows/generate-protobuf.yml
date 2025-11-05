@@ -10,6 +10,9 @@ on:
 jobs:
   build-and-commit:
     runs-on: macos-latest # Mac 전용 실행 파일을 위해 macOS 환경을 사용합니다.
+    
+    permissions:
+      contents: write # Allow the action to push commits
 
     steps:
       - name: Checkout repository
