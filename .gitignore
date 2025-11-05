@@ -118,12 +118,6 @@ webapp/*.njsproj
 webapp/*.sln
 webapp/*.sw?
 
-# ===================================
-# Protobuf (WebView RPC)
-# ===================================
-# Generated code IS tracked by git (auto-committed by GitHub Actions)
-# Do NOT exclude generated/ folder
-
 # Proto temp files
 *.proto~
 
