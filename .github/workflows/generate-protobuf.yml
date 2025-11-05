@@ -1,0 +1,153 @@
+name: Generate Protobuf Code
+
+on:
+  push:
+    branches:
+      - main
+      - development
+      - 'feature/**'
+    paths:
+      - 'proto/**/*.proto'
+      - '.github/workflows/generate-protobuf.yml'
+
+jobs:
+  build-and-commit:
+    runs-on: macos-latest # Mac 전용 실행 파일(protoc-gen-webviewrpc)을 위해 macOS 환경 사용
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Protobuf & pbjs)
+        run: |
+          brew install protobuf
+          npm install -g pbjs
+
+      - name: Make generator executable
+        run: chmod +x proto/protoc-gen-webviewrpc
+
+      - name: Generate code from all .proto files
+        run: |
+          # Unity C# 출력 디렉토리
+          UNITY_OUTPUT_DIR="${{ github.workspace }}/unity/AIT-SDK-Project/Assets/Scripts/Generated"
+          # React JavaScript 출력 디렉토리
+          WEBAPP_OUTPUT_DIR="${{ github.workspace }}/webapp/src/generated"
+          
+          # 출력 디렉토리 생성
+          mkdir -p "${UNITY_OUTPUT_DIR}"
+          mkdir -p "${WEBAPP_OUTPUT_DIR}"
+          
+          # common.proto를 먼저 처리 (다른 파일들이 의존할 수 있으므로)
+          if [ -f "proto/common.proto" ]; then
+            echo "Processing common.proto first..."
+            service_name=$(grep -E '^service' "proto/common.proto" | head -n 1 | awk '{print $2}')
+            if [ ! -z "${service_name}" ]; then
+              echo "Found service: ${service_name}"
+              
+              csharp_dir="${UNITY_OUTPUT_DIR}/${service_name}"
+              js_dir="${WEBAPP_OUTPUT_DIR}/${service_name}"
+              mkdir -p "${csharp_dir}" "${js_dir}"
+              
+              # C# 코드 생성 (클라이언트 & 서버)
+              protoc \
+                -Iproto \
+                --csharp_out="${csharp_dir}" \
+                --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+                --webviewrpc_out=cs_client,cs_server:"${csharp_dir}" \
+                "proto/common.proto"
+              
+              # JavaScript 공용 코드 생성
+              npx pbjs \
+                "${{ github.workspace }}/proto/common.proto" \
+                --es6 "${js_dir}/${service_name}.js"
+              
+              # JavaScript 클라이언트/서버 코드 생성
+              protoc \
+                -Iproto \
+                --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+                --webviewrpc_out=js_client,js_server:"${js_dir}" \
+                "proto/common.proto"
+            fi
+          fi
+          
+          # 나머지 proto 파일들 처리
+          for proto_file in $(find proto -name "*.proto" | grep -v "common.proto"); do
+            echo "Processing ${proto_file}..."
+            
+            # .proto 파일에서 서비스 이름을 추출합니다.
+            service_name=$(grep -E '^service' "${proto_file}" | head -n 1 | awk '{print $2}')
+            if [ -z "${service_name}" ]; then
+              echo "Warning: No service found in ${proto_file}. Skipping."
+              continue
+            fi
+            echo "Found service: ${service_name}"
+            
+            # 서비스별 출력 디렉토리 생성
+            csharp_dir="${UNITY_OUTPUT_DIR}/${service_name}"
+            js_dir="${WEBAPP_OUTPUT_DIR}/${service_name}"
+            mkdir -p "${csharp_dir}" "${js_dir}"
+            
+            # C# 코드 생성 (Unity용)
+            protoc \
+              -Iproto \
+              --csharp_out="${csharp_dir}" \
+              --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+              --webviewrpc_out=cs_client,cs_server:"${csharp_dir}" \
+              "${proto_file}"
+            
+            # JavaScript 공용 코드 생성 (React용)
+            npx pbjs \
+              "${{ github.workspace }}/${proto_file}" \
+              --es6 "${js_dir}/${service_name}.js"
+            
+            # JavaScript 클라이언트/서버 코드 생성
+            protoc \
+              -Iproto \
+              --plugin=protoc-gen-webviewrpc=proto/protoc-gen-webviewrpc \
+              --webviewrpc_out=js_client,js_server:"${js_dir}" \
+              "${proto_file}"
+          done
+
+      - name: Generate Unity .meta files
+        run: |
+          # Unity는 새 파일에 대해 .meta 파일이 필요합니다.
+          # 간단한 스크립트로 .meta 파일 생성 (GUID는 파일 경로 기반 해시)
+          find unity/AIT-SDK-Project/Assets/Scripts/Generated -type f \( -name "*.cs" -o -name "*.js" \) ! -name "*.meta" | while read file; do
+            if [ ! -f "${file}.meta" ]; then
+              guid=$(echo -n "${file}" | md5sum | cut -d' ' -f1 | tr '[:lower:]' '[:upper:]')
+              cat > "${file}.meta" <<EOF
+          fileFormatVersion: 2
+          guid: ${guid}
+          MonoImporter:
+            externalObjects: {}
+            serializedVersion: 2
+            defaultReferences: []
+            executionOrder: 0
+            icon: {instanceID: 0}
+            userData: 
+            assetBundleName: 
+            assetBundleVariant: 
+          EOF
+            fi
+          done
+
+      - name: Commit and push generated files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-generate protobuf code from .proto files"
+          branch: ${{ github.head_ref || github.ref_name }}
+          file_pattern: |
+            unity/AIT-SDK-Project/Assets/Scripts/Generated/**/*.cs
+            unity/AIT-SDK-Project/Assets/Scripts/Generated/**/*.meta
+            webapp/src/generated/**/*.js
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
+          skip_dirty_check: false
+          skip_fetch: false
+
