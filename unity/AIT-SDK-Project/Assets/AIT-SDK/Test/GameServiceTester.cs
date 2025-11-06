@@ -1,8 +1,6 @@
 using System;
-using System.Threading.Tasks;
-using AIT.AIT_SDK.Scripts.Bridge;
-using AIT.AIT_SDK.Scripts.RPC;
 using Ait.Game;
+using AitBridge.RPC;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +19,7 @@ namespace AIT.AIT_SDK.Test
         void Start()
         {
             // Get the RPC client instance
-            var rpc = WebViewRpc.Instance;
-            _gameServiceClient = new GameServiceClient(rpc);
+            _gameServiceClient = AitRpcBridge.Instance.GameService;
 
             // Add button listeners
             getUserKeyButton.onClick.AddListener(TestGetUserKey);

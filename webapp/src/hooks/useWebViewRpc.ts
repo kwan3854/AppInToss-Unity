@@ -12,9 +12,11 @@ import { OpenURLService } from "../generated/OpenURLService/ait_openurl_OpenURLS
 import { OpenURLServiceImpl } from "../services/ait-rpc/OpenURLServiceImpl";
 import { GameService } from "../generated/GameService/ait_game_GameServiceBase";
 import { GameServiceImpl } from "../services/ait-rpc/GameServiceImpl";
+import type { UnityContextType } from "../services/ait/types";
 
 /**
  * Custom hook to manage the WebView RPC server
+ */
 
 export const useWebViewRpc = (
   unityContext: UnityContextType,
