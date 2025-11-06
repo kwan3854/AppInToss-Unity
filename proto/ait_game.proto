@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package ait.game;
+
+// -------------------------------------------------------------------
+// 1. Game Login Service
+// -------------------------------------------------------------------
+
+service GameLoginService {
+  // Get user key for the game
+  rpc GetUserKeyForGame(GetUserKeyForGameRequest) returns (GetUserKeyForGameResponse);
+}
+
+message GetUserKeyForGameRequest {}
+
+message GetUserKeyForGameResponse {
+  oneof result {
+    GetUserKeyForGameSuccessResponse success = 1;
+    GetUserKeyForGameErrorResponse error = 2;
+  }
+}
+
+message GetUserKeyForGameSuccessResponse {
+  string type = 1; // e.g., "HASH"
+  string hash = 2;
+}
+
+message GetUserKeyForGameErrorResponse {
+  enum ErrorType {
+    INVALID_CATEGORY = 0;
+    ERROR = 1;
+    UNDEFINED_VERSION = 2;
+  }
+  ErrorType type = 1;
+  string message = 2;
+}
+
+
+// -------------------------------------------------------------------
+// 2. Game Promotion Service
+// -------------------------------------------------------------------
+
+service GamePromotionService {
+  // Grant promotion reward
+  rpc GrantPromotionReward(GrantPromotionRewardRequest) returns (GrantPromotionRewardResponse);
+}
+
+message GrantPromotionRewardRequest {
+  string promotion_code = 1;
+  int32 amount = 2;
+}
+
+message GrantPromotionRewardResponse {
+  oneof result {
+    GrantPromotionRewardSuccessResponse success = 1;
+    GrantPromotionRewardErrorResponse error = 2;
+  }
+}
+
+message GrantPromotionRewardSuccessResponse {
+  string key = 1; // Reward key
+}
+
+message GrantPromotionRewardErrorResponse {
+  string error_code = 1;
+  string message = 2;
+}
+
+
+// -------------------------------------------------------------------
+// 3. & 4. Game Leaderboard Service
+// -------------------------------------------------------------------
+
+service GameLeaderboardService {
+  // Open the game leaderboard
+  rpc OpenGameCenterLeaderboard(OpenGameCenterLeaderboardRequest) returns (OpenGameCenterLeaderboardResponse);
+
+  // Submit score to the game leaderboard
+  rpc SubmitGameCenterLeaderboardScore(SubmitGameCenterLeaderboardScoreRequest) returns (SubmitGameCenterLeaderboardScoreResponse);
+}
+
+message OpenGameCenterLeaderboardRequest {}
+message OpenGameCenterLeaderboardResponse {}
+
+message SubmitGameCenterLeaderboardScoreRequest {
+  string score = 1;
+}
+
+message SubmitGameCenterLeaderboardScoreResponse {
+  string status_code = 1; // e.g., "SUCCESS"
+}
