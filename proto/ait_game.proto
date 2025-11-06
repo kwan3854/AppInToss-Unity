@@ -2,14 +2,23 @@ syntax = "proto3";
 
 package ait.game;
 
-// -------------------------------------------------------------------
-// 1. Game Login Service
-// -------------------------------------------------------------------
-
-service GameLoginService {
-  // Get user key for the game
+service GameService {
+  // 1. Get user key for the game
   rpc GetUserKeyForGame(GetUserKeyForGameRequest) returns (GetUserKeyForGameResponse);
+
+  // 2. Grant promotion reward
+  rpc GrantPromotionReward(GrantPromotionRewardRequest) returns (GrantPromotionRewardResponse);
+
+  // 3. Open the game leaderboard
+  rpc OpenGameCenterLeaderboard(OpenGameCenterLeaderboardRequest) returns (OpenGameCenterLeaderboardResponse);
+
+  // 4. Submit score to the game leaderboard
+  rpc SubmitGameCenterLeaderboardScore(SubmitGameCenterLeaderboardScoreRequest) returns (SubmitGameCenterLeaderboardScoreResponse);
 }
+
+// -------------------------------------------------------------------
+// Messages for GetUserKeyForGame
+// -------------------------------------------------------------------
 
 message GetUserKeyForGameRequest {}
 
@@ -35,15 +44,9 @@ message GetUserKeyForGameErrorResponse {
   string message = 2;
 }
 
-
 // -------------------------------------------------------------------
-// 2. Game Promotion Service
+// Messages for GrantPromotionReward
 // -------------------------------------------------------------------
-
-service GamePromotionService {
-  // Grant promotion reward
-  rpc GrantPromotionReward(GrantPromotionRewardRequest) returns (GrantPromotionRewardResponse);
-}
 
 message GrantPromotionRewardRequest {
   string promotion_code = 1;
@@ -66,21 +69,16 @@ message GrantPromotionRewardErrorResponse {
   string message = 2;
 }
 
-
 // -------------------------------------------------------------------
-// 3. & 4. Game Leaderboard Service
+// Messages for OpenGameCenterLeaderboard
 // -------------------------------------------------------------------
-
-service GameLeaderboardService {
-  // Open the game leaderboard
-  rpc OpenGameCenterLeaderboard(OpenGameCenterLeaderboardRequest) returns (OpenGameCenterLeaderboardResponse);
-
-  // Submit score to the game leaderboard
-  rpc SubmitGameCenterLeaderboardScore(SubmitGameCenterLeaderboardScoreRequest) returns (SubmitGameCenterLeaderboardScoreResponse);
-}
 
 message OpenGameCenterLeaderboardRequest {}
 message OpenGameCenterLeaderboardResponse {}
+
+// -------------------------------------------------------------------
+// Messages for SubmitGameCenterLeaderboardScore
+// -------------------------------------------------------------------
 
 message SubmitGameCenterLeaderboardScoreRequest {
   string score = 1;
