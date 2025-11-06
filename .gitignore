@@ -183,3 +183,4 @@ $RECYCLE.BIN/
 *.temp
 .cache/
 
+ProtocGenWebviewRpc/

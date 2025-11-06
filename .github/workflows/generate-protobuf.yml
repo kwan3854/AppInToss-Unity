@@ -72,11 +72,11 @@ jobs:
               --webviewrpc_out=cs_client,cs_server:"${unity_dir}" \
               "${proto_file}"
 
-            # JavaScript 공용 코드 생성 (React용 - pbjs)
-            echo "Generating JavaScript protobuf code..."
+            # TypeScript 공용 코드 생성 (React용 - pbjs)
+            echo "Generating TypeScript protobuf code..."
             npx pbjs \
               "${{ github.workspace }}/${proto_file}" \
-              --es6 "${webapp_dir}/${service_name}.js"
+              --ts "${webapp_dir}/${service_name}.ts"
 
             # TypeScript 서버 코드 생성 (React용)
             echo "Generating TypeScript server code..."
@@ -99,7 +99,7 @@ jobs:
         with:
           commit_message: "chore: auto-generate protobuf code"
           branch: ${{ github.head_ref || github.ref_name }}
-          file_pattern: unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.cs webapp/src/generated/**/*.js webapp/src/generated/**/*.ts
+          file_pattern: unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.cs webapp/src/generated/**/*.ts
           commit_user_name: "GitHub Actions"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions <actions@github.com>"
