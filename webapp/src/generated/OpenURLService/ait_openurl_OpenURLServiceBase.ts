@@ -2,7 +2,7 @@
 // TypeScript Server: OpenURLServiceServiceBase
 
 // Import encoding/decoding functions for each method
-import { decodeOpenURLRequest, encodeOpenURLResponse, } from './OpenURLService.js';
+import { decodeOpenURLRequest, encodeOpenURLResponse, } from './OpenURLService';
 
 // Type definitions for request/response messages
 
