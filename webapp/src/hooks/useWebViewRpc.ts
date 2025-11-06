@@ -8,7 +8,7 @@
 import { useEffect, useRef } from "react";
 import { WebViewRpcServer } from "app-webview-rpc";
 import { ReactUnityBridge } from "../bridge/ReactUnityBridge";
-import { OpenURLService } from "../../generated/OpenURLService/javascript/ait_openurl_OpenURLServiceBase";
+import { OpenURLService } from "../generated/OpenURLService/ait_openurl_OpenURLServiceBase";
 import { OpenURLServiceImpl } from "../services/ait-rpc/OpenURLServiceImpl";
 import type { UnityContextType } from "../services/ait/types";
 
@@ -22,31 +22,34 @@ import type { UnityContextType } from "../services/ait/types";
  */
 export const useWebViewRpc = (
   unityContext: UnityContextType,
+  isLoaded: boolean, // New argument
   gameObjectName: string = "AitRpcBridge"
 ) => {
   const rpcServerRef = useRef<WebViewRpcServer | null>(null);
 
   useEffect(() => {
-    // Create bridge
-    const bridge = new ReactUnityBridge(unityContext, gameObjectName);
+    if (isLoaded) { // Only run when loaded
+      // Create bridge
+      const bridge = new ReactUnityBridge(unityContext, gameObjectName);
 
-    // Create RPC server
-    const rpcServer = new WebViewRpcServer(bridge);
+      // Create RPC server
+      const rpcServer = new WebViewRpcServer(bridge);
 
-    // Register all AIT services
-    const openURLServiceDef = OpenURLService.bindService(new OpenURLServiceImpl());
-    rpcServer.services.push(openURLServiceDef);
+      // Register all AIT services
+      const openURLServiceDef = OpenURLService.bindService(new OpenURLServiceImpl());
+      rpcServer.services.push(openURLServiceDef);
 
-    // Add more services here as you implement them:
-    // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
-    // rpcServer.services.push(paymentServiceDef);
+      // Add more services here as you implement them:
+      // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
+      // rpcServer.services.push(paymentServiceDef);
 
-    // Start the server
-    rpcServer.start();
-    rpcServerRef.current = rpcServer;
+      // Start the server
+      rpcServer.start();
+      rpcServerRef.current = rpcServer;
 
-    console.log(`[WebView RPC] Server started with ${rpcServer.services.length} service(s)`);
-    console.log(`[WebView RPC] Listening on GameObject: ${gameObjectName}`);
+      console.log(`[WebView RPC] Server started with ${rpcServer.services.length} service(s)`);
+      console.log(`[WebView RPC] Listening on GameObject: ${gameObjectName}`);
+    }
 
     // Cleanup on unmount
     return () => {
@@ -57,7 +60,7 @@ export const useWebViewRpc = (
         console.log("[WebView RPC] Server stopped");
       }
     };
-  }, [unityContext, gameObjectName]);
+  }, [unityContext, isLoaded, gameObjectName]);
 
   return rpcServerRef.current;
 };
