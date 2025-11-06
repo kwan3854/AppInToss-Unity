@@ -810,7 +810,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uC800\uC815\uBCF4"
+  m_Text: get user
 --- !u!222 &509901617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC810\uC218\uC81C\uCD9C"
+  m_Text: submit score
 --- !u!222 &610702972
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1310,7 +1310,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB4A4\uB85C\uAC00\uAE30"
+  m_Text: go back
 --- !u!222 &1278606128
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1510,7 +1510,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB9AC\uC6CC\uB4DC \uBC1B\uAE30"
+  m_Text: get reward
 --- !u!222 &1569600913
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1578,10 +1578,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 3
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1589,7 +1589,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB9AC\uB354\uBCF4\uB4DC\uC5F4\uAE30"
+  m_Text: open leaderboard
 --- !u!222 &1604908536
 CanvasRenderer:
   m_ObjectHideFlags: 0

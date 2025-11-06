@@ -16,11 +16,9 @@ service GameService {
   rpc SubmitGameCenterLeaderboardScore(SubmitGameCenterLeaderboardScoreRequest) returns (SubmitGameCenterLeaderboardScoreResponse);
 }
 
-// -------------------------------------------------------------------
-// Messages for GetUserKeyForGame
-// -------------------------------------------------------------------
-
-message GetUserKeyForGameRequest {}
+message GetUserKeyForGameRequest {
+  optional bool dummy = 1;
+}
 
 message GetUserKeyForGameResponse {
   oneof result {
@@ -30,7 +28,7 @@ message GetUserKeyForGameResponse {
 }
 
 message GetUserKeyForGameSuccessResponse {
-  string type = 1; // e.g., "HASH"
+  string type = 1;
   string hash = 2;
 }
 
@@ -39,10 +37,7 @@ message GetUserKeyForGameErrorResponse {
   string message = 2;
 }
 
-// -------------------------------------------------------------------
-// Messages for GrantPromotionReward
-// -------------------------------------------------------------------
-
+// 2. Grant promotion reward
 message GrantPromotionRewardRequest {
   string promotion_code = 1;
   int32 amount = 2;
@@ -56,7 +51,7 @@ message GrantPromotionRewardResponse {
 }
 
 message GrantPromotionRewardSuccessResponse {
-  string key = 1; // Reward key
+  string key = 1;
 }
 
 message GrantPromotionRewardErrorResponse {
@@ -64,11 +59,10 @@ message GrantPromotionRewardErrorResponse {
   string message = 2;
 }
 
-// -------------------------------------------------------------------
-// Messages for OpenGameCenterLeaderboard
-// -------------------------------------------------------------------
-
-message OpenGameCenterLeaderboardRequest {}
+// 3. Open the game leaderboard
+message OpenGameCenterLeaderboardRequest {
+  optional bool dummy = 1;
+}
 message OpenGameCenterLeaderboardResponse {}
 
 // -------------------------------------------------------------------

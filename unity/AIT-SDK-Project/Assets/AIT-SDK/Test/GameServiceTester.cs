@@ -1,6 +1,7 @@
 using System;
 using Ait.Game;
 using AitBridge.RPC;
+using AIT.AIT_SDK.ExtensionMethods;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,7 @@ namespace AIT.AIT_SDK.Test
             Log("Calling GetUserKeyForGame...");
             try
             {
-                var response = await _gameServiceClient.GetUserKeyForGame(new GetUserKeyForGameRequest());
+                var response = await _gameServiceClient.GetUserKeyForGame();
                 if (response.ResultCase == GetUserKeyForGameResponse.ResultOneofCase.Success)
                 {
                     Log($"GetUserKeyForGame success: hash={response.Success.Hash}");
@@ -82,7 +83,7 @@ namespace AIT.AIT_SDK.Test
             Log("Calling OpenGameCenterLeaderboard...");
             try
             {
-                await _gameServiceClient.OpenGameCenterLeaderboard(new OpenGameCenterLeaderboardRequest());
+                await _gameServiceClient.OpenGameCenterLeaderboard();
                 Log("OpenGameCenterLeaderboard success.");
             }
             catch (Exception e)

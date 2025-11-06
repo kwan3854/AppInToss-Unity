@@ -757,7 +757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAC8C\uC784\uC11C\uBE44\uC2A4"
+  m_Text: Game Service
 --- !u!222 &509901617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1111,7 +1111,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "URL \uC5F4\uAE30 \uC11C\uBE44\uC2A4"
+  m_Text: URL Open Service
 --- !u!222 &1569600913
 CanvasRenderer:
   m_ObjectHideFlags: 0

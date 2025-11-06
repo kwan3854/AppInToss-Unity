@@ -1520,7 +1520,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB4A4\uB85C\uAC00\uAE30"
+  m_Text: go back
 --- !u!222 &2056705189
 CanvasRenderer:
   m_ObjectHideFlags: 0
