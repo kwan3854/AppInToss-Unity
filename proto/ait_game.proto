@@ -34,14 +34,8 @@ message GetUserKeyForGameSuccessResponse {
   string hash = 2;
 }
 
-enum ErrorType {
-  INVALID_CATEGORY = 0;
-  ERROR = 1;
-  UNDEFINED_VERSION = 2;
-}
-
 message GetUserKeyForGameErrorResponse {
-  ErrorType type = 1;
+  string type = 1;
   string message = 2;
 }
 
