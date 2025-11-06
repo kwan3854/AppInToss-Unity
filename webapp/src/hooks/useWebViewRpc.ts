@@ -10,16 +10,12 @@ import { WebViewRpcServer } from "app-webview-rpc";
 import { ReactUnityBridge } from "../bridge/ReactUnityBridge";
 import { OpenURLService } from "../generated/OpenURLService/ait_openurl_OpenURLServiceBase";
 import { OpenURLServiceImpl } from "../services/ait-rpc/OpenURLServiceImpl";
-import type { UnityContextType } from "../services/ait/types";
+import { GameService } from "../generated/GameService/ait_game_GameServiceBase";
+import { GameServiceImpl } from "../services/ait-rpc/GameServiceImpl";
 
 /**
- * WebView RPC Hook
- * 
- * Sets up RPC server that handles Unity requests using AIT SDK
- * 
- * @param unityContext - Unity context from useUnityContext (excluding unityProvider)
- * @param gameObjectName - Name of Unity GameObject (default: "AitRpcBridge")
- */
+ * Custom hook to manage the WebView RPC server
+
 export const useWebViewRpc = (
   unityContext: UnityContextType,
   isLoaded: boolean, // New argument
@@ -38,6 +34,9 @@ export const useWebViewRpc = (
       // Register all AIT services
       const openURLServiceDef = OpenURLService.bindService(new OpenURLServiceImpl());
       rpcServer.services.push(openURLServiceDef);
+
+      const gameServiceDef = GameService.bindService(new GameServiceImpl());
+      rpcServer.services.push(gameServiceDef);
 
       // Add more services here as you implement them:
       // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
