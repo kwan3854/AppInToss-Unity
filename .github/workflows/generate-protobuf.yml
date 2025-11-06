@@ -99,10 +99,7 @@ jobs:
         with:
           commit_message: "chore: auto-generate protobuf code"
           branch: ${{ github.head_ref || github.ref_name }}
-          file_pattern: |
-            unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.cs
-            webapp/src/generated/**/*.js
-            webapp/src/generated/**/*.ts
+          file_pattern: unity/AIT-SDK-Project/Assets/AIT-SDK/Generated/**/*.cs webapp/src/generated/**/*.js webapp/src/generated/**/*.ts
           commit_user_name: "GitHub Actions"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions <actions@github.com>"
