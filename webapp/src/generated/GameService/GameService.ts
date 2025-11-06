@@ -1,4 +1,5 @@
 export interface GetUserKeyForGameRequest {
+  dummy?: boolean;
 }
 
 export function encodeGetUserKeyForGameRequest(message: GetUserKeyForGameRequest): Uint8Array {
@@ -8,6 +9,12 @@ export function encodeGetUserKeyForGameRequest(message: GetUserKeyForGameRequest
 }
 
 function _encodeGetUserKeyForGameRequest(message: GetUserKeyForGameRequest, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
 }
 
 export function decodeGetUserKeyForGameRequest(binary: Uint8Array): GetUserKeyForGameRequest {
@@ -23,6 +30,12 @@ function _decodeGetUserKeyForGameRequest(bb: ByteBuffer): GetUserKeyForGameReque
     switch (tag >>> 3) {
       case 0:
         break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
 
       default:
         skipUnknownField(bb, tag & 7);
@@ -470,6 +483,7 @@ function _decodeGrantPromotionRewardErrorResponse(bb: ByteBuffer): GrantPromotio
 }
 
 export interface OpenGameCenterLeaderboardRequest {
+  dummy?: boolean;
 }
 
 export function encodeOpenGameCenterLeaderboardRequest(message: OpenGameCenterLeaderboardRequest): Uint8Array {
@@ -479,6 +493,12 @@ export function encodeOpenGameCenterLeaderboardRequest(message: OpenGameCenterLe
 }
 
 function _encodeOpenGameCenterLeaderboardRequest(message: OpenGameCenterLeaderboardRequest, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
 }
 
 export function decodeOpenGameCenterLeaderboardRequest(binary: Uint8Array): OpenGameCenterLeaderboardRequest {
@@ -494,6 +514,12 @@ function _decodeOpenGameCenterLeaderboardRequest(bb: ByteBuffer): OpenGameCenter
     switch (tag >>> 3) {
       case 0:
         break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
 
       default:
         skipUnknownField(bb, tag & 7);

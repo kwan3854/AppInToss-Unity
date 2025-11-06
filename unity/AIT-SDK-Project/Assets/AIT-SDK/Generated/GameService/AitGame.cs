@@ -24,41 +24,42 @@ namespace Ait.Game {
     static AitGameReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5haXRfZ2FtZS5wcm90bxIIYWl0LmdhbWUiGgoYR2V0VXNlcktleUZvckdh",
-            "bWVSZXF1ZXN0Ip8BChlHZXRVc2VyS2V5Rm9yR2FtZVJlc3BvbnNlEj0KB3N1",
-            "Y2Nlc3MYASABKAsyKi5haXQuZ2FtZS5HZXRVc2VyS2V5Rm9yR2FtZVN1Y2Nl",
-            "c3NSZXNwb25zZUgAEjkKBWVycm9yGAIgASgLMiguYWl0LmdhbWUuR2V0VXNl",
-            "cktleUZvckdhbWVFcnJvclJlc3BvbnNlSABCCAoGcmVzdWx0Ij4KIEdldFVz",
-            "ZXJLZXlGb3JHYW1lU3VjY2Vzc1Jlc3BvbnNlEgwKBHR5cGUYASABKAkSDAoE",
-            "aGFzaBgCIAEoCSI/Ch5HZXRVc2VyS2V5Rm9yR2FtZUVycm9yUmVzcG9uc2US",
-            "DAoEdHlwZRgBIAEoCRIPCgdtZXNzYWdlGAIgASgJIkUKG0dyYW50UHJvbW90",
-            "aW9uUmV3YXJkUmVxdWVzdBIWCg5wcm9tb3Rpb25fY29kZRgBIAEoCRIOCgZh",
-            "bW91bnQYAiABKAUiqAEKHEdyYW50UHJvbW90aW9uUmV3YXJkUmVzcG9uc2US",
-            "QAoHc3VjY2VzcxgBIAEoCzItLmFpdC5nYW1lLkdyYW50UHJvbW90aW9uUmV3",
-            "YXJkU3VjY2Vzc1Jlc3BvbnNlSAASPAoFZXJyb3IYAiABKAsyKy5haXQuZ2Ft",
-            "ZS5HcmFudFByb21vdGlvblJld2FyZEVycm9yUmVzcG9uc2VIAEIICgZyZXN1",
-            "bHQiMgojR3JhbnRQcm9tb3Rpb25SZXdhcmRTdWNjZXNzUmVzcG9uc2USCwoD",
-            "a2V5GAEgASgJIkgKIUdyYW50UHJvbW90aW9uUmV3YXJkRXJyb3JSZXNwb25z",
-            "ZRISCgplcnJvcl9jb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkiIgogT3Bl",
-            "bkdhbWVDZW50ZXJMZWFkZXJib2FyZFJlcXVlc3QiIwohT3BlbkdhbWVDZW50",
-            "ZXJMZWFkZXJib2FyZFJlc3BvbnNlIjgKJ1N1Ym1pdEdhbWVDZW50ZXJMZWFk",
-            "ZXJib2FyZFNjb3JlUmVxdWVzdBINCgVzY29yZRgBIAEoCSI/CihTdWJtaXRH",
-            "YW1lQ2VudGVyTGVhZGVyYm9hcmRTY29yZVJlc3BvbnNlEhMKC3N0YXR1c19j",
-            "b2RlGAEgASgJMtQDCgtHYW1lU2VydmljZRJcChFHZXRVc2VyS2V5Rm9yR2Ft",
-            "ZRIiLmFpdC5nYW1lLkdldFVzZXJLZXlGb3JHYW1lUmVxdWVzdBojLmFpdC5n",
-            "YW1lLkdldFVzZXJLZXlGb3JHYW1lUmVzcG9uc2USZQoUR3JhbnRQcm9tb3Rp",
-            "b25SZXdhcmQSJS5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlcXVl",
-            "c3QaJi5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlc3BvbnNlEnQK",
-            "GU9wZW5HYW1lQ2VudGVyTGVhZGVyYm9hcmQSKi5haXQuZ2FtZS5PcGVuR2Ft",
-            "ZUNlbnRlckxlYWRlcmJvYXJkUmVxdWVzdBorLmFpdC5nYW1lLk9wZW5HYW1l",
-            "Q2VudGVyTGVhZGVyYm9hcmRSZXNwb25zZRKJAQogU3VibWl0R2FtZUNlbnRl",
-            "ckxlYWRlcmJvYXJkU2NvcmUSMS5haXQuZ2FtZS5TdWJtaXRHYW1lQ2VudGVy",
-            "TGVhZGVyYm9hcmRTY29yZVJlcXVlc3QaMi5haXQuZ2FtZS5TdWJtaXRHYW1l",
-            "Q2VudGVyTGVhZGVyYm9hcmRTY29yZVJlc3BvbnNlYgZwcm90bzM="));
+            "Cg5haXRfZ2FtZS5wcm90bxIIYWl0LmdhbWUiKQoYR2V0VXNlcktleUZvckdh",
+            "bWVSZXF1ZXN0Eg0KBWR1bW15GAEgASgIIp8BChlHZXRVc2VyS2V5Rm9yR2Ft",
+            "ZVJlc3BvbnNlEj0KB3N1Y2Nlc3MYASABKAsyKi5haXQuZ2FtZS5HZXRVc2Vy",
+            "S2V5Rm9yR2FtZVN1Y2Nlc3NSZXNwb25zZUgAEjkKBWVycm9yGAIgASgLMigu",
+            "YWl0LmdhbWUuR2V0VXNlcktleUZvckdhbWVFcnJvclJlc3BvbnNlSABCCAoG",
+            "cmVzdWx0Ij4KIEdldFVzZXJLZXlGb3JHYW1lU3VjY2Vzc1Jlc3BvbnNlEgwK",
+            "BHR5cGUYASABKAkSDAoEaGFzaBgCIAEoCSI/Ch5HZXRVc2VyS2V5Rm9yR2Ft",
+            "ZUVycm9yUmVzcG9uc2USDAoEdHlwZRgBIAEoCRIPCgdtZXNzYWdlGAIgASgJ",
+            "IkUKG0dyYW50UHJvbW90aW9uUmV3YXJkUmVxdWVzdBIWCg5wcm9tb3Rpb25f",
+            "Y29kZRgBIAEoCRIOCgZhbW91bnQYAiABKAUiqAEKHEdyYW50UHJvbW90aW9u",
+            "UmV3YXJkUmVzcG9uc2USQAoHc3VjY2VzcxgBIAEoCzItLmFpdC5nYW1lLkdy",
+            "YW50UHJvbW90aW9uUmV3YXJkU3VjY2Vzc1Jlc3BvbnNlSAASPAoFZXJyb3IY",
+            "AiABKAsyKy5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZEVycm9yUmVz",
+            "cG9uc2VIAEIICgZyZXN1bHQiMgojR3JhbnRQcm9tb3Rpb25SZXdhcmRTdWNj",
+            "ZXNzUmVzcG9uc2USCwoDa2V5GAEgASgJIkgKIUdyYW50UHJvbW90aW9uUmV3",
+            "YXJkRXJyb3JSZXNwb25zZRISCgplcnJvcl9jb2RlGAEgASgJEg8KB21lc3Nh",
+            "Z2UYAiABKAkiMQogT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJlcXVlc3QS",
+            "DQoFZHVtbXkYASABKAgiIwohT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJl",
+            "c3BvbnNlIjgKJ1N1Ym1pdEdhbWVDZW50ZXJMZWFkZXJib2FyZFNjb3JlUmVx",
+            "dWVzdBINCgVzY29yZRgBIAEoCSI/CihTdWJtaXRHYW1lQ2VudGVyTGVhZGVy",
+            "Ym9hcmRTY29yZVJlc3BvbnNlEhMKC3N0YXR1c19jb2RlGAEgASgJMtQDCgtH",
+            "YW1lU2VydmljZRJcChFHZXRVc2VyS2V5Rm9yR2FtZRIiLmFpdC5nYW1lLkdl",
+            "dFVzZXJLZXlGb3JHYW1lUmVxdWVzdBojLmFpdC5nYW1lLkdldFVzZXJLZXlG",
+            "b3JHYW1lUmVzcG9uc2USZQoUR3JhbnRQcm9tb3Rpb25SZXdhcmQSJS5haXQu",
+            "Z2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlcXVlc3QaJi5haXQuZ2FtZS5H",
+            "cmFudFByb21vdGlvblJld2FyZFJlc3BvbnNlEnQKGU9wZW5HYW1lQ2VudGVy",
+            "TGVhZGVyYm9hcmQSKi5haXQuZ2FtZS5PcGVuR2FtZUNlbnRlckxlYWRlcmJv",
+            "YXJkUmVxdWVzdBorLmFpdC5nYW1lLk9wZW5HYW1lQ2VudGVyTGVhZGVyYm9h",
+            "cmRSZXNwb25zZRKJAQogU3VibWl0R2FtZUNlbnRlckxlYWRlcmJvYXJkU2Nv",
+            "cmUSMS5haXQuZ2FtZS5TdWJtaXRHYW1lQ2VudGVyTGVhZGVyYm9hcmRTY29y",
+            "ZVJlcXVlc3QaMi5haXQuZ2FtZS5TdWJtaXRHYW1lQ2VudGVyTGVhZGVyYm9h",
+            "cmRTY29yZVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameRequest), global::Ait.Game.GetUserKeyForGameRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameRequest), global::Ait.Game.GetUserKeyForGameRequest.Parser, new[]{ "Dummy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameResponse), global::Ait.Game.GetUserKeyForGameResponse.Parser, new[]{ "Success", "Error" }, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameSuccessResponse), global::Ait.Game.GetUserKeyForGameSuccessResponse.Parser, new[]{ "Type", "Hash" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameErrorResponse), global::Ait.Game.GetUserKeyForGameErrorResponse.Parser, new[]{ "Type", "Message" }, null, null, null, null),
@@ -66,7 +67,7 @@ namespace Ait.Game {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardResponse), global::Ait.Game.GrantPromotionRewardResponse.Parser, new[]{ "Success", "Error" }, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardSuccessResponse), global::Ait.Game.GrantPromotionRewardSuccessResponse.Parser, new[]{ "Key" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardErrorResponse), global::Ait.Game.GrantPromotionRewardErrorResponse.Parser, new[]{ "ErrorCode", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.OpenGameCenterLeaderboardRequest), global::Ait.Game.OpenGameCenterLeaderboardRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.OpenGameCenterLeaderboardRequest), global::Ait.Game.OpenGameCenterLeaderboardRequest.Parser, new[]{ "Dummy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.OpenGameCenterLeaderboardResponse), global::Ait.Game.OpenGameCenterLeaderboardResponse.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.SubmitGameCenterLeaderboardScoreRequest), global::Ait.Game.SubmitGameCenterLeaderboardScoreRequest.Parser, new[]{ "Score" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.SubmitGameCenterLeaderboardScoreResponse), global::Ait.Game.SubmitGameCenterLeaderboardScoreResponse.Parser, new[]{ "StatusCode" }, null, null, null, null)
@@ -111,6 +112,7 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetUserKeyForGameRequest(GetUserKeyForGameRequest other) : this() {
+      dummy_ = other.dummy_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -118,6 +120,18 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetUserKeyForGameRequest Clone() {
       return new GetUserKeyForGameRequest(this);
+    }
+
+    /// <summary>Field number for the "dummy" field.</summary>
+    public const int DummyFieldNumber = 1;
+    private bool dummy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Dummy {
+      get { return dummy_; }
+      set {
+        dummy_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -135,6 +149,7 @@ namespace Ait.Game {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Dummy != other.Dummy) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -142,6 +157,7 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Dummy != false) hash ^= Dummy.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -160,6 +176,10 @@ namespace Ait.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Dummy != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dummy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -170,6 +190,10 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Dummy != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dummy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -180,6 +204,9 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Dummy != false) {
+        size += 1 + 1;
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -191,6 +218,9 @@ namespace Ait.Game {
     public void MergeFrom(GetUserKeyForGameRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.Dummy != false) {
+        Dummy = other.Dummy;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -211,6 +241,10 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            Dummy = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -230,6 +264,10 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            Dummy = input.ReadBool();
+            break;
+          }
         }
       }
     }
@@ -580,9 +618,6 @@ namespace Ait.Game {
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
     private string type_ = "";
-    /// <summary>
-    /// e.g., "HASH"
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Type {
@@ -1004,6 +1039,9 @@ namespace Ait.Game {
 
   }
 
+  /// <summary>
+  /// 2. Grant promotion reward
+  /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GrantPromotionRewardRequest : pb::IMessage<GrantPromotionRewardRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -1581,9 +1619,6 @@ namespace Ait.Game {
     /// <summary>Field number for the "key" field.</summary>
     public const int KeyFieldNumber = 1;
     private string key_ = "";
-    /// <summary>
-    /// Reward key
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Key {
@@ -1969,6 +2004,9 @@ namespace Ait.Game {
 
   }
 
+  /// <summary>
+  /// 3. Open the game leaderboard
+  /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class OpenGameCenterLeaderboardRequest : pb::IMessage<OpenGameCenterLeaderboardRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2004,6 +2042,7 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public OpenGameCenterLeaderboardRequest(OpenGameCenterLeaderboardRequest other) : this() {
+      dummy_ = other.dummy_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2011,6 +2050,18 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public OpenGameCenterLeaderboardRequest Clone() {
       return new OpenGameCenterLeaderboardRequest(this);
+    }
+
+    /// <summary>Field number for the "dummy" field.</summary>
+    public const int DummyFieldNumber = 1;
+    private bool dummy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Dummy {
+      get { return dummy_; }
+      set {
+        dummy_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2028,6 +2079,7 @@ namespace Ait.Game {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Dummy != other.Dummy) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2035,6 +2087,7 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Dummy != false) hash ^= Dummy.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2053,6 +2106,10 @@ namespace Ait.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Dummy != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dummy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2063,6 +2120,10 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Dummy != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dummy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2073,6 +2134,9 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Dummy != false) {
+        size += 1 + 1;
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2084,6 +2148,9 @@ namespace Ait.Game {
     public void MergeFrom(OpenGameCenterLeaderboardRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.Dummy != false) {
+        Dummy = other.Dummy;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2104,6 +2171,10 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            Dummy = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -2123,6 +2194,10 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            Dummy = input.ReadBool();
+            break;
+          }
         }
       }
     }
