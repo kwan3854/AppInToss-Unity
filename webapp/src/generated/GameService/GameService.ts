@@ -1,3 +1,21 @@
+export const enum ErrorType {
+  INVALID_CATEGORY = "INVALID_CATEGORY",
+  ERROR = "ERROR",
+  UNDEFINED_VERSION = "UNDEFINED_VERSION",
+}
+
+export const encodeErrorType: { [key: string]: number } = {
+  INVALID_CATEGORY: 0,
+  ERROR: 1,
+  UNDEFINED_VERSION: 2,
+};
+
+export const decodeErrorType: { [key: number]: ErrorType } = {
+  0: ErrorType.INVALID_CATEGORY,
+  1: ErrorType.ERROR,
+  2: ErrorType.UNDEFINED_VERSION,
+};
+
 export interface GetUserKeyForGameRequest {
 }
 
@@ -181,12 +199,8 @@ function _encodeGetUserKeyForGameErrorResponse(message: GetUserKeyForGameErrorRe
   // optional ErrorType type = 1;
   let $type = message.type;
   if ($type !== undefined) {
-    writeVarint32(bb, 10);
-    let nested = popByteBuffer();
-    _encodeErrorType($type, nested);
-    writeVarint32(bb, nested.limit);
-    writeByteBuffer(bb, nested);
-    pushByteBuffer(nested);
+    writeVarint32(bb, 8);
+    writeVarint32(bb, encodeErrorType[$type]);
   }
 
   // optional string message = 2;
@@ -213,9 +227,7 @@ function _decodeGetUserKeyForGameErrorResponse(bb: ByteBuffer): GetUserKeyForGam
 
       // optional ErrorType type = 1;
       case 1: {
-        let limit = pushTemporaryLength(bb);
-        message.type = _decodeErrorType(bb);
-        bb.limit = limit;
+        message.type = decodeErrorType[readVarint32(bb)];
         break;
       }
 

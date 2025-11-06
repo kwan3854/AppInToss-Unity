@@ -30,41 +30,40 @@ namespace Ait.Game {
             "c3NSZXNwb25zZUgAEjkKBWVycm9yGAIgASgLMiguYWl0LmdhbWUuR2V0VXNl",
             "cktleUZvckdhbWVFcnJvclJlc3BvbnNlSABCCAoGcmVzdWx0Ij4KIEdldFVz",
             "ZXJLZXlGb3JHYW1lU3VjY2Vzc1Jlc3BvbnNlEgwKBHR5cGUYASABKAkSDAoE",
-            "aGFzaBgCIAEoCSK4AQoeR2V0VXNlcktleUZvckdhbWVFcnJvclJlc3BvbnNl",
-            "EkAKBHR5cGUYASABKA4yMi5haXQuZ2FtZS5HZXRVc2VyS2V5Rm9yR2FtZUVy",
-            "cm9yUmVzcG9uc2UuRXJyb3JUeXBlEg8KB21lc3NhZ2UYAiABKAkiQwoJRXJy",
-            "b3JUeXBlEhQKEElOVkFMSURfQ0FURUdPUlkQABIJCgVFUlJPUhABEhUKEVVO",
-            "REVGSU5FRF9WRVJTSU9OEAIiRQobR3JhbnRQcm9tb3Rpb25SZXdhcmRSZXF1",
-            "ZXN0EhYKDnByb21vdGlvbl9jb2RlGAEgASgJEg4KBmFtb3VudBgCIAEoBSKo",
-            "AQocR3JhbnRQcm9tb3Rpb25SZXdhcmRSZXNwb25zZRJACgdzdWNjZXNzGAEg",
-            "ASgLMi0uYWl0LmdhbWUuR3JhbnRQcm9tb3Rpb25SZXdhcmRTdWNjZXNzUmVz",
-            "cG9uc2VIABI8CgVlcnJvchgCIAEoCzIrLmFpdC5nYW1lLkdyYW50UHJvbW90",
-            "aW9uUmV3YXJkRXJyb3JSZXNwb25zZUgAQggKBnJlc3VsdCIyCiNHcmFudFBy",
-            "b21vdGlvblJld2FyZFN1Y2Nlc3NSZXNwb25zZRILCgNrZXkYASABKAkiSAoh",
-            "R3JhbnRQcm9tb3Rpb25SZXdhcmRFcnJvclJlc3BvbnNlEhIKCmVycm9yX2Nv",
-            "ZGUYASABKAkSDwoHbWVzc2FnZRgCIAEoCSIiCiBPcGVuR2FtZUNlbnRlckxl",
-            "YWRlcmJvYXJkUmVxdWVzdCIjCiFPcGVuR2FtZUNlbnRlckxlYWRlcmJvYXJk",
-            "UmVzcG9uc2UiOAonU3VibWl0R2FtZUNlbnRlckxlYWRlcmJvYXJkU2NvcmVS",
-            "ZXF1ZXN0Eg0KBXNjb3JlGAEgASgJIj8KKFN1Ym1pdEdhbWVDZW50ZXJMZWFk",
-            "ZXJib2FyZFNjb3JlUmVzcG9uc2USEwoLc3RhdHVzX2NvZGUYASABKAky1AMK",
-            "C0dhbWVTZXJ2aWNlElwKEUdldFVzZXJLZXlGb3JHYW1lEiIuYWl0LmdhbWUu",
-            "R2V0VXNlcktleUZvckdhbWVSZXF1ZXN0GiMuYWl0LmdhbWUuR2V0VXNlcktl",
-            "eUZvckdhbWVSZXNwb25zZRJlChRHcmFudFByb21vdGlvblJld2FyZBIlLmFp",
-            "dC5nYW1lLkdyYW50UHJvbW90aW9uUmV3YXJkUmVxdWVzdBomLmFpdC5nYW1l",
-            "LkdyYW50UHJvbW90aW9uUmV3YXJkUmVzcG9uc2USdAoZT3BlbkdhbWVDZW50",
-            "ZXJMZWFkZXJib2FyZBIqLmFpdC5nYW1lLk9wZW5HYW1lQ2VudGVyTGVhZGVy",
-            "Ym9hcmRSZXF1ZXN0GisuYWl0LmdhbWUuT3BlbkdhbWVDZW50ZXJMZWFkZXJi",
-            "b2FyZFJlc3BvbnNlEokBCiBTdWJtaXRHYW1lQ2VudGVyTGVhZGVyYm9hcmRT",
-            "Y29yZRIxLmFpdC5nYW1lLlN1Ym1pdEdhbWVDZW50ZXJMZWFkZXJib2FyZFNj",
-            "b3JlUmVxdWVzdBoyLmFpdC5nYW1lLlN1Ym1pdEdhbWVDZW50ZXJMZWFkZXJi",
-            "b2FyZFNjb3JlUmVzcG9uc2ViBnByb3RvMw=="));
+            "aGFzaBgCIAEoCSJUCh5HZXRVc2VyS2V5Rm9yR2FtZUVycm9yUmVzcG9uc2US",
+            "IQoEdHlwZRgBIAEoDjITLmFpdC5nYW1lLkVycm9yVHlwZRIPCgdtZXNzYWdl",
+            "GAIgASgJIkUKG0dyYW50UHJvbW90aW9uUmV3YXJkUmVxdWVzdBIWCg5wcm9t",
+            "b3Rpb25fY29kZRgBIAEoCRIOCgZhbW91bnQYAiABKAUiqAEKHEdyYW50UHJv",
+            "bW90aW9uUmV3YXJkUmVzcG9uc2USQAoHc3VjY2VzcxgBIAEoCzItLmFpdC5n",
+            "YW1lLkdyYW50UHJvbW90aW9uUmV3YXJkU3VjY2Vzc1Jlc3BvbnNlSAASPAoF",
+            "ZXJyb3IYAiABKAsyKy5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZEVy",
+            "cm9yUmVzcG9uc2VIAEIICgZyZXN1bHQiMgojR3JhbnRQcm9tb3Rpb25SZXdh",
+            "cmRTdWNjZXNzUmVzcG9uc2USCwoDa2V5GAEgASgJIkgKIUdyYW50UHJvbW90",
+            "aW9uUmV3YXJkRXJyb3JSZXNwb25zZRISCgplcnJvcl9jb2RlGAEgASgJEg8K",
+            "B21lc3NhZ2UYAiABKAkiIgogT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJl",
+            "cXVlc3QiIwohT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJlc3BvbnNlIjgK",
+            "J1N1Ym1pdEdhbWVDZW50ZXJMZWFkZXJib2FyZFNjb3JlUmVxdWVzdBINCgVz",
+            "Y29yZRgBIAEoCSI/CihTdWJtaXRHYW1lQ2VudGVyTGVhZGVyYm9hcmRTY29y",
+            "ZVJlc3BvbnNlEhMKC3N0YXR1c19jb2RlGAEgASgJKkMKCUVycm9yVHlwZRIU",
+            "ChBJTlZBTElEX0NBVEVHT1JZEAASCQoFRVJST1IQARIVChFVTkRFRklORURf",
+            "VkVSU0lPThACMtQDCgtHYW1lU2VydmljZRJcChFHZXRVc2VyS2V5Rm9yR2Ft",
+            "ZRIiLmFpdC5nYW1lLkdldFVzZXJLZXlGb3JHYW1lUmVxdWVzdBojLmFpdC5n",
+            "YW1lLkdldFVzZXJLZXlGb3JHYW1lUmVzcG9uc2USZQoUR3JhbnRQcm9tb3Rp",
+            "b25SZXdhcmQSJS5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlcXVl",
+            "c3QaJi5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlc3BvbnNlEnQK",
+            "GU9wZW5HYW1lQ2VudGVyTGVhZGVyYm9hcmQSKi5haXQuZ2FtZS5PcGVuR2Ft",
+            "ZUNlbnRlckxlYWRlcmJvYXJkUmVxdWVzdBorLmFpdC5nYW1lLk9wZW5HYW1l",
+            "Q2VudGVyTGVhZGVyYm9hcmRSZXNwb25zZRKJAQogU3VibWl0R2FtZUNlbnRl",
+            "ckxlYWRlcmJvYXJkU2NvcmUSMS5haXQuZ2FtZS5TdWJtaXRHYW1lQ2VudGVy",
+            "TGVhZGVyYm9hcmRTY29yZVJlcXVlc3QaMi5haXQuZ2FtZS5TdWJtaXRHYW1l",
+            "Q2VudGVyTGVhZGVyYm9hcmRTY29yZVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Ait.Game.ErrorType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameRequest), global::Ait.Game.GetUserKeyForGameRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameResponse), global::Ait.Game.GetUserKeyForGameResponse.Parser, new[]{ "Success", "Error" }, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameSuccessResponse), global::Ait.Game.GetUserKeyForGameSuccessResponse.Parser, new[]{ "Type", "Hash" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameErrorResponse), global::Ait.Game.GetUserKeyForGameErrorResponse.Parser, new[]{ "Type", "Message" }, null, new[]{ typeof(global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameErrorResponse), global::Ait.Game.GetUserKeyForGameErrorResponse.Parser, new[]{ "Type", "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardRequest), global::Ait.Game.GrantPromotionRewardRequest.Parser, new[]{ "PromotionCode", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardResponse), global::Ait.Game.GrantPromotionRewardResponse.Parser, new[]{ "Success", "Error" }, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GrantPromotionRewardSuccessResponse), global::Ait.Game.GrantPromotionRewardSuccessResponse.Parser, new[]{ "Key" }, null, null, null, null),
@@ -78,6 +77,15 @@ namespace Ait.Game {
     #endregion
 
   }
+  #region Enums
+  public enum ErrorType {
+    [pbr::OriginalName("INVALID_CATEGORY")] InvalidCategory = 0,
+    [pbr::OriginalName("ERROR")] Error = 1,
+    [pbr::OriginalName("UNDEFINED_VERSION")] UndefinedVersion = 2,
+  }
+
+  #endregion
+
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GetUserKeyForGameRequest : pb::IMessage<GetUserKeyForGameRequest>
@@ -820,10 +828,10 @@ namespace Ait.Game {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType type_ = global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory;
+    private global::Ait.Game.ErrorType type_ = global::Ait.Game.ErrorType.InvalidCategory;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType Type {
+    public global::Ait.Game.ErrorType Type {
       get { return type_; }
       set {
         type_ = value;
@@ -866,7 +874,7 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory) hash ^= Type.GetHashCode();
+      if (Type != global::Ait.Game.ErrorType.InvalidCategory) hash ^= Type.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -886,7 +894,7 @@ namespace Ait.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory) {
+      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -904,7 +912,7 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory) {
+      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -922,7 +930,7 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory) {
+      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       if (Message.Length != 0) {
@@ -940,7 +948,7 @@ namespace Ait.Game {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType.InvalidCategory) {
+      if (other.Type != global::Ait.Game.ErrorType.InvalidCategory) {
         Type = other.Type;
       }
       if (other.Message.Length != 0) {
@@ -966,7 +974,7 @@ namespace Ait.Game {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Type = (global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType) input.ReadEnum();
+            Type = (global::Ait.Game.ErrorType) input.ReadEnum();
             break;
           }
           case 18: {
@@ -993,7 +1001,7 @@ namespace Ait.Game {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Type = (global::Ait.Game.GetUserKeyForGameErrorResponse.Types.ErrorType) input.ReadEnum();
+            Type = (global::Ait.Game.ErrorType) input.ReadEnum();
             break;
           }
           case 18: {
@@ -1004,20 +1012,6 @@ namespace Ait.Game {
       }
     }
     #endif
-
-    #region Nested types
-    /// <summary>Container for nested types declared in the GetUserKeyForGameErrorResponse message type.</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static partial class Types {
-      public enum ErrorType {
-        [pbr::OriginalName("INVALID_CATEGORY")] InvalidCategory = 0,
-        [pbr::OriginalName("ERROR")] Error = 1,
-        [pbr::OriginalName("UNDEFINED_VERSION")] UndefinedVersion = 2,
-      }
-
-    }
-    #endregion
 
   }
 
