@@ -30,23 +30,21 @@ namespace Ait.Game {
             "c3NSZXNwb25zZUgAEjkKBWVycm9yGAIgASgLMiguYWl0LmdhbWUuR2V0VXNl",
             "cktleUZvckdhbWVFcnJvclJlc3BvbnNlSABCCAoGcmVzdWx0Ij4KIEdldFVz",
             "ZXJLZXlGb3JHYW1lU3VjY2Vzc1Jlc3BvbnNlEgwKBHR5cGUYASABKAkSDAoE",
-            "aGFzaBgCIAEoCSJUCh5HZXRVc2VyS2V5Rm9yR2FtZUVycm9yUmVzcG9uc2US",
-            "IQoEdHlwZRgBIAEoDjITLmFpdC5nYW1lLkVycm9yVHlwZRIPCgdtZXNzYWdl",
-            "GAIgASgJIkUKG0dyYW50UHJvbW90aW9uUmV3YXJkUmVxdWVzdBIWCg5wcm9t",
-            "b3Rpb25fY29kZRgBIAEoCRIOCgZhbW91bnQYAiABKAUiqAEKHEdyYW50UHJv",
-            "bW90aW9uUmV3YXJkUmVzcG9uc2USQAoHc3VjY2VzcxgBIAEoCzItLmFpdC5n",
-            "YW1lLkdyYW50UHJvbW90aW9uUmV3YXJkU3VjY2Vzc1Jlc3BvbnNlSAASPAoF",
-            "ZXJyb3IYAiABKAsyKy5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZEVy",
-            "cm9yUmVzcG9uc2VIAEIICgZyZXN1bHQiMgojR3JhbnRQcm9tb3Rpb25SZXdh",
-            "cmRTdWNjZXNzUmVzcG9uc2USCwoDa2V5GAEgASgJIkgKIUdyYW50UHJvbW90",
-            "aW9uUmV3YXJkRXJyb3JSZXNwb25zZRISCgplcnJvcl9jb2RlGAEgASgJEg8K",
-            "B21lc3NhZ2UYAiABKAkiIgogT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJl",
-            "cXVlc3QiIwohT3BlbkdhbWVDZW50ZXJMZWFkZXJib2FyZFJlc3BvbnNlIjgK",
-            "J1N1Ym1pdEdhbWVDZW50ZXJMZWFkZXJib2FyZFNjb3JlUmVxdWVzdBINCgVz",
-            "Y29yZRgBIAEoCSI/CihTdWJtaXRHYW1lQ2VudGVyTGVhZGVyYm9hcmRTY29y",
-            "ZVJlc3BvbnNlEhMKC3N0YXR1c19jb2RlGAEgASgJKkMKCUVycm9yVHlwZRIU",
-            "ChBJTlZBTElEX0NBVEVHT1JZEAASCQoFRVJST1IQARIVChFVTkRFRklORURf",
-            "VkVSU0lPThACMtQDCgtHYW1lU2VydmljZRJcChFHZXRVc2VyS2V5Rm9yR2Ft",
+            "aGFzaBgCIAEoCSI/Ch5HZXRVc2VyS2V5Rm9yR2FtZUVycm9yUmVzcG9uc2US",
+            "DAoEdHlwZRgBIAEoCRIPCgdtZXNzYWdlGAIgASgJIkUKG0dyYW50UHJvbW90",
+            "aW9uUmV3YXJkUmVxdWVzdBIWCg5wcm9tb3Rpb25fY29kZRgBIAEoCRIOCgZh",
+            "bW91bnQYAiABKAUiqAEKHEdyYW50UHJvbW90aW9uUmV3YXJkUmVzcG9uc2US",
+            "QAoHc3VjY2VzcxgBIAEoCzItLmFpdC5nYW1lLkdyYW50UHJvbW90aW9uUmV3",
+            "YXJkU3VjY2Vzc1Jlc3BvbnNlSAASPAoFZXJyb3IYAiABKAsyKy5haXQuZ2Ft",
+            "ZS5HcmFudFByb21vdGlvblJld2FyZEVycm9yUmVzcG9uc2VIAEIICgZyZXN1",
+            "bHQiMgojR3JhbnRQcm9tb3Rpb25SZXdhcmRTdWNjZXNzUmVzcG9uc2USCwoD",
+            "a2V5GAEgASgJIkgKIUdyYW50UHJvbW90aW9uUmV3YXJkRXJyb3JSZXNwb25z",
+            "ZRISCgplcnJvcl9jb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkiIgogT3Bl",
+            "bkdhbWVDZW50ZXJMZWFkZXJib2FyZFJlcXVlc3QiIwohT3BlbkdhbWVDZW50",
+            "ZXJMZWFkZXJib2FyZFJlc3BvbnNlIjgKJ1N1Ym1pdEdhbWVDZW50ZXJMZWFk",
+            "ZXJib2FyZFNjb3JlUmVxdWVzdBINCgVzY29yZRgBIAEoCSI/CihTdWJtaXRH",
+            "YW1lQ2VudGVyTGVhZGVyYm9hcmRTY29yZVJlc3BvbnNlEhMKC3N0YXR1c19j",
+            "b2RlGAEgASgJMtQDCgtHYW1lU2VydmljZRJcChFHZXRVc2VyS2V5Rm9yR2Ft",
             "ZRIiLmFpdC5nYW1lLkdldFVzZXJLZXlGb3JHYW1lUmVxdWVzdBojLmFpdC5n",
             "YW1lLkdldFVzZXJLZXlGb3JHYW1lUmVzcG9uc2USZQoUR3JhbnRQcm9tb3Rp",
             "b25SZXdhcmQSJS5haXQuZ2FtZS5HcmFudFByb21vdGlvblJld2FyZFJlcXVl",
@@ -59,7 +57,7 @@ namespace Ait.Game {
             "Q2VudGVyTGVhZGVyYm9hcmRTY29yZVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Ait.Game.ErrorType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameRequest), global::Ait.Game.GetUserKeyForGameRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameResponse), global::Ait.Game.GetUserKeyForGameResponse.Parser, new[]{ "Success", "Error" }, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.Game.GetUserKeyForGameSuccessResponse), global::Ait.Game.GetUserKeyForGameSuccessResponse.Parser, new[]{ "Type", "Hash" }, null, null, null, null),
@@ -77,15 +75,6 @@ namespace Ait.Game {
     #endregion
 
   }
-  #region Enums
-  public enum ErrorType {
-    [pbr::OriginalName("INVALID_CATEGORY")] InvalidCategory = 0,
-    [pbr::OriginalName("ERROR")] Error = 1,
-    [pbr::OriginalName("UNDEFINED_VERSION")] UndefinedVersion = 2,
-  }
-
-  #endregion
-
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GetUserKeyForGameRequest : pb::IMessage<GetUserKeyForGameRequest>
@@ -828,13 +817,13 @@ namespace Ait.Game {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Ait.Game.ErrorType type_ = global::Ait.Game.ErrorType.InvalidCategory;
+    private string type_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Ait.Game.ErrorType Type {
+    public string Type {
       get { return type_; }
       set {
-        type_ = value;
+        type_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -874,7 +863,7 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Ait.Game.ErrorType.InvalidCategory) hash ^= Type.GetHashCode();
+      if (Type.Length != 0) hash ^= Type.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -894,9 +883,9 @@ namespace Ait.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
+      if (Type.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Type);
       }
       if (Message.Length != 0) {
         output.WriteRawTag(18);
@@ -912,9 +901,9 @@ namespace Ait.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
+      if (Type.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Type);
       }
       if (Message.Length != 0) {
         output.WriteRawTag(18);
@@ -930,8 +919,8 @@ namespace Ait.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Ait.Game.ErrorType.InvalidCategory) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      if (Type.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Type);
       }
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
@@ -948,7 +937,7 @@ namespace Ait.Game {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Ait.Game.ErrorType.InvalidCategory) {
+      if (other.Type.Length != 0) {
         Type = other.Type;
       }
       if (other.Message.Length != 0) {
@@ -973,8 +962,8 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Type = (global::Ait.Game.ErrorType) input.ReadEnum();
+          case 10: {
+            Type = input.ReadString();
             break;
           }
           case 18: {
@@ -1000,8 +989,8 @@ namespace Ait.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Type = (global::Ait.Game.ErrorType) input.ReadEnum();
+          case 10: {
+            Type = input.ReadString();
             break;
           }
           case 18: {
