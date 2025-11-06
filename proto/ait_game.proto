@@ -17,7 +17,7 @@ service GameService {
 }
 
 message GetUserKeyForGameRequest {
-  optional bool dummy = 1;
+  bool dummy = 1;
 }
 
 message GetUserKeyForGameResponse {
@@ -61,7 +61,7 @@ message GrantPromotionRewardErrorResponse {
 
 // 3. Open the game leaderboard
 message OpenGameCenterLeaderboardRequest {
-  optional bool dummy = 1;
+  bool dummy = 1;
 }
 message OpenGameCenterLeaderboardResponse {}
 
