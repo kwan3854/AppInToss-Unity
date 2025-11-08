@@ -21,13 +21,13 @@ message AdNetworkResponseInfo {
   string ad_source_name = 2;
   string ad_source_instance_id = 3;
   string ad_source_instance_name = 4;
-  optional string ad_network_class_name = 5;
+  string ad_network_class_name = 5;
 }
 
 // 광고 로드 응답 정보
 message ResponseInfo {
-  optional string response_id = 1;
-  optional AdNetworkResponseInfo loaded_ad_network_info = 2;
+  string response_id = 1;
+  AdNetworkResponseInfo loaded_ad_network_info = 2;
   repeated AdNetworkResponseInfo ad_network_info_array = 3;
 }
 
@@ -40,7 +40,7 @@ message LoadAdRequest {
 // LoadAd RPC의 응답 스트림 메시지
 message LoadAdResponse {
   message LoadedEvent {
-    optional ResponseInfo data = 1;
+    ResponseInfo data = 1;
   }
   message ClickedEvent {}
   message DismissedEvent {}
