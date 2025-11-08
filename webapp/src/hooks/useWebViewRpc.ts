@@ -12,6 +12,8 @@ import { OpenURLService } from "../generated/OpenURLService/ait_openurl_OpenURLS
 import { OpenURLServiceImpl } from "../services/ait-rpc/OpenURLServiceImpl";
 import { GameService } from "../generated/GameService/ait_game_GameServiceBase";
 import { GameServiceImpl } from "../services/ait-rpc/GameServiceImpl";
+import { AdService } from "../generated/AdService/ait_ad_AdServiceBase";
+import { AdServiceImpl } from "../services/ait-rpc/AdServiceImpl";
 import type { UnityContextType } from "../services/ait/types";
 
 /**
@@ -39,6 +41,9 @@ export const useWebViewRpc = (
 
       const gameServiceDef = GameService.bindService(new GameServiceImpl());
       rpcServer.services.push(gameServiceDef);
+
+      const adServiceDef = AdService.bindService(new AdServiceImpl());
+      rpcServer.services.push(adServiceDef);
 
       // Add more services here as you implement them:
       // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
