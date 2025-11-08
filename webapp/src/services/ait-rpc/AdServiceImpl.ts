@@ -3,41 +3,61 @@ import { AdServiceBase } from "../../generated/AdService/ait_ad_AdServiceBase";
 import type {
   LoadAdRequest,
   LoadAdResponse,
+  PollLoadAdEventsRequest,
+  PollLoadAdEventsResponse,
   ShowAdRequest,
   ShowAdResponse,
+  PollShowAdEventsRequest,
+  PollShowAdEventsResponse,
+  LoadAdEvent,
+  ShowAdEvent,
 } from "../../generated/AdService/AdService";
 
+// --- State Management ---
+
+interface AdOperationState<T> {
+  events: T[];
+  isFinished: boolean;
+}
+
+// Using a simple in-memory store for ad operations.
+// Key: operation_id (string), Value: AdOperationState
+const adOperationStore = new Map<string, AdOperationState<LoadAdEvent | ShowAdEvent>>();
+
+
 export class AdServiceImpl extends AdServiceBase {
-  async *LoadAd(request: LoadAdRequest): AsyncGenerator<LoadAdResponse, any, undefined> {
+  // --- LoadAd ---
+
+  async LoadAd(request: LoadAdRequest): Promise<LoadAdResponse> {
     if (!GoogleAdMob.loadAppsInTossAdMob.isSupported()) {
-      console.error("[AdService] loadAppsInTossAdMob is not supported in this environment.");
-      // We can't yield an error message here as the proto doesn't define a top-level error field.
-      // The client will simply receive an empty stream.
-      return;
+      // This case should ideally be handled by the client checking before calling.
+      // Returning an empty operation_id to indicate failure to start.
+      console.error("[AdService] loadAppsInTossAdMob is not supported.");
+      return { operation_id: "" };
     }
 
-    const adGroupId = request.ad_group_id;
-    console.log(`[AdService] Loading Ad for adGroupId: ${adGroupId}`);
+    const operationId = crypto.randomUUID();
+    adOperationStore.set(operationId, { events: [], isFinished: false });
 
-    // This is a generator, so we need a way to yield values from a callback.
-    // We'll use a "controller" pattern with a promise that resolves when the ad flow is done.
-    let resolve: (value: unknown) => void;
-    const done = new Promise((r) => (resolve = r));
+    console.log(`[AdService] Starting LoadAd operation: ${operationId} for adGroupId: ${request.ad_group_id}`);
 
-    const cleanup = GoogleAdMob.loadAppsInTossAdMob({
+    GoogleAdMob.loadAppsInTossAdMob({
       options: {
-        adGroupId: adGroupId,
+        adGroupId: request.ad_group_id,
       },
       onEvent: (event) => {
-        console.log(`[AdService] LoadAd event: ${event.type}`, event);
+        const state = adOperationStore.get(operationId) as AdOperationState<LoadAdEvent>;
+        if (!state) return;
+
+        console.log(`[AdService] LoadAd event for ${operationId}: ${event.type}`);
+        let newEvent: LoadAdEvent | null = null;
+
         switch (event.type) {
           case "loaded":
-            // The 'data' field in the event is the ResponseInfo.
-            // The generator will yield this value to the Unity client.
-            this.controller.yield({
+            newEvent = {
               loaded: {
                 data: {
-                  response_id: event.data.responseId,
+                  response_id: event.data.responseId ?? "",
                   loaded_ad_network_info: event.data.loadedAdNetworkInfo ? {
                     ad_source_id: event.data.loadedAdNetworkInfo.adSourceId,
                     ad_source_name: event.data.loadedAdNetworkInfo.adSourceName,
@@ -54,103 +74,134 @@ export class AdServiceImpl extends AdServiceBase {
                   })),
                 },
               },
-            });
+            };
             break;
-          case "clicked":
-            this.controller.yield({ clicked: {} });
-            break;
+          case "clicked": newEvent = { clicked: {} }; break;
+          case "impression": newEvent = { impression: {} }; break;
+          case "show": newEvent = { show: {} }; break;
           case "dismissed":
-            this.controller.yield({ dismissed: {} });
-            resolve(undefined); // End of stream
+            newEvent = { dismissed: {} };
+            state.isFinished = true;
             break;
           case "failedToShow":
-            this.controller.yield({ failed_to_show: {} });
-            resolve(undefined); // End of stream
+            newEvent = { failed_to_show: {} };
+            state.isFinished = true;
             break;
-          case "impression":
-            this.controller.yield({ impression: {} });
-            break;
-          case "show":
-            this.controller.yield({ show: {} });
-            break;
+        }
+        if (newEvent) {
+          state.events.push(newEvent);
         }
       },
       onError: (error) => {
-        console.error("[AdService] Failed to load ad:", error);
-        resolve(undefined); // End of stream on error
+        console.error(`[AdService] Error in LoadAd operation ${operationId}:`, error);
+        const state = adOperationStore.get(operationId);
+        if (state) {
+          state.isFinished = true;
+        }
       },
     });
 
-    // The `app-webview-rpc` library provides the controller to the generator.
-    // We yield values via this.controller.yield()
-    // When the stream is over (e.g., ad dismissed, error), we resolve the promise.
-    await done;
-
-    // Cleanup the Toss SDK listener
-    if (typeof cleanup === 'function') {
-      cleanup();
-    }
+    return { operation_id: operationId };
   }
 
-  async *ShowAd(request: ShowAdRequest): AsyncGenerator<ShowAdResponse, any, undefined> {
-    if (!GoogleAdMob.showAppsInTossAdMob.isSupported()) {
-      console.error("[AdService] showAppsInTossAdMob is not supported in this environment.");
-      return;
+  async PollLoadAdEvents(request: PollLoadAdEventsRequest): Promise<PollLoadAdEventsResponse> {
+    const state = adOperationStore.get(request.operation_id) as AdOperationState<LoadAdEvent>;
+
+    if (!state) {
+      console.warn(`[AdService] Polling for unknown LoadAd operation: ${request.operation_id}`);
+      return { events: [], is_finished: true }; // Tell client to stop polling for unknown ops.
     }
 
-    const adGroupId = request.ad_group_id;
-    console.log(`[AdService] Showing Ad for adGroupId: ${adGroupId}`);
+    const eventsToReturn = [...state.events];
+    state.events = []; // Clear the queue
 
-    let resolve: (value: unknown) => void;
-    const done = new Promise((r) => (resolve = r));
+    if (state.isFinished) {
+      // Clean up the store after the client has been notified of completion.
+      adOperationStore.delete(request.operation_id);
+      console.log(`[AdService] Finished and cleaned up LoadAd operation: ${request.operation_id}`);
+    }
 
-    const cleanup = GoogleAdMob.showAppsInTossAdMob({
+    return { events: eventsToReturn, is_finished: state.isFinished };
+  }
+
+  // --- ShowAd ---
+
+  async ShowAd(request: ShowAdRequest): Promise<ShowAdResponse> {
+    if (!GoogleAdMob.showAppsInTossAdMob.isSupported()) {
+      console.error("[AdService] showAppsInTossAdMob is not supported.");
+      return { operation_id: "" };
+    }
+
+    const operationId = crypto.randomUUID();
+    adOperationStore.set(operationId, { events: [], isFinished: false });
+
+    console.log(`[AdService] Starting ShowAd operation: ${operationId} for adGroupId: ${request.ad_group_id}`);
+
+    GoogleAdMob.showAppsInTossAdMob({
       options: {
-        adGroupId: adGroupId,
+        adGroupId: request.ad_group_id,
       },
       onEvent: (event) => {
-        console.log(`[AdService] ShowAd event: ${event.type}`, event);
+        const state = adOperationStore.get(operationId) as AdOperationState<ShowAdEvent>;
+        if (!state) return;
+
+        console.log(`[AdService] ShowAd event for ${operationId}: ${event.type}`);
+        let newEvent: ShowAdEvent | null = null;
+
         switch (event.type) {
-          case "requested":
-            this.controller.yield({ requested: {} });
-            break;
-          case "clicked":
-            this.controller.yield({ clicked: {} });
-            break;
-          case "dismissed":
-            this.controller.yield({ dismissed: {} });
-            resolve(undefined); // End of stream
-            break;
-          case "failedToShow":
-            this.controller.yield({ failed_to_show: {} });
-            resolve(undefined); // End of stream
-            break;
-          case "impression":
-            this.controller.yield({ impression: {} });
-            break;
-          case "show":
-            this.controller.yield({ show: {} });
-            break;
+          case "requested": newEvent = { requested: {} }; break;
+          case "clicked": newEvent = { clicked: {} }; break;
+          case "impression": newEvent = { impression: {} }; break;
+          case "show": newEvent = { show: {} }; break;
           case "userEarnedReward":
-            this.controller.yield({
+            newEvent = {
               user_earned_reward: {
                 unit_type: event.data.unitType,
                 unit_amount: event.data.unitAmount,
               },
-            });
+            };
             break;
+          case "dismissed":
+            newEvent = { dismissed: {} };
+            state.isFinished = true;
+            break;
+          case "failedToShow":
+            newEvent = { failed_to_show: {} };
+            state.isFinished = true;
+            break;
+        }
+        if (newEvent) {
+          state.events.push(newEvent);
         }
       },
       onError: (error) => {
-        console.error("[AdService] Failed to show ad:", error);
-        resolve(undefined); // End of stream on error
+        console.error(`[AdService] Error in ShowAd operation ${operationId}:`, error);
+        const state = adOperationStore.get(operationId);
+        if (state) {
+          state.isFinished = true;
+        }
       },
     });
 
-    await done;
+    return { operation_id: operationId };
+  }
 
-    if (typeof cleanup === 'function') {
-      cleanup();
+  async PollShowAdEvents(request: PollShowAdEventsRequest): Promise<PollShowAdEventsResponse> {
+    const state = adOperationStore.get(request.operation_id) as AdOperationState<ShowAdEvent>;
+
+    if (!state) {
+      console.warn(`[AdService] Polling for unknown ShowAd operation: ${request.operation_id}`);
+      return { events: [], is_finished: true };
     }
+
+    const eventsToReturn = [...state.events];
+    state.events = []; // Clear queue
+
+    if (state.isFinished) {
+      adOperationStore.delete(request.operation_id);
+      console.log(`[AdService] Finished and cleaned up ShowAd operation: ${request.operation_id}`);
+    }
+
+    return { events: eventsToReturn, is_finished: state.isFinished };
   }
 }
