@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package ait;
+
+// AdService는 Google AdMob 광고 관련 함수를 제공합니다.
+service AdService {
+  // 광고를 로드합니다.
+  // Unity 클라이언트가 LoadAd를 호출하면, 웹뷰는 Toss SDK의 loadAppsInTossAdMob를 실행합니다.
+  // 웹뷰는 onEvent 콜백을 통해 발생하는 이벤트를 스트림으로 Unity 클라이언트에 전달합니다.
+  rpc LoadAd (LoadAdRequest) returns (stream LoadAdResponse);
+
+  // 로드된 광고를 보여줍니다.
+  // Unity 클라이언트가 ShowAd를 호출하면, 웹뷰는 Toss SDK의 showAppsInTossAdMob를 실행합니다.
+  // 웹뷰는 onEvent 콜백을 통해 발생하는 이벤트를 스트림으로 Unity 클라이언트에 전달합니다.
+  rpc ShowAd (ShowAdRequest) returns (stream ShowAdResponse);
+}
+
+// 광고 네트워크 응답 정보
+message AdNetworkResponseInfo {
+  string ad_source_id = 1;
+  string ad_source_name = 2;
+  string ad_source_instance_id = 3;
+  string ad_source_instance_name = 4;
+  optional string ad_network_class_name = 5;
+}
+
+// 광고 로드 응답 정보
+message ResponseInfo {
+  optional string response_id = 1;
+  optional AdNetworkResponseInfo loaded_ad_network_info = 2;
+  repeated AdNetworkResponseInfo ad_network_info_array = 3;
+}
+
+// LoadAd RPC의 요청 메시지
+message LoadAdRequest {
+  // 광고 그룹 단위 ID
+  string ad_group_id = 1;
+}
+
+// LoadAd RPC의 응답 스트림 메시지
+message LoadAdResponse {
+  message LoadedEvent {
+    optional ResponseInfo data = 1;
+  }
+  message ClickedEvent {}
+  message DismissedEvent {}
+  message FailedToShowEvent {}
+  message ImpressionEvent {}
+  message ShowEvent {}
+
+  oneof event {
+    LoadedEvent loaded = 1;
+    ClickedEvent clicked = 2;
+    DismissedEvent dismissed = 3;
+    FailedToShowEvent failed_to_show = 4;
+    ImpressionEvent impression = 5;
+    ShowEvent show = 6;
+  }
+}
+
+// ShowAd RPC의 요청 메시지
+message ShowAdRequest {
+  // 광고 그룹 단위 ID
+  string ad_group_id = 1;
+}
+
+// ShowAd RPC의 응답 스트림 메시지
+message ShowAdResponse {
+  message RequestedEvent {}
+  message ClickedEvent {}
+  message DismissedEvent {}
+  message FailedToShowEvent {}
+  message ImpressionEvent {}
+  message ShowEvent {}
+  message UserEarnedRewardEvent {
+    string unit_type = 1;
+    int32 unit_amount = 2;
+  }
+
+  oneof event {
+    RequestedEvent requested = 1;
+    ClickedEvent clicked = 2;
+    DismissedEvent dismissed = 3;
+    FailedToShowEvent failed_to_show = 4;
+    ImpressionEvent impression = 5;
+    ShowEvent show = 6;
+    UserEarnedRewardEvent user_earned_reward = 7;
+  }
+}
