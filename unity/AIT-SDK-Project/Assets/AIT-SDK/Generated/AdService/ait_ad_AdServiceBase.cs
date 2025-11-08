@@ -13,7 +13,11 @@ namespace Ait
         
         public abstract UniTask<LoadAdResponse> LoadAd(LoadAdRequest request);
         
+        public abstract UniTask<PollLoadAdEventsResponse> PollLoadAdEvents(PollLoadAdEventsRequest request);
+        
         public abstract UniTask<ShowAdResponse> ShowAd(ShowAdRequest request);
+        
+        public abstract UniTask<PollShowAdEventsResponse> PollShowAdEvents(PollShowAdEventsRequest request);
         
     }
 
@@ -36,11 +40,27 @@ namespace Ait
                 return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
             };
             
+            def.MethodHandlers["AdService.PollLoadAdEvents"] = async (reqBytes) =>
+            {
+                var req = new PollLoadAdEventsRequest();
+                req.MergeFrom(reqBytes);
+                var resp = await impl.PollLoadAdEvents(req);
+                return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
+            };
+            
             def.MethodHandlers["AdService.ShowAd"] = async (reqBytes) =>
             {
                 var req = new ShowAdRequest();
                 req.MergeFrom(reqBytes);
                 var resp = await impl.ShowAd(req);
+                return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
+            };
+            
+            def.MethodHandlers["AdService.PollShowAdEvents"] = async (reqBytes) =>
+            {
+                var req = new PollShowAdEventsRequest();
+                req.MergeFrom(reqBytes);
+                var resp = await impl.PollShowAdEvents(req);
                 return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
             };
             

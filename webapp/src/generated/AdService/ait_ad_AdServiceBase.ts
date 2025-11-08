@@ -2,7 +2,7 @@
 // TypeScript Server: AdServiceServiceBase
 
 // Import encoding/decoding functions for each method
-import { decodeLoadAdRequest, encodeLoadAdResponse,decodeShowAdRequest, encodeShowAdResponse, } from './AdService';
+import { decodeLoadAdRequest, encodeLoadAdResponse,decodePollLoadAdEventsRequest, encodePollLoadAdEventsResponse,decodeShowAdRequest, encodeShowAdResponse,decodePollShowAdEventsRequest, encodePollShowAdEventsResponse, } from './AdService';
 
 // Type definitions for request/response messages
 
@@ -14,11 +14,27 @@ export interface LoadAdResponse {
   [key: string]: any;
 }
 
+export interface PollLoadAdEventsRequest {
+  [key: string]: any;
+}
+
+export interface PollLoadAdEventsResponse {
+  [key: string]: any;
+}
+
 export interface ShowAdRequest {
   [key: string]: any;
 }
 
 export interface ShowAdResponse {
+  [key: string]: any;
+}
+
+export interface PollShowAdEventsRequest {
+  [key: string]: any;
+}
+
+export interface PollShowAdEventsResponse {
   [key: string]: any;
 }
 
@@ -37,11 +53,25 @@ export abstract class AdServiceBase {
   abstract LoadAd(requestObj: LoadAdRequest): Promise<LoadAdResponse>;
   
   /**
+   * PollLoadAdEvents method
+   * @param requestObj - PollLoadAdEventsRequest object
+   * @returns Promise resolving to PollLoadAdEventsResponse
+   */
+  abstract PollLoadAdEvents(requestObj: PollLoadAdEventsRequest): Promise<PollLoadAdEventsResponse>;
+  
+  /**
    * ShowAd method
    * @param requestObj - ShowAdRequest object
    * @returns Promise resolving to ShowAdResponse
    */
   abstract ShowAd(requestObj: ShowAdRequest): Promise<ShowAdResponse>;
+  
+  /**
+   * PollShowAdEvents method
+   * @param requestObj - PollShowAdEventsRequest object
+   * @returns Promise resolving to PollShowAdEventsResponse
+   */
+  abstract PollShowAdEvents(requestObj: PollShowAdEventsRequest): Promise<PollShowAdEventsResponse>;
   
 }
 
@@ -62,10 +92,22 @@ export class AdService {
       return encodeLoadAdResponse(respObj);
     };
     
+    def.methodHandlers["AdService.PollLoadAdEvents"] = async (reqBytes: Uint8Array): Promise<Uint8Array> => {
+      const reqObj = decodePollLoadAdEventsRequest(reqBytes);
+      const respObj = await impl.PollLoadAdEvents(reqObj);
+      return encodePollLoadAdEventsResponse(respObj);
+    };
+    
     def.methodHandlers["AdService.ShowAd"] = async (reqBytes: Uint8Array): Promise<Uint8Array> => {
       const reqObj = decodeShowAdRequest(reqBytes);
       const respObj = await impl.ShowAd(reqObj);
       return encodeShowAdResponse(respObj);
+    };
+    
+    def.methodHandlers["AdService.PollShowAdEvents"] = async (reqBytes: Uint8Array): Promise<Uint8Array> => {
+      const reqObj = decodePollShowAdEventsRequest(reqBytes);
+      const respObj = await impl.PollShowAdEvents(reqObj);
+      return encodePollShowAdEventsResponse(respObj);
     };
     
 

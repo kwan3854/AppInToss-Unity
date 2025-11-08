@@ -10,7 +10,11 @@ namespace Ait
         
         UniTask<LoadAdResponse> LoadAd(LoadAdRequest request);
         
+        UniTask<PollLoadAdEventsResponse> PollLoadAdEvents(PollLoadAdEventsRequest request);
+        
         UniTask<ShowAdResponse> ShowAd(ShowAdRequest request);
+        
+        UniTask<PollShowAdEventsResponse> PollShowAdEvents(PollShowAdEventsRequest request);
         
     }
 
@@ -30,9 +34,21 @@ namespace Ait
             return response;
         }
         
+        public async UniTask<PollLoadAdEventsResponse> PollLoadAdEvents(PollLoadAdEventsRequest request)
+        {
+            var response = await _rpcClient.CallMethod<PollLoadAdEventsResponse>("AdService.PollLoadAdEvents", request);
+            return response;
+        }
+        
         public async UniTask<ShowAdResponse> ShowAd(ShowAdRequest request)
         {
             var response = await _rpcClient.CallMethod<ShowAdResponse>("AdService.ShowAd", request);
+            return response;
+        }
+        
+        public async UniTask<PollShowAdEventsResponse> PollShowAdEvents(PollShowAdEventsRequest request)
+        {
+            var response = await _rpcClient.CallMethod<PollShowAdEventsResponse>("AdService.PollShowAdEvents", request);
             return response;
         }
         
