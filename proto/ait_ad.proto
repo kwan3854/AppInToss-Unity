@@ -3,43 +3,43 @@ syntax = "proto3";
 package ait;
 
 // AdService는 Google AdMob 광고 관련 함수를 제공합니다.
+// 폴링(Polling) 기반의 비동기 이벤트 처리 아키텍처를 사용합니다.
 service AdService {
-  // 광고를 로드합니다.
-  // Unity 클라이언트가 LoadAd를 호출하면, 웹뷰는 Toss SDK의 loadAppsInTossAdMob를 실행합니다.
-  // 웹뷰는 onEvent 콜백을 통해 발생하는 이벤트를 스트림으로 Unity 클라이언트에 전달합니다.
-  rpc LoadAd (LoadAdRequest) returns (stream LoadAdResponse);
+  // 1. 광고 로드를 시작하고, 해당 작업의 고유 ID를 반환합니다.
+  rpc LoadAd (LoadAdRequest) returns (LoadAdResponse);
 
-  // 로드된 광고를 보여줍니다.
-  // Unity 클라이언트가 ShowAd를 호출하면, 웹뷰는 Toss SDK의 showAppsInTossAdMob를 실행합니다.
-  // 웹뷰는 onEvent 콜백을 통해 발생하는 이벤트를 스트림으로 Unity 클라이언트에 전달합니다.
-  rpc ShowAd (ShowAdRequest) returns (stream ShowAdResponse);
+  // 2. LoadAd로 발급받은 ID를 사용해, 발생한 이벤트들을 주기적으로 가져옵니다.
+  rpc PollLoadAdEvents (PollLoadAdEventsRequest) returns (PollLoadAdEventsResponse);
+
+  // 3. 광고 보여주기를 시작하고, 해당 작업의 고유 ID를 반환합니다.
+  rpc ShowAd (ShowAdRequest) returns (ShowAdResponse);
+
+  // 4. ShowAd로 발급받은 ID를 사용해, 발생한 이벤트들을 주기적으로 가져옵니다.
+  rpc PollShowAdEvents (PollShowAdEventsRequest) returns (PollShowAdEventsResponse);
 }
 
-// 광고 네트워크 응답 정보
-message AdNetworkResponseInfo {
-  string ad_source_id = 1;
-  string ad_source_name = 2;
-  string ad_source_instance_id = 3;
-  string ad_source_instance_name = 4;
-  string ad_network_class_name = 5;
-}
-
-// 광고 로드 응답 정보
-message ResponseInfo {
-  string response_id = 1;
-  AdNetworkResponseInfo loaded_ad_network_info = 2;
-  repeated AdNetworkResponseInfo ad_network_info_array = 3;
-}
-
-// LoadAd RPC의 요청 메시지
+// --- LoadAd ---
 message LoadAdRequest {
-  // 광고 그룹 단위 ID
   string ad_group_id = 1;
 }
 
-// LoadAd RPC의 응답 스트림 메시지
 message LoadAdResponse {
+  string operation_id = 1; // 생성된 고유 작업 ID
+}
+
+// --- PollLoadAdEvents ---
+message PollLoadAdEventsRequest {
+  string operation_id = 1; // LoadAd에서 받은 작업 ID
+}
+
+message PollLoadAdEventsResponse {
+  repeated LoadAdEvent events = 1; // 마지막 폴링 이후 발생한 이벤트 목록
+  bool is_finished = 2; // 작업(광고 로드 플로우)이 완전히 종료되었는지 여부
+}
+
+message LoadAdEvent {
   message LoadedEvent {
+    // 광고 로드 성공 시 ResponseInfo 데이터 포함
     ResponseInfo data = 1;
   }
   message ClickedEvent {}
@@ -58,14 +58,26 @@ message LoadAdResponse {
   }
 }
 
-// ShowAd RPC의 요청 메시지
+// --- ShowAd ---
 message ShowAdRequest {
-  // 광고 그룹 단위 ID
   string ad_group_id = 1;
 }
 
-// ShowAd RPC의 응답 스트림 메시지
 message ShowAdResponse {
+  string operation_id = 1; // 생성된 고유 작업 ID
+}
+
+// --- PollShowAdEvents ---
+message PollShowAdEventsRequest {
+  string operation_id = 1; // ShowAd에서 받은 작업 ID
+}
+
+message PollShowAdEventsResponse {
+  repeated ShowAdEvent events = 1; // 마지막 폴링 이후 발생한 이벤트 목록
+  bool is_finished = 2; // 작업(광고 표시 플로우)이 완전히 종료되었는지 여부
+}
+
+message ShowAdEvent {
   message RequestedEvent {}
   message ClickedEvent {}
   message DismissedEvent {}
@@ -86,4 +98,26 @@ message ShowAdResponse {
     ShowEvent show = 6;
     UserEarnedRewardEvent user_earned_reward = 7;
   }
+}
+
+
+// --- Common Data Structures ---
+message AdNetworkResponseInfo {
+  string ad_source_id = 1;
+  string ad_source_name = 2;
+  string ad_source_instance_id = 3;
+  string ad_source_instance_name = 4;
+  string ad_network_class_name = 5;
+}
+
+message ResponseInfo {
+  string response_id = 1;
+
+  // 광고 미디에이션(Mediation) 환경에서, 여러 광고 네트워크 중 최종적으로 광고 로드에 성공한 '승자' 네트워크의 정보입니다.
+  // 만약 로드에 실패하면 이 값은 비어있을 수 있습니다.
+  AdNetworkResponseInfo loaded_ad_network_info = 2;
+
+  // 광고 미디에이션에 참여한 '모든' 광고 네트워크의 응답 정보 목록입니다.
+  // 디버깅이나 분석 목적으로 유용할 수 있습니다.
+  repeated AdNetworkResponseInfo ad_network_info_array = 3;
 }
