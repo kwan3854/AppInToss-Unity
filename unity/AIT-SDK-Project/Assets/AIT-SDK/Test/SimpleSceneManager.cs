@@ -15,6 +15,22 @@ namespace AIT.AIT_SDK.Test
             SceneManager.LoadScene("OpenURLTestScene");
         }
 
+        public void LoadAdTestScene()
+        {
+            SceneManager.LoadScene("AdServiceTestScene");
+        }
+        
+        public void LoadIapTestScene()
+        {
+            SceneManager.LoadScene("IAPTestScene");
+        }
+        
+        
+        public void LoadStorageTestScene()
+        {
+            SceneManager.LoadScene("StorageServiceTestScene");
+        }
+
         public void LoadInitScene()
         {
             SceneManager.LoadScene("InitScene");
