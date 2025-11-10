@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using System.Collections;
 using Ait;
 using AitBridge.RPC;
 using Cysharp.Threading.Tasks;
@@ -10,184 +10,160 @@ namespace AIT.AIT_SDK.Test
 {
     public class AdServiceTester : MonoBehaviour
     {
-        [Header("Ad Config")]
-        [SerializeField] private string adGroupId = "YOUR_AD_GROUP_ID"; // Replace with your actual Ad Group ID
-
-        [Header("UI")]
-        [SerializeField] private Button loadAdButton;
-        [SerializeField] private Button showAdButton;
-        [SerializeField] private Text logText;
+        [Header("UI Elements")]
+        public InputField adGroupIdInput;
+        public Button loadAdButton;
+        public Button showAdButton;
+        public Text logText;
 
         private AdServiceClient _adServiceClient;
-        private string _loadOperationId;
-        private bool _isAdLoaded = false;
 
         void Start()
         {
-            // Get the RPC client instance
             _adServiceClient = AitRpcBridge.Instance.AdService;
 
-            // Add button listeners
+            if (_adServiceClient == null)
+            {
+                Log("AdServiceClient is not available.");
+                return;
+            }
+
             loadAdButton.onClick.AddListener(TestLoadAd);
             showAdButton.onClick.AddListener(TestShowAd);
-            
-            // Initially, the show button should be disabled
-            showAdButton.interactable = false;
-            
+
             Log("AdServiceTester ready.");
-            Log($"Using Ad Group ID: {adGroupId}");
         }
 
         private async void TestLoadAd()
         {
-            Log("--- Starting Ad Load ---");
-            loadAdButton.interactable = false;
-            _isAdLoaded = false;
+            var adGroupId = adGroupIdInput.text;
+            if (string.IsNullOrEmpty(adGroupId))
+            {
+                Log("Ad Group ID is required to load an ad.");
+                return;
+            }
 
+            Log($"Calling LoadAd with AdGroupId: {adGroupId}...");
             try
             {
                 var request = new LoadAdRequest { AdGroupId = adGroupId };
                 var response = await _adServiceClient.LoadAd(request);
-
                 if (string.IsNullOrEmpty(response.OperationId))
                 {
-                    Log("Failed to start LoadAd operation. Received empty operation ID.");
-                    loadAdButton.interactable = true;
+                    Log("LoadAd failed to start (is it supported?).");
                     return;
                 }
-
-                _loadOperationId = response.OperationId;
-                Log($"LoadAd operation started. Operation ID: {_loadOperationId}");
-                Log("Polling for load events...");
-
-                // Start polling
-                await PollLoadEvents(_loadOperationId);
+                Log($"LoadAd started, operation_id: {response.OperationId}");
+                PollLoadAdEvents(response.OperationId).Forget();
             }
             catch (Exception e)
             {
                 Log($"LoadAd exception: {e.Message}");
-                loadAdButton.interactable = true;
             }
         }
 
-        private async UniTask PollLoadEvents(string operationId)
+        private async UniTaskVoid PollLoadAdEvents(string operationId)
         {
-            bool isFinished = false;
+            Log($"Starting to poll LoadAd events for op: {operationId}");
+            var isFinished = false;
             while (!isFinished)
             {
                 try
                 {
                     var pollRequest = new PollLoadAdEventsRequest { OperationId = operationId };
                     var pollResponse = await _adServiceClient.PollLoadAdEvents(pollRequest);
-
-                    foreach (var evt in pollResponse.Events)
-                    {
-                        Log($"PollLoad: Received event '{evt.EventCase}'");
-                        if (evt.EventCase == LoadAdEvent.EventOneofCase.Loaded)
-                        {
-                            _isAdLoaded = true;
-                            Log("Ad is loaded and ready to show!");
-                        }
-                    }
-
                     isFinished = pollResponse.IsFinished;
 
-                    if (isFinished)
+                    foreach (var ev in pollResponse.Events)
                     {
-                        Log("Polling finished for LoadAd.");
-                        break;
+                        Log($"  - Polled LoadAd Event: {ev.EventCase}");
+                        if (ev.EventCase == LoadAdEvent.EventOneofCase.Loaded)
+                        {
+                            Log($"    Ad Loaded! Response ID: {ev.Loaded.Data.ResponseId}");
+                        }
+                        else
+                        {
+                            Log($"    Event data: {ev}");
+                        }
                     }
                 }
                 catch (Exception e)
                 {
-                    Log($"Polling exception: {e.Message}");
-                    break; // Stop polling on error
+                    Log($"PollLoadAdEvents exception: {e.Message}");
+                    isFinished = true; // Stop polling on error
                 }
-                
-                // Wait for a bit before the next poll
-                await Task.Delay(500); 
+                if (!isFinished)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
+                }
             }
-            
-            // Re-enable buttons after polling is done
-            loadAdButton.interactable = true;
-            showAdButton.interactable = _isAdLoaded;
+            Log($"Finished polling LoadAd events for op: {operationId}");
         }
 
         private async void TestShowAd()
         {
-            if (!_isAdLoaded)
+            var adGroupId = adGroupIdInput.text;
+            if (string.IsNullOrEmpty(adGroupId))
             {
-                Log("Cannot show ad. Ad not loaded yet.");
+                Log("Ad Group ID is required to show an ad.");
                 return;
             }
-            
-            Log("--- Starting Ad Show ---");
-            showAdButton.interactable = false;
 
+            Log($"Calling ShowAd with AdGroupId: {adGroupId}...");
             try
             {
                 var request = new ShowAdRequest { AdGroupId = adGroupId };
                 var response = await _adServiceClient.ShowAd(request);
-
                 if (string.IsNullOrEmpty(response.OperationId))
                 {
-                    Log("Failed to start ShowAd operation. Received empty operation ID.");
-                    showAdButton.interactable = true;
+                    Log("ShowAd failed to start (is it supported?).");
                     return;
                 }
-
-                Log($"ShowAd operation started. Operation ID: {response.OperationId}");
-                Log("Polling for show events...");
-
-                // Start polling for show events
-                await PollShowEvents(response.OperationId);
+                Log($"ShowAd started, operation_id: {response.OperationId}");
+                PollShowAdEvents(response.OperationId).Forget();
             }
             catch (Exception e)
             {
                 Log($"ShowAd exception: {e.Message}");
-                showAdButton.interactable = true;
             }
         }
 
-        private async UniTask PollShowEvents(string operationId)
+        private async UniTaskVoid PollShowAdEvents(string operationId)
         {
-            bool isFinished = false;
+            Log($"Starting to poll ShowAd events for op: {operationId}");
+            var isFinished = false;
             while (!isFinished)
             {
                 try
                 {
                     var pollRequest = new PollShowAdEventsRequest { OperationId = operationId };
                     var pollResponse = await _adServiceClient.PollShowAdEvents(pollRequest);
-
-                    foreach (var evt in pollResponse.Events)
-                    {
-                        Log($"PollShow: Received event '{evt.EventCase}'");
-                        if (evt.EventCase == ShowAdEvent.EventOneofCase.UserEarnedReward)
-                        {
-                            Log($"User earned reward! Type: {evt.UserEarnedReward.UnitType}, Amount: {evt.UserEarnedReward.UnitAmount}");
-                        }
-                    }
-
                     isFinished = pollResponse.IsFinished;
 
-                    if (isFinished)
+                    foreach (var ev in pollResponse.Events)
                     {
-                        Log("Polling finished for ShowAd.");
-                        break;
+                        Log($"  - Polled ShowAd Event: {ev.EventCase}");
+                        if (ev.EventCase == ShowAdEvent.EventOneofCase.UserEarnedReward)
+                        {
+                            Log($"    User Earned Reward! Type: {ev.UserEarnedReward.UnitType}, Amount: {ev.UserEarnedReward.UnitAmount}");
+                        }
+                        else
+                        {
+                             Log($"    Event data: {ev}");
+                        }
                     }
                 }
                 catch (Exception e)
                 {
-                    Log($"Polling exception: {e.Message}");
-                    break;
+                    Log($"PollShowAdEvents exception: {e.Message}");
+                    isFinished = true; // Stop polling on error
                 }
-                
-                await Task.Delay(500);
+                if (!isFinished)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
+                }
             }
-            
-            // Reset state after ad is shown and flow is finished
-            _isAdLoaded = false;
-            showAdButton.interactable = false;
+            Log($"Finished polling ShowAd events for op: {operationId}");
         }
 
         private void Log(string message)
@@ -196,12 +172,6 @@ namespace AIT.AIT_SDK.Test
             if (logText != null)
             {
                 logText.text += $"> {message}\n";
-                // Optional: Auto-scroll to bottom
-                var scrollRect = logText.GetComponentInParent<ScrollRect>();
-                if (scrollRect != null)
-                {
-                    scrollRect.normalizedPosition = new Vector2(0, 0);
-                }
             }
         }
     }

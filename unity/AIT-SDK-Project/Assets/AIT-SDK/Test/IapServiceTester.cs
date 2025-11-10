@@ -1,8 +1,7 @@
 using System;
-using System.Text;
+using System.Collections;
 using Ait.Iap;
 using AitBridge.RPC;
-using AIT.AIT_SDK.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,43 +10,48 @@ namespace AIT.AIT_SDK.Test
 {
     public class IapServiceTester : MonoBehaviour
     {
+        [Header("UI Elements")]
         public Button getProductListButton;
+        public InputField skuInput;
         public Button createOrderButton;
         public Button getPendingOrdersButton;
-        public Button getCompletedOrdersButton;
+        public InputField orderIdInput;
         public Button completeGrantButton;
+        public Button getCompletedOrdersButton;
         public Text logText;
 
         private IapServiceClient _iapServiceClient;
-        private string _currentOperationId;
-        private string _lastPendingOrderId;
 
         void Start()
         {
             _iapServiceClient = AitRpcBridge.Instance.IapService;
 
-            getProductListButton.onClick.AddListener(TestGetProductList);
+            if (_iapServiceClient == null)
+            {
+                Log("IapServiceClient is not available.");
+                return;
+            }
+
+            getProductListButton.onClick.AddListener(TestGetProductItemList);
             createOrderButton.onClick.AddListener(TestCreateOrder);
             getPendingOrdersButton.onClick.AddListener(TestGetPendingOrders);
-            getCompletedOrdersButton.onClick.AddListener(TestGetCompletedOrders);
             completeGrantButton.onClick.AddListener(TestCompleteGrant);
-            
+            getCompletedOrdersButton.onClick.AddListener(TestGetCompletedOrders);
+
             Log("IapServiceTester ready.");
         }
 
-        private async void TestGetProductList()
+        private async void TestGetProductItemList()
         {
             Log("Calling GetProductItemList...");
             try
             {
-                var response = await _iapServiceClient.GetProductItemList();
-                var sb = new StringBuilder();
-                sb.AppendLine($"GetProductItemList success. Found {response.Products.Count} products:");
+                var response = await _iapServiceClient.GetProductItemList(new GetProductItemListRequest());
+                Log($"GetProductItemList success: Found {response.Products.Count} products.");
                 foreach (var product in response.Products)
                 {
-                    sb.AppendLine($"  - {product.DisplayName} ({product.DisplayAmount}) [SKU: {product.Sku}]");
+                    Log($"  - SKU: {product.Sku}, Name: {product.DisplayName}, Price: {product.DisplayAmount}");
                 }
-                Log(sb.ToString());
             }
             catch (Exception e)
             {
@@ -57,24 +61,20 @@ namespace AIT.AIT_SDK.Test
 
         private async void TestCreateOrder()
         {
-            Log("Calling CreateOneTimePurchaseOrder...");
+            var sku = skuInput.text;
+            if (string.IsNullOrEmpty(sku))
+            {
+                Log("SKU is required to create an order.");
+                return;
+            }
+
+            Log($"Calling CreateOneTimePurchaseOrder with SKU: {sku}...");
             try
             {
-                // In a real app, you would get the SKU from the product list
-                var request = new CreateOneTimePurchaseOrderRequest { Sku = "sku1" }; 
-                var response = await _iapServiceClient.CreateOneTimePurchaseOrder(request); 
-                
-                if (string.IsNullOrEmpty(response.OperationId))
-                {
-                    Log("CreateOneTimePurchaseOrder failed to start.");
-                    return;
-                }
-                
-                _currentOperationId = response.OperationId;
-                Log($"CreateOneTimePurchaseOrder started. Operation ID: {_currentOperationId}");
-                
-                // Start polling for the result
-                PollForPurchaseResult();
+                var request = new CreateOneTimePurchaseOrderRequest { Sku = sku };
+                var response = await _iapServiceClient.CreateOneTimePurchaseOrder(request);
+                Log($"CreateOneTimePurchaseOrder success, operation_id: {response.OperationId}");
+                PollPurchaseEvents(response.OperationId).Forget();
             }
             catch (Exception e)
             {
@@ -82,43 +82,29 @@ namespace AIT.AIT_SDK.Test
             }
         }
 
-        private async void PollForPurchaseResult()
+        private async UniTaskVoid PollPurchaseEvents(string operationId)
         {
-            if (string.IsNullOrEmpty(_currentOperationId))
-            {
-                Log("No purchase operation in progress.");
-                return;
-            }
-
-            Log($"Polling for purchase result with op ID: {_currentOperationId}...");
+            Log($"Starting to poll purchase events for op: {operationId}");
             var isFinished = false;
             while (!isFinished)
             {
                 try
                 {
-                    var response = await _iapServiceClient.PollPurchaseEvents(new PollPurchaseEventsRequest { OperationId = _currentOperationId });
-                    isFinished = response.IsFinished;
+                    var pollRequest = new PollPurchaseEventsRequest { OperationId = operationId };
+                    var pollResponse = await _iapServiceClient.PollPurchaseEvents(pollRequest);
+                    isFinished = pollResponse.IsFinished;
 
-                    foreach (var ev in response.Events)
+                    foreach (var ev in pollResponse.Events)
                     {
-                        switch (ev.EventCase)
+                        Log($"  - Polled Event: {ev.EventCase}");
+                        if (ev.EventCase == PurchaseEvent.EventOneofCase.Success)
                         {
-                            case PurchaseEvent.EventOneofCase.Success:
-                                Log($"Purchase Success! Order ID: {ev.Success.OrderId}, Amount: {ev.Success.DisplayAmount}");
-                                break;
-                            case PurchaseEvent.EventOneofCase.Error:
-                                Log($"Purchase Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
-                                break;
+                            Log($"    Success! Order ID: {ev.Success.OrderId}");
                         }
-                    }
-
-                    if (!isFinished)
-                    {
-                        await UniTask.Delay(1000); // Wait 1 second before next poll
-                    }
-                    else
-                    {
-                        Log("Purchase flow finished.");
+                        else if (ev.EventCase == PurchaseEvent.EventOneofCase.Error)
+                        {
+                            Log($"    Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
+                        }
                     }
                 }
                 catch (Exception e)
@@ -126,8 +112,12 @@ namespace AIT.AIT_SDK.Test
                     Log($"PollPurchaseEvents exception: {e.Message}");
                     isFinished = true; // Stop polling on error
                 }
+                if (!isFinished)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
+                }
             }
-            _currentOperationId = null;
+            Log($"Finished polling purchase events for op: {operationId}");
         }
 
         private async void TestGetPendingOrders()
@@ -135,18 +125,11 @@ namespace AIT.AIT_SDK.Test
             Log("Calling GetPendingOrders...");
             try
             {
-                var response = await _iapServiceClient.GetPendingOrders();
-                var sb = new StringBuilder();
-                sb.AppendLine($"GetPendingOrders success. Found {response.Orders.Count} pending orders:");
+                var response = await _iapServiceClient.GetPendingOrders(new GetPendingOrdersRequest());
+                Log($"GetPendingOrders success: Found {response.Orders.Count} pending orders.");
                 foreach (var order in response.Orders)
                 {
-                    sb.AppendLine($"  - Order ID: {order.OrderId}, SKU: {order.Sku}");
-                    _lastPendingOrderId = order.OrderId; // Save the last one for testing completeGrant
-                }
-                Log(sb.ToString());
-                if (!string.IsNullOrEmpty(_lastPendingOrderId))
-                {
-                    Log($"Saved last pending order ID for grant test: {_lastPendingOrderId}");
+                    Log($"  - Order ID: {order.OrderId}, SKU: {order.Sku}");
                 }
             }
             catch (Exception e)
@@ -155,48 +138,43 @@ namespace AIT.AIT_SDK.Test
             }
         }
 
+        private async void TestCompleteGrant()
+        {
+            var orderId = orderIdInput.text;
+            if (string.IsNullOrEmpty(orderId))
+            {
+                Log("Order ID is required to complete a grant.");
+                return;
+            }
+
+            Log($"Calling CompleteProductGrant for order: {orderId}...");
+            try
+            {
+                var request = new CompleteProductGrantRequest { OrderId = orderId };
+                var response = await _iapServiceClient.CompleteProductGrant(request);
+                Log($"CompleteProductGrant success: {response.Success}");
+            }
+            catch (Exception e)
+            {
+                Log($"CompleteProductGrant exception: {e.Message}");
+            }
+        }
+        
         private async void TestGetCompletedOrders()
         {
             Log("Calling GetCompletedOrRefundedOrders...");
             try
             {
-                var response = await _iapServiceClient.GetCompletedOrRefundedOrders();
-                var sb = new StringBuilder();
-                sb.AppendLine($"GetCompletedOrRefundedOrders success. HasNext: {response.HasNext}");
+                var response = await _iapServiceClient.GetCompletedOrRefundedOrders(new GetCompletedOrRefundedOrdersRequest());
+                Log($"GetCompletedOrRefundedOrders success: Found {response.Orders.Count} orders. HasNext: {response.HasNext}");
                 foreach (var order in response.Orders)
                 {
-                    sb.AppendLine($"  - [{order.Status}] Order ID: {order.OrderId}, Date: {order.Date}");
+                    Log($"  - Order ID: {order.OrderId}, SKU: {order.Sku}, Status: {order.Status}");
                 }
-                Log(sb.ToString());
             }
             catch (Exception e)
             {
                 Log($"GetCompletedOrRefundedOrders exception: {e.Message}");
-            }
-        }
-
-        private async void TestCompleteGrant()
-        {
-            if (string.IsNullOrEmpty(_lastPendingOrderId))
-            {
-                Log("No pending order ID saved. Please run 'Get Pending Orders' first.");
-                return;
-            }
-            
-            Log($"Calling CompleteProductGrant for order ID: {_lastPendingOrderId}...");
-            try
-            {
-                var request = new CompleteProductGrantRequest { OrderId = _lastPendingOrderId };
-                var response = await _iapServiceClient.CompleteProductGrant(request);
-                Log($"CompleteProductGrant success: {response.Success}");
-                if (response.Success)
-                {
-                    _lastPendingOrderId = null;
-                }
-            }
-            catch (Exception e)
-            {
-                Log($"CompleteProductGrant exception: {e.Message}");
             }
         }
 
