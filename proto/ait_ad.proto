@@ -42,11 +42,10 @@ message LoadAdEvent {
     // 광고 로드 성공 시 ResponseInfo 데이터 포함
     ResponseInfo data = 1;
   }
-  message ClickedEvent {}
-  message DismissedEvent {}
-  message FailedToShowEvent {}
-  message ImpressionEvent {}
-  message ShowEvent {}
+  message ClickedEvent {bool dummy = 1;}
+  message DismissedEvent {bool dummy = 1;}
+  message FailedToShowEvent {bool dummy = 1;}
+  message ShowEvent {bool dummy = 1;}
 
   oneof event {
     LoadedEvent loaded = 1;
@@ -78,12 +77,12 @@ message PollShowAdEventsResponse {
 }
 
 message ShowAdEvent {
-  message RequestedEvent {}
-  message ClickedEvent {}
-  message DismissedEvent {}
-  message FailedToShowEvent {}
-  message ImpressionEvent {}
-  message ShowEvent {}
+  message RequestedEvent {bool dummy = 1;}
+  message ClickedEvent {bool dummy = 1;}
+  message DismissedEvent {bool dummy = 1;}
+  message FailedToShowEvent {bool dummy = 1;}
+  message ImpressionEvent {bool dummy = 1;}
+  message ShowEvent {bool dummy = 1;}
   message UserEarnedRewardEvent {
     string unit_type = 1;
     int32 unit_amount = 2;
