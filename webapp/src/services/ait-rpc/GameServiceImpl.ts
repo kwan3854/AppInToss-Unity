@@ -19,7 +19,7 @@ import {
 } from '@apps-in-toss/web-framework';
 
 export class GameServiceImpl extends GameServiceBase {
-  async GetUserKeyForGame(request: GetUserKeyForGameRequest): Promise<GetUserKeyForGameResponse> {
+  async GetUserKeyForGame(_request: GetUserKeyForGameRequest): Promise<GetUserKeyForGameResponse> {
     const result = await getUserKeyForGame();
 
     if (!result) {
@@ -108,7 +108,7 @@ export class GameServiceImpl extends GameServiceBase {
     };
   }
 
-  async OpenGameCenterLeaderboard(request: OpenGameCenterLeaderboardRequest): Promise<OpenGameCenterLeaderboardResponse> {
+  async OpenGameCenterLeaderboard(_request: OpenGameCenterLeaderboardRequest): Promise<OpenGameCenterLeaderboardResponse> {
     await openGameCenterLeaderboard();
     return {};
   }

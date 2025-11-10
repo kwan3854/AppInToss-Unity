@@ -13,21 +13,21 @@ import type {
 
 export class StorageServiceImpl extends StorageServiceBase {
   async GetItem(request: GetItemRequest): Promise<GetItemResponse> {
-    const value = await Storage.getItem(request.key);
+    const value = await Storage.getItem(request.key ?? '');
     return { value: value ?? "" };
   }
 
   async SetItem(request: SetItemRequest): Promise<SetItemResponse> {
-    await Storage.setItem(request.key, request.value);
+    await Storage.setItem(request.key ?? '', request.value ?? '');
     return { dummy: true };
   }
 
   async RemoveItem(request: RemoveItemRequest): Promise<RemoveItemResponse> {
-    await Storage.removeItem(request.key);
+    await Storage.removeItem(request.key ?? '');
     return { dummy: true };
   }
 
-  async ClearItems(request: ClearItemsRequest): Promise<ClearItemsResponse> {
+  async ClearItems(_request: ClearItemsRequest): Promise<ClearItemsResponse> {
     await Storage.clearItems();
     return { dummy: true };
   }

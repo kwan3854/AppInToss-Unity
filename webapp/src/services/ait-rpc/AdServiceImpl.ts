@@ -30,10 +30,11 @@ export class AdServiceImpl extends AdServiceBase {
 
   async LoadAd(request: LoadAdRequest): Promise<LoadAdResponse> {
     if (!GoogleAdMob.loadAppsInTossAdMob.isSupported()) {
-      // This case should ideally be handled by the client checking before calling.
-      // Returning an empty operation_id to indicate failure to start.
       console.error("[AdService] loadAppsInTossAdMob is not supported.");
       return { operation_id: "" };
+    }
+    if (!request.ad_group_id) {
+      throw new Error("ad_group_id is required for LoadAd.");
     }
 
     const operationId = crypto.randomUUID();
@@ -45,49 +46,35 @@ export class AdServiceImpl extends AdServiceBase {
       options: {
         adGroupId: request.ad_group_id,
       },
-      onEvent: (event) => {
+      onEvent: (event) => { // event is of type LoadAdMobEvent, which is { type: 'loaded', data: AdMobLoadResult }
         const state = adOperationStore.get(operationId) as AdOperationState<LoadAdEvent>;
         if (!state) return;
 
         console.log(`[AdService] LoadAd event for ${operationId}: ${event.type}`);
-        let newEvent: LoadAdEvent | null = null;
-
-        switch (event.type) {
-          case "loaded":
-            newEvent = {
-              loaded: {
-                data: {
-                  response_id: event.data.responseId ?? "",
-                  loaded_ad_network_info: event.data.loadedAdNetworkInfo ? {
-                    ad_source_id: event.data.loadedAdNetworkInfo.adSourceId,
-                    ad_source_name: event.data.loadedAdNetworkInfo.adSourceName,
-                    ad_source_instance_id: event.data.loadedAdNetworkInfo.adSourceInstanceId,
-                    ad_source_instance_name: event.data.loadedAdNetworkInfo.adSourceInstanceName,
-                    ad_network_class_name: event.data.loadedAdNetworkInfo.adNetworkClassName ?? "",
-                  } : undefined,
-                  ad_network_info_array: event.data.adNetworkInfoArray.map(info => ({
-                    ad_source_id: info.adSourceId,
-                    ad_source_name: info.adSourceName,
-                    ad_source_instance_id: info.adSourceInstanceId,
-                    ad_source_instance_name: info.adSourceInstanceName,
-                    ad_network_class_name: info.adNetworkClassName ?? "",
-                  })),
-                },
+        if (event.type === 'loaded') {
+          const loadedEvent: LoadAdEvent = {
+            loaded: {
+              data: {
+                response_id: event.data.responseInfo.responseId ?? "",
+                loaded_ad_network_info: event.data.responseInfo.loadedAdNetworkInfo ? {
+                  ad_source_id: event.data.responseInfo.loadedAdNetworkInfo.adSourceId,
+                  ad_source_name: event.data.responseInfo.loadedAdNetworkInfo.adSourceName,
+                  ad_source_instance_id: event.data.responseInfo.loadedAdNetworkInfo.adSourceInstanceId,
+                  ad_source_instance_name: event.data.responseInfo.loadedAdNetworkInfo.adSourceInstanceName,
+                  ad_network_class_name: event.data.responseInfo.loadedAdNetworkInfo.adNetworkClassName ?? "",
+                } : undefined,
+                ad_network_info_array: event.data.responseInfo.adNetworkInfoArray.map((info: any) => ({
+                  ad_source_id: info.adSourceId,
+                  ad_source_name: info.adSourceName,
+                  ad_source_instance_id: info.adSourceInstanceId,
+                  ad_source_instance_name: info.adSourceInstanceName,
+                  ad_network_class_name: info.adNetworkClassName ?? "",
+                })),
               },
-            };
-          case "clicked": newEvent = { clicked: { dummy: true } }; break;
-          case "impression": newEvent = { impression: { dummy: true } }; break;
-          case "dismissed":
-            newEvent = { dismissed: { dummy: true } };
-            state.isFinished = true;
-            break;
-          case "failedToShow":
-            newEvent = { failed_to_show: { dummy: true } };
-            state.isFinished = true;
-            break;
-        }
-        if (newEvent) {
-          state.events.push(newEvent);
+            },
+          };
+          state.events.push(loadedEvent);
+          state.isFinished = true; // Loading is a one-off event.
         }
       },
       onError: (error) => {
@@ -103,6 +90,9 @@ export class AdServiceImpl extends AdServiceBase {
   }
 
   async PollLoadAdEvents(request: PollLoadAdEventsRequest): Promise<PollLoadAdEventsResponse> {
+    if (!request.operation_id) {
+        throw new Error("operation_id is required for PollLoadAdEvents.");
+    }
     const state = adOperationStore.get(request.operation_id) as AdOperationState<LoadAdEvent>;
 
     if (!state) {
@@ -128,6 +118,9 @@ export class AdServiceImpl extends AdServiceBase {
     if (!GoogleAdMob.showAppsInTossAdMob.isSupported()) {
       console.error("[AdService] showAppsInTossAdMob is not supported.");
       return { operation_id: "" };
+    }
+    if (!request.ad_group_id) {
+        throw new Error("ad_group_id is required for ShowAd.");
     }
 
     const operationId = crypto.randomUUID();
@@ -185,6 +178,9 @@ export class AdServiceImpl extends AdServiceBase {
   }
 
   async PollShowAdEvents(request: PollShowAdEventsRequest): Promise<PollShowAdEventsResponse> {
+    if (!request.operation_id) {
+        throw new Error("operation_id is required for PollShowAdEvents.");
+    }
     const state = adOperationStore.get(request.operation_id) as AdOperationState<ShowAdEvent>;
 
     if (!state) {

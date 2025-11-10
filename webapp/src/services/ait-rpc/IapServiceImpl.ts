@@ -14,6 +14,7 @@ import type {
   CompleteProductGrantRequest,
   CompleteProductGrantResponse,
   PurchaseEvent,
+  Long,
 } from "../../generated/IapService/IapService";
 
 // --- State Management for Polling ---
@@ -27,7 +28,7 @@ const purchaseOperationStore = new Map<string, PurchaseOperationState>();
 
 export class IapServiceImpl extends IapServiceBase {
   // 1. GetProductItemList
-  async GetProductItemList(request: GetProductItemListRequest): Promise<GetProductItemListResponse> {
+  async GetProductItemList(_request: GetProductItemListRequest): Promise<GetProductItemListResponse> {
     const result = await IAP.getProductItemList();
     if (!result) {
       return { products: [] };
@@ -45,6 +46,10 @@ export class IapServiceImpl extends IapServiceBase {
 
   // 2. CreateOneTimePurchaseOrder (Initiates polling)
   async CreateOneTimePurchaseOrder(request: CreateOneTimePurchaseOrderRequest): Promise<CreateOneTimePurchaseOrderResponse> {
+    if (!request.sku) {
+      throw new Error("CreateOneTimePurchaseOrder requires a SKU.");
+    }
+
     const operationId = crypto.randomUUID();
     purchaseOperationStore.set(operationId, { events: [], isFinished: false });
 
@@ -52,8 +57,6 @@ export class IapServiceImpl extends IapServiceBase {
       options: {
         sku: request.sku,
         processProductGrant: ({ orderId }) => {
-          // This logic runs on the web-side. For this RPC bridge,
-          // we assume the client will handle the grant via GetPendingOrders and CompleteProductGrant.
           console.log(`[IapService] processProductGrant called for orderId: ${orderId}. Client should handle this.`);
           return true;
         },
@@ -68,14 +71,14 @@ export class IapServiceImpl extends IapServiceBase {
               order_id: event.data.orderId,
               display_name: event.data.displayName,
               display_amount: event.data.displayAmount,
-              amount: event.data.amount,
+              amount: { low: event.data.amount, high: 0, unsigned: false } as Long,
               currency: event.data.currency,
               fraction: event.data.fraction,
               mini_app_icon_url: event.data.miniAppIconUrl ?? "",
             },
           });
         }
-        state.isFinished = true; // One-time purchase flow ends after one event (success or error)
+        state.isFinished = true;
       },
       onError: (error: any) => {
         const state = purchaseOperationStore.get(operationId);
@@ -96,6 +99,9 @@ export class IapServiceImpl extends IapServiceBase {
 
   // 3. PollPurchaseEvents
   async PollPurchaseEvents(request: PollPurchaseEventsRequest): Promise<PollPurchaseEventsResponse> {
+    if (!request.operation_id) {
+      throw new Error("PollPurchaseEvents requires an operation_id.");
+    }
     const state = purchaseOperationStore.get(request.operation_id);
 
     if (!state) {
@@ -103,7 +109,7 @@ export class IapServiceImpl extends IapServiceBase {
     }
 
     const eventsToReturn = [...state.events];
-    state.events = []; // Clear queue
+    state.events = [];
 
     if (state.isFinished) {
       purchaseOperationStore.delete(request.operation_id);
@@ -113,7 +119,7 @@ export class IapServiceImpl extends IapServiceBase {
   }
 
   // 4. GetPendingOrders
-  async GetPendingOrders(request: GetPendingOrdersRequest): Promise<GetPendingOrdersResponse> {
+  async GetPendingOrders(_request: GetPendingOrdersRequest): Promise<GetPendingOrdersResponse> {
     const result = await IAP.getPendingOrders();
     if (!result) {
       return { orders: [] };
@@ -127,8 +133,8 @@ export class IapServiceImpl extends IapServiceBase {
   }
 
   // 5. GetCompletedOrRefundedOrders
-  async GetCompletedOrRefundedOrders(request: GetCompletedOrRefundedOrdersRequest): Promise<GetCompletedOrRefundedOrdersResponse> {
-    const result = await IAP.getCompletedOrRefundedOrders({ key: request.next_key });
+  async GetCompletedOrRefundedOrders(_request: GetCompletedOrRefundedOrdersRequest): Promise<GetCompletedOrRefundedOrdersResponse> {
+    const result = await IAP.getCompletedOrRefundedOrders();
     if (!result) {
       return { has_next: false, next_key: "", orders: [] };
     }
@@ -146,6 +152,9 @@ export class IapServiceImpl extends IapServiceBase {
 
   // 6. CompleteProductGrant
   async CompleteProductGrant(request: CompleteProductGrantRequest): Promise<CompleteProductGrantResponse> {
+    if (!request.order_id) {
+      throw new Error("CompleteProductGrant requires an order_id.");
+    }
     const result = await IAP.completeProductGrant({ params: { orderId: request.order_id } });
     return { success: result ?? false };
   }
