@@ -1,5 +1,6 @@
 using Ait;
 using Ait.Game;
+using Ait.Iap;
 using UnityEngine;
 using WebViewRPC;
 using AitBridge.Generated;
@@ -38,11 +39,14 @@ namespace AitBridge.RPC
         private OpenURLServiceClient _openURLServiceClient;
         private GameServiceClient _gameServiceClient;
         private AdServiceClient _adServiceClient;
+        private IapServiceClient _iapServiceClient;
 
         // Public accessor for OpenURL service
         public OpenURLServiceClient OpenURLService => _openURLServiceClient;
         public GameServiceClient GameService => _gameServiceClient;
         public AdServiceClient AdService => _adServiceClient;
+        public IapServiceClient IapService => _iapServiceClient;
+
 
         private void Awake()
         {
@@ -66,6 +70,8 @@ namespace AitBridge.RPC
             _openURLServiceClient = new OpenURLServiceClient(_rpcClient);
             _gameServiceClient = new GameServiceClient(_rpcClient);
             _adServiceClient = new AdServiceClient(_rpcClient);
+            _iapServiceClient = new IapServiceClient(_rpcClient);
+
 
             // Add more service clients here:
             // _paymentServiceClient = new PaymentServiceClient(_rpcClient);
