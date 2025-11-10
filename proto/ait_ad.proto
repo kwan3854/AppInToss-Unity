@@ -37,24 +37,24 @@ message PollLoadAdEventsResponse {
   bool is_finished = 2; // 작업(광고 로드 플로우)이 완전히 종료되었는지 여부
 }
 
-message LoadAdEvent {
-  message LoadedEvent {
-    // 광고 로드 성공 시 ResponseInfo 데이터 포함
-    ResponseInfo data = 1;
-  }
-  message ClickedEvent {bool dummy = 1;}
-  message DismissedEvent {bool dummy = 1;}
-  message FailedToShowEvent {bool dummy = 1;}
-  message ImpressionEvent {bool dummy = 1;}
-  message ShowEvent {bool dummy = 1;}
+message LoadAdLoadedEvent {
+  // 광고 로드 성공 시 ResponseInfo 데이터 포함
+  ResponseInfo data = 1;
+}
+message LoadAdClickedEvent {bool dummy = 1;}
+message LoadAdDismissedEvent {bool dummy = 1;}
+message LoadAdFailedToShowEvent {bool dummy = 1;}
+message LoadAdImpressionEvent {bool dummy = 1;}
+message LoadAdShowEvent {bool dummy = 1;}
 
+message LoadAdEvent {
   oneof event {
-    LoadedEvent loaded = 1;
-    ClickedEvent clicked = 2;
-    DismissedEvent dismissed = 3;
-    FailedToShowEvent failed_to_show = 4;
-    ImpressionEvent impression = 5;
-    ShowEvent show = 6;
+    LoadAdLoadedEvent loaded = 1;
+    LoadAdClickedEvent clicked = 2;
+    LoadAdDismissedEvent dismissed = 3;
+    LoadAdFailedToShowEvent failed_to_show = 4;
+    LoadAdImpressionEvent impression = 5;
+    LoadAdShowEvent show = 6;
   }
 }
 
@@ -77,26 +77,26 @@ message PollShowAdEventsResponse {
   bool is_finished = 2; // 작업(광고 표시 플로우)이 완전히 종료되었는지 여부
 }
 
-message ShowAdEvent {
-  message RequestedEvent {bool dummy = 1;}
-  message ClickedEvent {bool dummy = 1;}
-  message DismissedEvent {bool dummy = 1;}
-  message FailedToShowEvent {bool dummy = 1;}
-  message ImpressionEvent {bool dummy = 1;}
-  message ShowEvent {bool dummy = 1;}
-  message UserEarnedRewardEvent {
-    string unit_type = 1;
-    int32 unit_amount = 2;
-  }
+message ShowAdRequestedEvent {bool dummy = 1;}
+message ShowAdClickedEvent {bool dummy = 1;}
+message ShowAdDismissedEvent {bool dummy = 1;}
+message ShowAdFailedToShowEvent {bool dummy = 1;}
+message ShowAdImpressionEvent {bool dummy = 1;}
+message ShowAdShowEvent {bool dummy = 1;}
+message ShowAdUserEarnedRewardEvent {
+  string unit_type = 1;
+  int32 unit_amount = 2;
+}
 
+message ShowAdEvent {
   oneof event {
-    RequestedEvent requested = 1;
-    ClickedEvent clicked = 2;
-    DismissedEvent dismissed = 3;
-    FailedToShowEvent failed_to_show = 4;
-    ImpressionEvent impression = 5;
-    ShowEvent show = 6;
-    UserEarnedRewardEvent user_earned_reward = 7;
+    ShowAdRequestedEvent requested = 1;
+    ShowAdClickedEvent clicked = 2;
+    ShowAdDismissedEvent dismissed = 3;
+    ShowAdFailedToShowEvent failed_to_show = 4;
+    ShowAdImpressionEvent impression = 5;
+    ShowAdShowEvent show = 6;
+    ShowAdUserEarnedRewardEvent user_earned_reward = 7;
   }
 }
 
