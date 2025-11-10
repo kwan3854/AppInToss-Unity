@@ -18,6 +18,8 @@ import { IapService } from '../generated/IapService/ait_iap_IapServiceBase'; // 
 import { IapServiceImpl } from '../services/ait-rpc/IapServiceImpl'; // Added
 import { StorageService } from '../generated/StorageService/ait_storage_StorageServiceBase'; // Added
 import { StorageServiceImpl } from '../services/ait-rpc/StorageServiceImpl'; // Added
+import { DeviceService } from '../generated/DeviceService/ait_device_DeviceServiceBase';
+import { DeviceServiceImpl } from '../services/ait-rpc/DeviceServiceImpl';
 import type { UnityContextType } from "../services/ait/types";
 
 /**
@@ -41,24 +43,26 @@ export const useWebViewRpc = (
 
       // Register all AIT services
       const openURLServiceDef = OpenURLService.bindService(new OpenURLServiceImpl());
-      rpcServer.services.push(openURLServiceDef);
+      rpcServer.addService(openURLServiceDef);
 
       const gameServiceDef = GameService.bindService(new GameServiceImpl());
-      rpcServer.services.push(gameServiceDef);
+      rpcServer.addService(gameServiceDef);
 
       const adServiceDef = AdService.bindService(new AdServiceImpl());
-      rpcServer.services.push(adServiceDef);
+      rpcServer.addService(adServiceDef);
 
       const iapServiceDef = IapService.bindService(new IapServiceImpl()); // Added
-      rpcServer.services.push(iapServiceDef); // Added
+      rpcServer.addService(iapServiceDef); // Added
 
       const storageServiceDef = StorageService.bindService(new StorageServiceImpl()); // Added
-      rpcServer.services.push(storageServiceDef); // Added
+      rpcServer.addService(storageServiceDef); // Changed to addService
+
+      const deviceServiceDef = DeviceService.bindService(new DeviceServiceImpl());
+      rpcServer.addService(deviceServiceDef); // Add DeviceService
 
       // Add more services here as you implement them:
       // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
-      // rpcServer.services.push(paymentServiceDef);
-
+      // rpcServer.addService(paymentServiceDef);
       // Start the server
       rpcServer.start();
       rpcServerRef.current = rpcServer;
