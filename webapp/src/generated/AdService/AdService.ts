@@ -209,13 +209,301 @@ function _decodePollLoadAdEventsResponse(bb: ByteBuffer): PollLoadAdEventsRespon
   return message;
 }
 
+export interface LoadAdLoadedEvent {
+  data?: ResponseInfo;
+}
+
+export function encodeLoadAdLoadedEvent(message: LoadAdLoadedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdLoadedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdLoadedEvent(message: LoadAdLoadedEvent, bb: ByteBuffer): void {
+  // optional ResponseInfo data = 1;
+  let $data = message.data;
+  if ($data !== undefined) {
+    writeVarint32(bb, 10);
+    let nested = popByteBuffer();
+    _encodeResponseInfo($data, nested);
+    writeVarint32(bb, nested.limit);
+    writeByteBuffer(bb, nested);
+    pushByteBuffer(nested);
+  }
+}
+
+export function decodeLoadAdLoadedEvent(binary: Uint8Array): LoadAdLoadedEvent {
+  return _decodeLoadAdLoadedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdLoadedEvent(bb: ByteBuffer): LoadAdLoadedEvent {
+  let message: LoadAdLoadedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional ResponseInfo data = 1;
+      case 1: {
+        let limit = pushTemporaryLength(bb);
+        message.data = _decodeResponseInfo(bb);
+        bb.limit = limit;
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface LoadAdClickedEvent {
+  dummy?: boolean;
+}
+
+export function encodeLoadAdClickedEvent(message: LoadAdClickedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdClickedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdClickedEvent(message: LoadAdClickedEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeLoadAdClickedEvent(binary: Uint8Array): LoadAdClickedEvent {
+  return _decodeLoadAdClickedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdClickedEvent(bb: ByteBuffer): LoadAdClickedEvent {
+  let message: LoadAdClickedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface LoadAdDismissedEvent {
+  dummy?: boolean;
+}
+
+export function encodeLoadAdDismissedEvent(message: LoadAdDismissedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdDismissedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdDismissedEvent(message: LoadAdDismissedEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeLoadAdDismissedEvent(binary: Uint8Array): LoadAdDismissedEvent {
+  return _decodeLoadAdDismissedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdDismissedEvent(bb: ByteBuffer): LoadAdDismissedEvent {
+  let message: LoadAdDismissedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface LoadAdFailedToShowEvent {
+  dummy?: boolean;
+}
+
+export function encodeLoadAdFailedToShowEvent(message: LoadAdFailedToShowEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdFailedToShowEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdFailedToShowEvent(message: LoadAdFailedToShowEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeLoadAdFailedToShowEvent(binary: Uint8Array): LoadAdFailedToShowEvent {
+  return _decodeLoadAdFailedToShowEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdFailedToShowEvent(bb: ByteBuffer): LoadAdFailedToShowEvent {
+  let message: LoadAdFailedToShowEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface LoadAdImpressionEvent {
+  dummy?: boolean;
+}
+
+export function encodeLoadAdImpressionEvent(message: LoadAdImpressionEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdImpressionEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdImpressionEvent(message: LoadAdImpressionEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeLoadAdImpressionEvent(binary: Uint8Array): LoadAdImpressionEvent {
+  return _decodeLoadAdImpressionEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdImpressionEvent(bb: ByteBuffer): LoadAdImpressionEvent {
+  let message: LoadAdImpressionEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface LoadAdShowEvent {
+  dummy?: boolean;
+}
+
+export function encodeLoadAdShowEvent(message: LoadAdShowEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeLoadAdShowEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeLoadAdShowEvent(message: LoadAdShowEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeLoadAdShowEvent(binary: Uint8Array): LoadAdShowEvent {
+  return _decodeLoadAdShowEvent(wrapByteBuffer(binary));
+}
+
+function _decodeLoadAdShowEvent(bb: ByteBuffer): LoadAdShowEvent {
+  let message: LoadAdShowEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
 export interface LoadAdEvent {
-  loaded?: LoadedEvent;
-  clicked?: ClickedEvent;
-  dismissed?: DismissedEvent;
-  failed_to_show?: FailedToShowEvent;
-  impression?: ImpressionEvent;
-  show?: ShowEvent;
+  loaded?: LoadAdLoadedEvent;
+  clicked?: LoadAdClickedEvent;
+  dismissed?: LoadAdDismissedEvent;
+  failed_to_show?: LoadAdFailedToShowEvent;
+  impression?: LoadAdImpressionEvent;
+  show?: LoadAdShowEvent;
 }
 
 export function encodeLoadAdEvent(message: LoadAdEvent): Uint8Array {
@@ -225,67 +513,67 @@ export function encodeLoadAdEvent(message: LoadAdEvent): Uint8Array {
 }
 
 function _encodeLoadAdEvent(message: LoadAdEvent, bb: ByteBuffer): void {
-  // optional LoadedEvent loaded = 1;
+  // optional LoadAdLoadedEvent loaded = 1;
   let $loaded = message.loaded;
   if ($loaded !== undefined) {
     writeVarint32(bb, 10);
     let nested = popByteBuffer();
-    _encodeLoadedEvent($loaded, nested);
+    _encodeLoadAdLoadedEvent($loaded, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ClickedEvent clicked = 2;
+  // optional LoadAdClickedEvent clicked = 2;
   let $clicked = message.clicked;
   if ($clicked !== undefined) {
     writeVarint32(bb, 18);
     let nested = popByteBuffer();
-    _encodeClickedEvent($clicked, nested);
+    _encodeLoadAdClickedEvent($clicked, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional DismissedEvent dismissed = 3;
+  // optional LoadAdDismissedEvent dismissed = 3;
   let $dismissed = message.dismissed;
   if ($dismissed !== undefined) {
     writeVarint32(bb, 26);
     let nested = popByteBuffer();
-    _encodeDismissedEvent($dismissed, nested);
+    _encodeLoadAdDismissedEvent($dismissed, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional FailedToShowEvent failed_to_show = 4;
+  // optional LoadAdFailedToShowEvent failed_to_show = 4;
   let $failed_to_show = message.failed_to_show;
   if ($failed_to_show !== undefined) {
     writeVarint32(bb, 34);
     let nested = popByteBuffer();
-    _encodeFailedToShowEvent($failed_to_show, nested);
+    _encodeLoadAdFailedToShowEvent($failed_to_show, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ImpressionEvent impression = 5;
+  // optional LoadAdImpressionEvent impression = 5;
   let $impression = message.impression;
   if ($impression !== undefined) {
     writeVarint32(bb, 42);
     let nested = popByteBuffer();
-    _encodeImpressionEvent($impression, nested);
+    _encodeLoadAdImpressionEvent($impression, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ShowEvent show = 6;
+  // optional LoadAdShowEvent show = 6;
   let $show = message.show;
   if ($show !== undefined) {
     writeVarint32(bb, 50);
     let nested = popByteBuffer();
-    _encodeShowEvent($show, nested);
+    _encodeLoadAdShowEvent($show, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
@@ -306,50 +594,50 @@ function _decodeLoadAdEvent(bb: ByteBuffer): LoadAdEvent {
       case 0:
         break end_of_message;
 
-      // optional LoadedEvent loaded = 1;
+      // optional LoadAdLoadedEvent loaded = 1;
       case 1: {
         let limit = pushTemporaryLength(bb);
-        message.loaded = _decodeLoadedEvent(bb);
+        message.loaded = _decodeLoadAdLoadedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ClickedEvent clicked = 2;
+      // optional LoadAdClickedEvent clicked = 2;
       case 2: {
         let limit = pushTemporaryLength(bb);
-        message.clicked = _decodeClickedEvent(bb);
+        message.clicked = _decodeLoadAdClickedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional DismissedEvent dismissed = 3;
+      // optional LoadAdDismissedEvent dismissed = 3;
       case 3: {
         let limit = pushTemporaryLength(bb);
-        message.dismissed = _decodeDismissedEvent(bb);
+        message.dismissed = _decodeLoadAdDismissedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional FailedToShowEvent failed_to_show = 4;
+      // optional LoadAdFailedToShowEvent failed_to_show = 4;
       case 4: {
         let limit = pushTemporaryLength(bb);
-        message.failed_to_show = _decodeFailedToShowEvent(bb);
+        message.failed_to_show = _decodeLoadAdFailedToShowEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ImpressionEvent impression = 5;
+      // optional LoadAdImpressionEvent impression = 5;
       case 5: {
         let limit = pushTemporaryLength(bb);
-        message.impression = _decodeImpressionEvent(bb);
+        message.impression = _decodeLoadAdImpressionEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ShowEvent show = 6;
+      // optional LoadAdShowEvent show = 6;
       case 6: {
         let limit = pushTemporaryLength(bb);
-        message.show = _decodeShowEvent(bb);
+        message.show = _decodeLoadAdShowEvent(bb);
         bb.limit = limit;
         break;
       }
@@ -573,14 +861,357 @@ function _decodePollShowAdEventsResponse(bb: ByteBuffer): PollShowAdEventsRespon
   return message;
 }
 
+export interface ShowAdRequestedEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdRequestedEvent(message: ShowAdRequestedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdRequestedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdRequestedEvent(message: ShowAdRequestedEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdRequestedEvent(binary: Uint8Array): ShowAdRequestedEvent {
+  return _decodeShowAdRequestedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdRequestedEvent(bb: ByteBuffer): ShowAdRequestedEvent {
+  let message: ShowAdRequestedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdClickedEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdClickedEvent(message: ShowAdClickedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdClickedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdClickedEvent(message: ShowAdClickedEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdClickedEvent(binary: Uint8Array): ShowAdClickedEvent {
+  return _decodeShowAdClickedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdClickedEvent(bb: ByteBuffer): ShowAdClickedEvent {
+  let message: ShowAdClickedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdDismissedEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdDismissedEvent(message: ShowAdDismissedEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdDismissedEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdDismissedEvent(message: ShowAdDismissedEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdDismissedEvent(binary: Uint8Array): ShowAdDismissedEvent {
+  return _decodeShowAdDismissedEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdDismissedEvent(bb: ByteBuffer): ShowAdDismissedEvent {
+  let message: ShowAdDismissedEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdFailedToShowEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdFailedToShowEvent(message: ShowAdFailedToShowEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdFailedToShowEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdFailedToShowEvent(message: ShowAdFailedToShowEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdFailedToShowEvent(binary: Uint8Array): ShowAdFailedToShowEvent {
+  return _decodeShowAdFailedToShowEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdFailedToShowEvent(bb: ByteBuffer): ShowAdFailedToShowEvent {
+  let message: ShowAdFailedToShowEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdImpressionEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdImpressionEvent(message: ShowAdImpressionEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdImpressionEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdImpressionEvent(message: ShowAdImpressionEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdImpressionEvent(binary: Uint8Array): ShowAdImpressionEvent {
+  return _decodeShowAdImpressionEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdImpressionEvent(bb: ByteBuffer): ShowAdImpressionEvent {
+  let message: ShowAdImpressionEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdShowEvent {
+  dummy?: boolean;
+}
+
+export function encodeShowAdShowEvent(message: ShowAdShowEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdShowEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdShowEvent(message: ShowAdShowEvent, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeShowAdShowEvent(binary: Uint8Array): ShowAdShowEvent {
+  return _decodeShowAdShowEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdShowEvent(bb: ByteBuffer): ShowAdShowEvent {
+  let message: ShowAdShowEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface ShowAdUserEarnedRewardEvent {
+  unit_type?: string;
+  unit_amount?: number;
+}
+
+export function encodeShowAdUserEarnedRewardEvent(message: ShowAdUserEarnedRewardEvent): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeShowAdUserEarnedRewardEvent(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeShowAdUserEarnedRewardEvent(message: ShowAdUserEarnedRewardEvent, bb: ByteBuffer): void {
+  // optional string unit_type = 1;
+  let $unit_type = message.unit_type;
+  if ($unit_type !== undefined) {
+    writeVarint32(bb, 10);
+    writeString(bb, $unit_type);
+  }
+
+  // optional int32 unit_amount = 2;
+  let $unit_amount = message.unit_amount;
+  if ($unit_amount !== undefined) {
+    writeVarint32(bb, 16);
+    writeVarint64(bb, intToLong($unit_amount));
+  }
+}
+
+export function decodeShowAdUserEarnedRewardEvent(binary: Uint8Array): ShowAdUserEarnedRewardEvent {
+  return _decodeShowAdUserEarnedRewardEvent(wrapByteBuffer(binary));
+}
+
+function _decodeShowAdUserEarnedRewardEvent(bb: ByteBuffer): ShowAdUserEarnedRewardEvent {
+  let message: ShowAdUserEarnedRewardEvent = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional string unit_type = 1;
+      case 1: {
+        message.unit_type = readString(bb, readVarint32(bb));
+        break;
+      }
+
+      // optional int32 unit_amount = 2;
+      case 2: {
+        message.unit_amount = readVarint32(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
 export interface ShowAdEvent {
-  requested?: RequestedEvent;
-  clicked?: ClickedEvent;
-  dismissed?: DismissedEvent;
-  failed_to_show?: FailedToShowEvent;
-  impression?: ImpressionEvent;
-  show?: ShowEvent;
-  user_earned_reward?: UserEarnedRewardEvent;
+  requested?: ShowAdRequestedEvent;
+  clicked?: ShowAdClickedEvent;
+  dismissed?: ShowAdDismissedEvent;
+  failed_to_show?: ShowAdFailedToShowEvent;
+  impression?: ShowAdImpressionEvent;
+  show?: ShowAdShowEvent;
+  user_earned_reward?: ShowAdUserEarnedRewardEvent;
 }
 
 export function encodeShowAdEvent(message: ShowAdEvent): Uint8Array {
@@ -590,78 +1221,78 @@ export function encodeShowAdEvent(message: ShowAdEvent): Uint8Array {
 }
 
 function _encodeShowAdEvent(message: ShowAdEvent, bb: ByteBuffer): void {
-  // optional RequestedEvent requested = 1;
+  // optional ShowAdRequestedEvent requested = 1;
   let $requested = message.requested;
   if ($requested !== undefined) {
     writeVarint32(bb, 10);
     let nested = popByteBuffer();
-    _encodeRequestedEvent($requested, nested);
+    _encodeShowAdRequestedEvent($requested, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ClickedEvent clicked = 2;
+  // optional ShowAdClickedEvent clicked = 2;
   let $clicked = message.clicked;
   if ($clicked !== undefined) {
     writeVarint32(bb, 18);
     let nested = popByteBuffer();
-    _encodeClickedEvent($clicked, nested);
+    _encodeShowAdClickedEvent($clicked, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional DismissedEvent dismissed = 3;
+  // optional ShowAdDismissedEvent dismissed = 3;
   let $dismissed = message.dismissed;
   if ($dismissed !== undefined) {
     writeVarint32(bb, 26);
     let nested = popByteBuffer();
-    _encodeDismissedEvent($dismissed, nested);
+    _encodeShowAdDismissedEvent($dismissed, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional FailedToShowEvent failed_to_show = 4;
+  // optional ShowAdFailedToShowEvent failed_to_show = 4;
   let $failed_to_show = message.failed_to_show;
   if ($failed_to_show !== undefined) {
     writeVarint32(bb, 34);
     let nested = popByteBuffer();
-    _encodeFailedToShowEvent($failed_to_show, nested);
+    _encodeShowAdFailedToShowEvent($failed_to_show, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ImpressionEvent impression = 5;
+  // optional ShowAdImpressionEvent impression = 5;
   let $impression = message.impression;
   if ($impression !== undefined) {
     writeVarint32(bb, 42);
     let nested = popByteBuffer();
-    _encodeImpressionEvent($impression, nested);
+    _encodeShowAdImpressionEvent($impression, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional ShowEvent show = 6;
+  // optional ShowAdShowEvent show = 6;
   let $show = message.show;
   if ($show !== undefined) {
     writeVarint32(bb, 50);
     let nested = popByteBuffer();
-    _encodeShowEvent($show, nested);
+    _encodeShowAdShowEvent($show, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
   }
 
-  // optional UserEarnedRewardEvent user_earned_reward = 7;
+  // optional ShowAdUserEarnedRewardEvent user_earned_reward = 7;
   let $user_earned_reward = message.user_earned_reward;
   if ($user_earned_reward !== undefined) {
     writeVarint32(bb, 58);
     let nested = popByteBuffer();
-    _encodeUserEarnedRewardEvent($user_earned_reward, nested);
+    _encodeShowAdUserEarnedRewardEvent($user_earned_reward, nested);
     writeVarint32(bb, nested.limit);
     writeByteBuffer(bb, nested);
     pushByteBuffer(nested);
@@ -682,58 +1313,58 @@ function _decodeShowAdEvent(bb: ByteBuffer): ShowAdEvent {
       case 0:
         break end_of_message;
 
-      // optional RequestedEvent requested = 1;
+      // optional ShowAdRequestedEvent requested = 1;
       case 1: {
         let limit = pushTemporaryLength(bb);
-        message.requested = _decodeRequestedEvent(bb);
+        message.requested = _decodeShowAdRequestedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ClickedEvent clicked = 2;
+      // optional ShowAdClickedEvent clicked = 2;
       case 2: {
         let limit = pushTemporaryLength(bb);
-        message.clicked = _decodeClickedEvent(bb);
+        message.clicked = _decodeShowAdClickedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional DismissedEvent dismissed = 3;
+      // optional ShowAdDismissedEvent dismissed = 3;
       case 3: {
         let limit = pushTemporaryLength(bb);
-        message.dismissed = _decodeDismissedEvent(bb);
+        message.dismissed = _decodeShowAdDismissedEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional FailedToShowEvent failed_to_show = 4;
+      // optional ShowAdFailedToShowEvent failed_to_show = 4;
       case 4: {
         let limit = pushTemporaryLength(bb);
-        message.failed_to_show = _decodeFailedToShowEvent(bb);
+        message.failed_to_show = _decodeShowAdFailedToShowEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ImpressionEvent impression = 5;
+      // optional ShowAdImpressionEvent impression = 5;
       case 5: {
         let limit = pushTemporaryLength(bb);
-        message.impression = _decodeImpressionEvent(bb);
+        message.impression = _decodeShowAdImpressionEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional ShowEvent show = 6;
+      // optional ShowAdShowEvent show = 6;
       case 6: {
         let limit = pushTemporaryLength(bb);
-        message.show = _decodeShowEvent(bb);
+        message.show = _decodeShowAdShowEvent(bb);
         bb.limit = limit;
         break;
       }
 
-      // optional UserEarnedRewardEvent user_earned_reward = 7;
+      // optional ShowAdUserEarnedRewardEvent user_earned_reward = 7;
       case 7: {
         let limit = pushTemporaryLength(bb);
-        message.user_earned_reward = _decodeUserEarnedRewardEvent(bb);
+        message.user_earned_reward = _decodeShowAdUserEarnedRewardEvent(bb);
         bb.limit = limit;
         break;
       }
