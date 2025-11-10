@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package ait.iap;
+
+// IapService는 인앱 결제 관련 함수를 제공합니다.
+service IapService {
+  // 1. 인앱 결제로 구매할 수 있는 상품 목록을 가져옵니다.
+  rpc GetProductItemList(GetProductItemListRequest) returns (GetProductItemListResponse);
+
+  // 2. 인앱 결제를 시작하고, 해당 작업의 고유 ID를 반환합니다. (폴링 방식)
+  rpc CreateOneTimePurchaseOrder(CreateOneTimePurchaseOrderRequest) returns (CreateOneTimePurchaseOrderResponse);
+
+  // 3. CreateOneTimePurchaseOrder로 발급받은 ID를 사용해, 발생한 이벤트들을 주기적으로 가져옵니다.
+  rpc PollPurchaseEvents(PollPurchaseEventsRequest) returns (PollPurchaseEventsResponse);
+
+  // 4. 대기 중인 주문 목록을 가져옵니다.
+  rpc GetPendingOrders(GetPendingOrdersRequest) returns (GetPendingOrdersResponse);
+
+  // 5. 완료되거나 환불된 주문 목록을 가져옵니다.
+  rpc GetCompletedOrRefundedOrders(GetCompletedOrRefundedOrdersRequest) returns (GetCompletedOrRefundedOrdersResponse);
+
+  // 6. 상품 지급 처리를 완료했음을 앱에 전달합니다.
+  rpc CompleteProductGrant(CompleteProductGrantRequest) returns (CompleteProductGrantResponse);
+}
+
+// --- 1. GetProductItemList ---
+message GetProductItemListRequest {
+  bool dummy = 1; // Empty request
+}
+
+message GetProductItemListResponse {
+  repeated IapProductListItem products = 1;
+}
+
+message IapProductListItem {
+  string sku = 1;
+  string display_name = 2;
+  string display_amount = 3;
+  string icon_url = 4;
+  string description = 5;
+}
+
+// --- 2. CreateOneTimePurchaseOrder ---
+message CreateOneTimePurchaseOrderRequest {
+  string sku = 1;
+}
+
+message CreateOneTimePurchaseOrderResponse {
+  string operation_id = 1;
+}
+
+// --- 3. PollPurchaseEvents ---
+message PollPurchaseEventsRequest {
+  string operation_id = 1;
+}
+
+message PollPurchaseEventsResponse {
+  repeated PurchaseEvent events = 1;
+  bool is_finished = 2;
+}
+
+message PurchaseEvent {
+  oneof event {
+    PurchaseSuccessEvent success = 1;
+    PurchaseErrorEvent error = 2;
+  }
+}
+
+message PurchaseSuccessEvent {
+  string order_id = 1;
+  string display_name = 2;
+  string display_amount = 3;
+  int64 amount = 4;
+  string currency = 5;
+  int32 fraction = 6;
+  string mini_app_icon_url = 7;
+}
+
+message PurchaseErrorEvent {
+  string error_code = 1;
+  string error_message = 2;
+}
+
+// --- 4. GetPendingOrders ---
+message GetPendingOrdersRequest {
+  bool dummy = 1; // Empty request
+}
+
+message GetPendingOrdersResponse {
+  repeated PendingOrder orders = 1;
+}
+
+message PendingOrder {
+  string order_id = 1;
+  string sku = 2;
+}
+
+// --- 5. GetCompletedOrRefundedOrders ---
+message GetCompletedOrRefundedOrdersRequest {
+  // The key for the next page. For the first call, this is empty.
+  string next_key = 1;
+}
+
+message GetCompletedOrRefundedOrdersResponse {
+  bool has_next = 1;
+  string next_key = 2;
+  repeated CompletedOrRefundedOrder orders = 3;
+}
+
+message CompletedOrRefundedOrder {
+  string order_id = 1;
+  string sku = 2;
+  string status = 3; // "COMPLETED" or "REFUNDED"
+  string date = 4;   // ISO 8601 format
+}
+
+// --- 6. CompleteProductGrant ---
+message CompleteProductGrantRequest {
+  string order_id = 1;
+}
+
+message CompleteProductGrantResponse {
+  bool success = 1;
+}
