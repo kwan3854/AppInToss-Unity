@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package ait.device;
+
+option csharp_namespace = "Ait.Device";
+
+service DeviceService {
+  rpc GetSafeAreaInsets(GetSafeAreaInsetsRequest) returns (GetSafeAreaInsetsResponse);
+}
+
+message GetSafeAreaInsetsRequest {
+  bool dummy = 1;
+}
+
+message GetSafeAreaInsetsResponse {
+  float top = 1;
+  float bottom = 2;
+  float left = 3;
+  float right = 4;
+}
