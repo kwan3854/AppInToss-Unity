@@ -75,16 +75,14 @@ export class AdServiceImpl extends AdServiceBase {
                 },
               },
             };
-            break;
-          case "clicked": newEvent = { clicked: {} }; break;
-          case "impression": newEvent = { impression: {} }; break;
-          case "show": newEvent = { show: {} }; break;
+          case "clicked": newEvent = { clicked: { dummy: true } }; break;
+          case "impression": newEvent = { impression: { dummy: true } }; break;
           case "dismissed":
-            newEvent = { dismissed: {} };
+            newEvent = { dismissed: { dummy: true } };
             state.isFinished = true;
             break;
           case "failedToShow":
-            newEvent = { failed_to_show: {} };
+            newEvent = { failed_to_show: { dummy: true } };
             state.isFinished = true;
             break;
         }
@@ -149,10 +147,10 @@ export class AdServiceImpl extends AdServiceBase {
         let newEvent: ShowAdEvent | null = null;
 
         switch (event.type) {
-          case "requested": newEvent = { requested: {} }; break;
-          case "clicked": newEvent = { clicked: {} }; break;
-          case "impression": newEvent = { impression: {} }; break;
-          case "show": newEvent = { show: {} }; break;
+          case "requested": newEvent = { requested: { dummy: true } }; break;
+          case "clicked": newEvent = { clicked: { dummy: true } }; break;
+          case "impression": newEvent = { impression: { dummy: true } }; break;
+          case "show": newEvent = { show: { dummy: true } }; break;
           case "userEarnedReward":
             newEvent = {
               user_earned_reward: {
@@ -162,11 +160,11 @@ export class AdServiceImpl extends AdServiceBase {
             };
             break;
           case "dismissed":
-            newEvent = { dismissed: {} };
+            newEvent = { dismissed: { dummy: true } };
             state.isFinished = true;
             break;
           case "failedToShow":
-            newEvent = { failed_to_show: {} };
+            newEvent = { failed_to_show: { dummy: true } };
             state.isFinished = true;
             break;
         }
