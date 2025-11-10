@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package ait.storage;
+
+// StorageService는 네이티브 저장소 관련 함수를 제공합니다.
+service StorageService {
+  // 1. 네이티브 저장소에서 아이템을 가져옵니다.
+  rpc GetItem(GetItemRequest) returns (GetItemResponse);
+
+  // 2. 네이티브 저장소에 아이템을 저장합니다.
+  rpc SetItem(SetItemRequest) returns (SetItemResponse);
+
+  // 3. 네이티브 저장소에서 아이템을 삭제합니다.
+  rpc RemoveItem(RemoveItemRequest) returns (RemoveItemResponse);
+
+  // 4. 네이티브 저장소의 모든 아이템을 삭제합니다.
+  rpc ClearItems(ClearItemsRequest) returns (ClearItemsResponse);
+}
+
+// --- GetItem ---
+message GetItemRequest {
+  string key = 1;
+}
+
+message GetItemResponse {
+  // The value associated with the key.
+  // If the key is not found, this will be an empty string.
+  string value = 1;
+}
+
+// --- SetItem ---
+message SetItemRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message SetItemResponse {
+  bool dummy = 1; // Empty response
+}
+
+// --- RemoveItem ---
+message RemoveItemRequest {
+  string key = 1;
+}
+
+message RemoveItemResponse {
+  bool dummy = 1; // Empty response
+}
+
+// --- ClearItems ---
+message ClearItemsRequest {
+  bool dummy = 1; // Empty request
+}
+
+message ClearItemsResponse {
+  bool dummy = 1; // Empty response
+}
