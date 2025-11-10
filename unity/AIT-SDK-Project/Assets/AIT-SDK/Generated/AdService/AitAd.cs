@@ -29,7 +29,7 @@ namespace Ait {
             "ZBgBIAEoCSIvChdQb2xsTG9hZEFkRXZlbnRzUmVxdWVzdBIUCgxvcGVyYXRp",
             "b25faWQYASABKAkiUQoYUG9sbExvYWRBZEV2ZW50c1Jlc3BvbnNlEiAKBmV2",
             "ZW50cxgBIAMoCzIQLmFpdC5Mb2FkQWRFdmVudBITCgtpc19maW5pc2hlZBgC",
-            "IAEoCCLXAwoLTG9hZEFkRXZlbnQSLgoGbG9hZGVkGAEgASgLMhwuYWl0Lkxv",
+            "IAEoCCKiBAoLTG9hZEFkRXZlbnQSLgoGbG9hZGVkGAEgASgLMhwuYWl0Lkxv",
             "YWRBZEV2ZW50LkxvYWRlZEV2ZW50SAASMAoHY2xpY2tlZBgCIAEoCzIdLmFp",
             "dC5Mb2FkQWRFdmVudC5DbGlja2VkRXZlbnRIABI0CglkaXNtaXNzZWQYAyAB",
             "KAsyHy5haXQuTG9hZEFkRXZlbnQuRGlzbWlzc2VkRXZlbnRIABI8Cg5mYWls",
@@ -37,40 +37,44 @@ namespace Ait {
             "b3dFdmVudEgAEjYKCmltcHJlc3Npb24YBSABKAsyIC5haXQuTG9hZEFkRXZl",
             "bnQuSW1wcmVzc2lvbkV2ZW50SAASKgoEc2hvdxgGIAEoCzIaLmFpdC5Mb2Fk",
             "QWRFdmVudC5TaG93RXZlbnRIABouCgtMb2FkZWRFdmVudBIfCgRkYXRhGAEg",
-            "ASgLMhEuYWl0LlJlc3BvbnNlSW5mbxoOCgxDbGlja2VkRXZlbnQaEAoORGlz",
-            "bWlzc2VkRXZlbnQaEwoRRmFpbGVkVG9TaG93RXZlbnQaEQoPSW1wcmVzc2lv",
-            "bkV2ZW50GgsKCVNob3dFdmVudEIHCgVldmVudCIkCg1TaG93QWRSZXF1ZXN0",
-            "EhMKC2FkX2dyb3VwX2lkGAEgASgJIiYKDlNob3dBZFJlc3BvbnNlEhQKDG9w",
-            "ZXJhdGlvbl9pZBgBIAEoCSIvChdQb2xsU2hvd0FkRXZlbnRzUmVxdWVzdBIU",
-            "CgxvcGVyYXRpb25faWQYASABKAkiUQoYUG9sbFNob3dBZEV2ZW50c1Jlc3Bv",
-            "bnNlEiAKBmV2ZW50cxgBIAMoCzIQLmFpdC5TaG93QWRFdmVudBITCgtpc19m",
-            "aW5pc2hlZBgCIAEoCCLGBAoLU2hvd0FkRXZlbnQSNAoJcmVxdWVzdGVkGAEg",
-            "ASgLMh8uYWl0LlNob3dBZEV2ZW50LlJlcXVlc3RlZEV2ZW50SAASMAoHY2xp",
-            "Y2tlZBgCIAEoCzIdLmFpdC5TaG93QWRFdmVudC5DbGlja2VkRXZlbnRIABI0",
-            "CglkaXNtaXNzZWQYAyABKAsyHy5haXQuU2hvd0FkRXZlbnQuRGlzbWlzc2Vk",
-            "RXZlbnRIABI8Cg5mYWlsZWRfdG9fc2hvdxgEIAEoCzIiLmFpdC5TaG93QWRF",
-            "dmVudC5GYWlsZWRUb1Nob3dFdmVudEgAEjYKCmltcHJlc3Npb24YBSABKAsy",
-            "IC5haXQuU2hvd0FkRXZlbnQuSW1wcmVzc2lvbkV2ZW50SAASKgoEc2hvdxgG",
-            "IAEoCzIaLmFpdC5TaG93QWRFdmVudC5TaG93RXZlbnRIABJEChJ1c2VyX2Vh",
-            "cm5lZF9yZXdhcmQYByABKAsyJi5haXQuU2hvd0FkRXZlbnQuVXNlckVhcm5l",
-            "ZFJld2FyZEV2ZW50SAAaEAoOUmVxdWVzdGVkRXZlbnQaDgoMQ2xpY2tlZEV2",
-            "ZW50GhAKDkRpc21pc3NlZEV2ZW50GhMKEUZhaWxlZFRvU2hvd0V2ZW50GhEK",
-            "D0ltcHJlc3Npb25FdmVudBoLCglTaG93RXZlbnQaPwoVVXNlckVhcm5lZFJl",
-            "d2FyZEV2ZW50EhEKCXVuaXRfdHlwZRgBIAEoCRITCgt1bml0X2Ftb3VudBgC",
-            "IAEoBUIHCgVldmVudCKkAQoVQWROZXR3b3JrUmVzcG9uc2VJbmZvEhQKDGFk",
-            "X3NvdXJjZV9pZBgBIAEoCRIWCg5hZF9zb3VyY2VfbmFtZRgCIAEoCRIdChVh",
-            "ZF9zb3VyY2VfaW5zdGFuY2VfaWQYAyABKAkSHwoXYWRfc291cmNlX2luc3Rh",
-            "bmNlX25hbWUYBCABKAkSHQoVYWRfbmV0d29ya19jbGFzc19uYW1lGAUgASgJ",
-            "IpoBCgxSZXNwb25zZUluZm8SEwoLcmVzcG9uc2VfaWQYASABKAkSOgoWbG9h",
-            "ZGVkX2FkX25ldHdvcmtfaW5mbxgCIAEoCzIaLmFpdC5BZE5ldHdvcmtSZXNw",
-            "b25zZUluZm8SOQoVYWRfbmV0d29ya19pbmZvX2FycmF5GAMgAygLMhouYWl0",
-            "LkFkTmV0d29ya1Jlc3BvbnNlSW5mbzKTAgoJQWRTZXJ2aWNlEjEKBkxvYWRB",
-            "ZBISLmFpdC5Mb2FkQWRSZXF1ZXN0GhMuYWl0LkxvYWRBZFJlc3BvbnNlEk8K",
-            "EFBvbGxMb2FkQWRFdmVudHMSHC5haXQuUG9sbExvYWRBZEV2ZW50c1JlcXVl",
-            "c3QaHS5haXQuUG9sbExvYWRBZEV2ZW50c1Jlc3BvbnNlEjEKBlNob3dBZBIS",
-            "LmFpdC5TaG93QWRSZXF1ZXN0GhMuYWl0LlNob3dBZFJlc3BvbnNlEk8KEFBv",
-            "bGxTaG93QWRFdmVudHMSHC5haXQuUG9sbFNob3dBZEV2ZW50c1JlcXVlc3Qa",
-            "HS5haXQuUG9sbFNob3dBZEV2ZW50c1Jlc3BvbnNlYgZwcm90bzM="));
+            "ASgLMhEuYWl0LlJlc3BvbnNlSW5mbxodCgxDbGlja2VkRXZlbnQSDQoFZHVt",
+            "bXkYASABKAgaHwoORGlzbWlzc2VkRXZlbnQSDQoFZHVtbXkYASABKAgaIgoR",
+            "RmFpbGVkVG9TaG93RXZlbnQSDQoFZHVtbXkYASABKAgaIAoPSW1wcmVzc2lv",
+            "bkV2ZW50Eg0KBWR1bW15GAEgASgIGhoKCVNob3dFdmVudBINCgVkdW1teRgB",
+            "IAEoCEIHCgVldmVudCIkCg1TaG93QWRSZXF1ZXN0EhMKC2FkX2dyb3VwX2lk",
+            "GAEgASgJIiYKDlNob3dBZFJlc3BvbnNlEhQKDG9wZXJhdGlvbl9pZBgBIAEo",
+            "CSIvChdQb2xsU2hvd0FkRXZlbnRzUmVxdWVzdBIUCgxvcGVyYXRpb25faWQY",
+            "ASABKAkiUQoYUG9sbFNob3dBZEV2ZW50c1Jlc3BvbnNlEiAKBmV2ZW50cxgB",
+            "IAMoCzIQLmFpdC5TaG93QWRFdmVudBITCgtpc19maW5pc2hlZBgCIAEoCCKg",
+            "BQoLU2hvd0FkRXZlbnQSNAoJcmVxdWVzdGVkGAEgASgLMh8uYWl0LlNob3dB",
+            "ZEV2ZW50LlJlcXVlc3RlZEV2ZW50SAASMAoHY2xpY2tlZBgCIAEoCzIdLmFp",
+            "dC5TaG93QWRFdmVudC5DbGlja2VkRXZlbnRIABI0CglkaXNtaXNzZWQYAyAB",
+            "KAsyHy5haXQuU2hvd0FkRXZlbnQuRGlzbWlzc2VkRXZlbnRIABI8Cg5mYWls",
+            "ZWRfdG9fc2hvdxgEIAEoCzIiLmFpdC5TaG93QWRFdmVudC5GYWlsZWRUb1No",
+            "b3dFdmVudEgAEjYKCmltcHJlc3Npb24YBSABKAsyIC5haXQuU2hvd0FkRXZl",
+            "bnQuSW1wcmVzc2lvbkV2ZW50SAASKgoEc2hvdxgGIAEoCzIaLmFpdC5TaG93",
+            "QWRFdmVudC5TaG93RXZlbnRIABJEChJ1c2VyX2Vhcm5lZF9yZXdhcmQYByAB",
+            "KAsyJi5haXQuU2hvd0FkRXZlbnQuVXNlckVhcm5lZFJld2FyZEV2ZW50SAAa",
+            "HwoOUmVxdWVzdGVkRXZlbnQSDQoFZHVtbXkYASABKAgaHQoMQ2xpY2tlZEV2",
+            "ZW50Eg0KBWR1bW15GAEgASgIGh8KDkRpc21pc3NlZEV2ZW50Eg0KBWR1bW15",
+            "GAEgASgIGiIKEUZhaWxlZFRvU2hvd0V2ZW50Eg0KBWR1bW15GAEgASgIGiAK",
+            "D0ltcHJlc3Npb25FdmVudBINCgVkdW1teRgBIAEoCBoaCglTaG93RXZlbnQS",
+            "DQoFZHVtbXkYASABKAgaPwoVVXNlckVhcm5lZFJld2FyZEV2ZW50EhEKCXVu",
+            "aXRfdHlwZRgBIAEoCRITCgt1bml0X2Ftb3VudBgCIAEoBUIHCgVldmVudCKk",
+            "AQoVQWROZXR3b3JrUmVzcG9uc2VJbmZvEhQKDGFkX3NvdXJjZV9pZBgBIAEo",
+            "CRIWCg5hZF9zb3VyY2VfbmFtZRgCIAEoCRIdChVhZF9zb3VyY2VfaW5zdGFu",
+            "Y2VfaWQYAyABKAkSHwoXYWRfc291cmNlX2luc3RhbmNlX25hbWUYBCABKAkS",
+            "HQoVYWRfbmV0d29ya19jbGFzc19uYW1lGAUgASgJIpoBCgxSZXNwb25zZUlu",
+            "Zm8SEwoLcmVzcG9uc2VfaWQYASABKAkSOgoWbG9hZGVkX2FkX25ldHdvcmtf",
+            "aW5mbxgCIAEoCzIaLmFpdC5BZE5ldHdvcmtSZXNwb25zZUluZm8SOQoVYWRf",
+            "bmV0d29ya19pbmZvX2FycmF5GAMgAygLMhouYWl0LkFkTmV0d29ya1Jlc3Bv",
+            "bnNlSW5mbzKTAgoJQWRTZXJ2aWNlEjEKBkxvYWRBZBISLmFpdC5Mb2FkQWRS",
+            "ZXF1ZXN0GhMuYWl0LkxvYWRBZFJlc3BvbnNlEk8KEFBvbGxMb2FkQWRFdmVu",
+            "dHMSHC5haXQuUG9sbExvYWRBZEV2ZW50c1JlcXVlc3QaHS5haXQuUG9sbExv",
+            "YWRBZEV2ZW50c1Jlc3BvbnNlEjEKBlNob3dBZBISLmFpdC5TaG93QWRSZXF1",
+            "ZXN0GhMuYWl0LlNob3dBZFJlc3BvbnNlEk8KEFBvbGxTaG93QWRFdmVudHMS",
+            "HC5haXQuUG9sbFNob3dBZEV2ZW50c1JlcXVlc3QaHS5haXQuUG9sbFNob3dB",
+            "ZEV2ZW50c1Jlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -79,21 +83,21 @@ namespace Ait {
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.PollLoadAdEventsRequest), global::Ait.PollLoadAdEventsRequest.Parser, new[]{ "OperationId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.PollLoadAdEventsResponse), global::Ait.PollLoadAdEventsResponse.Parser, new[]{ "Events", "IsFinished" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent), global::Ait.LoadAdEvent.Parser, new[]{ "Loaded", "Clicked", "Dismissed", "FailedToShow", "Impression", "Show" }, new[]{ "Event" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.LoadedEvent), global::Ait.LoadAdEvent.Types.LoadedEvent.Parser, new[]{ "Data" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ClickedEvent), global::Ait.LoadAdEvent.Types.ClickedEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.DismissedEvent), global::Ait.LoadAdEvent.Types.DismissedEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.FailedToShowEvent), global::Ait.LoadAdEvent.Types.FailedToShowEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ImpressionEvent), global::Ait.LoadAdEvent.Types.ImpressionEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ShowEvent), global::Ait.LoadAdEvent.Types.ShowEvent.Parser, null, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ClickedEvent), global::Ait.LoadAdEvent.Types.ClickedEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.DismissedEvent), global::Ait.LoadAdEvent.Types.DismissedEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.FailedToShowEvent), global::Ait.LoadAdEvent.Types.FailedToShowEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ImpressionEvent), global::Ait.LoadAdEvent.Types.ImpressionEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.LoadAdEvent.Types.ShowEvent), global::Ait.LoadAdEvent.Types.ShowEvent.Parser, new[]{ "Dummy" }, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdRequest), global::Ait.ShowAdRequest.Parser, new[]{ "AdGroupId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdResponse), global::Ait.ShowAdResponse.Parser, new[]{ "OperationId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.PollShowAdEventsRequest), global::Ait.PollShowAdEventsRequest.Parser, new[]{ "OperationId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.PollShowAdEventsResponse), global::Ait.PollShowAdEventsResponse.Parser, new[]{ "Events", "IsFinished" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent), global::Ait.ShowAdEvent.Parser, new[]{ "Requested", "Clicked", "Dismissed", "FailedToShow", "Impression", "Show", "UserEarnedReward" }, new[]{ "Event" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.RequestedEvent), global::Ait.ShowAdEvent.Types.RequestedEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ClickedEvent), global::Ait.ShowAdEvent.Types.ClickedEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.DismissedEvent), global::Ait.ShowAdEvent.Types.DismissedEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.FailedToShowEvent), global::Ait.ShowAdEvent.Types.FailedToShowEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ImpressionEvent), global::Ait.ShowAdEvent.Types.ImpressionEvent.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ShowEvent), global::Ait.ShowAdEvent.Types.ShowEvent.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent), global::Ait.ShowAdEvent.Parser, new[]{ "Requested", "Clicked", "Dismissed", "FailedToShow", "Impression", "Show", "UserEarnedReward" }, new[]{ "Event" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.RequestedEvent), global::Ait.ShowAdEvent.Types.RequestedEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ClickedEvent), global::Ait.ShowAdEvent.Types.ClickedEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.DismissedEvent), global::Ait.ShowAdEvent.Types.DismissedEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.FailedToShowEvent), global::Ait.ShowAdEvent.Types.FailedToShowEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ImpressionEvent), global::Ait.ShowAdEvent.Types.ImpressionEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.ShowEvent), global::Ait.ShowAdEvent.Types.ShowEvent.Parser, new[]{ "Dummy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ShowAdEvent.Types.UserEarnedRewardEvent), global::Ait.ShowAdEvent.Types.UserEarnedRewardEvent.Parser, new[]{ "UnitType", "UnitAmount" }, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.AdNetworkResponseInfo), global::Ait.AdNetworkResponseInfo.Parser, new[]{ "AdSourceId", "AdSourceName", "AdSourceInstanceId", "AdSourceInstanceName", "AdNetworkClassName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ait.ResponseInfo), global::Ait.ResponseInfo.Parser, new[]{ "ResponseId", "LoadedAdNetworkInfo", "AdNetworkInfoArray" }, null, null, null, null)
@@ -1693,6 +1697,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ClickedEvent(ClickedEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -1700,6 +1705,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ClickedEvent Clone() {
           return new ClickedEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1717,6 +1734,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -1724,6 +1742,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -1742,6 +1761,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -1752,6 +1775,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -1762,6 +1789,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -1773,6 +1803,9 @@ namespace Ait {
         public void MergeFrom(ClickedEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -1793,6 +1826,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -1812,6 +1849,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -1854,6 +1895,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public DismissedEvent(DismissedEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -1861,6 +1903,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public DismissedEvent Clone() {
           return new DismissedEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1878,6 +1932,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -1885,6 +1940,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -1903,6 +1959,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -1913,6 +1973,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -1923,6 +1987,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -1934,6 +2001,9 @@ namespace Ait {
         public void MergeFrom(DismissedEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -1954,6 +2024,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -1973,6 +2047,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -2015,6 +2093,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public FailedToShowEvent(FailedToShowEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -2022,6 +2101,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public FailedToShowEvent Clone() {
           return new FailedToShowEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2039,6 +2130,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -2046,6 +2138,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -2064,6 +2157,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -2074,6 +2171,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -2084,6 +2185,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -2095,6 +2199,9 @@ namespace Ait {
         public void MergeFrom(FailedToShowEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -2115,6 +2222,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -2134,6 +2245,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -2176,6 +2291,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ImpressionEvent(ImpressionEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -2183,6 +2299,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ImpressionEvent Clone() {
           return new ImpressionEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2200,6 +2328,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -2207,6 +2336,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -2225,6 +2355,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -2235,6 +2369,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -2245,6 +2383,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -2256,6 +2397,9 @@ namespace Ait {
         public void MergeFrom(ImpressionEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -2276,6 +2420,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -2295,6 +2443,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -2337,6 +2489,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ShowEvent(ShowEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -2344,6 +2497,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ShowEvent Clone() {
           return new ShowEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2361,6 +2526,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -2368,6 +2534,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -2386,6 +2553,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -2396,6 +2567,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -2406,6 +2581,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -2417,6 +2595,9 @@ namespace Ait {
         public void MergeFrom(ShowEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -2437,6 +2618,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -2456,6 +2641,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -3901,6 +4090,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public RequestedEvent(RequestedEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -3908,6 +4098,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public RequestedEvent Clone() {
           return new RequestedEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3925,6 +4127,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -3932,6 +4135,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -3950,6 +4154,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -3960,6 +4168,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -3970,6 +4182,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -3981,6 +4196,9 @@ namespace Ait {
         public void MergeFrom(RequestedEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4001,6 +4219,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4020,6 +4242,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -4062,6 +4288,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ClickedEvent(ClickedEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4069,6 +4296,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ClickedEvent Clone() {
           return new ClickedEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4086,6 +4325,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4093,6 +4333,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4111,6 +4352,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4121,6 +4366,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -4131,6 +4380,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4142,6 +4394,9 @@ namespace Ait {
         public void MergeFrom(ClickedEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4162,6 +4417,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4181,6 +4440,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -4223,6 +4486,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public DismissedEvent(DismissedEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4230,6 +4494,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public DismissedEvent Clone() {
           return new DismissedEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4247,6 +4523,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4254,6 +4531,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4272,6 +4550,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4282,6 +4564,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -4292,6 +4578,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4303,6 +4592,9 @@ namespace Ait {
         public void MergeFrom(DismissedEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4323,6 +4615,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4342,6 +4638,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -4384,6 +4684,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public FailedToShowEvent(FailedToShowEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4391,6 +4692,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public FailedToShowEvent Clone() {
           return new FailedToShowEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4408,6 +4721,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4415,6 +4729,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4433,6 +4748,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4443,6 +4762,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -4453,6 +4776,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4464,6 +4790,9 @@ namespace Ait {
         public void MergeFrom(FailedToShowEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4484,6 +4813,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4503,6 +4836,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -4545,6 +4882,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ImpressionEvent(ImpressionEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4552,6 +4890,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ImpressionEvent Clone() {
           return new ImpressionEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4569,6 +4919,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4576,6 +4927,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4594,6 +4946,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4604,6 +4960,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -4614,6 +4974,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4625,6 +4988,9 @@ namespace Ait {
         public void MergeFrom(ImpressionEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4645,6 +5011,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4664,6 +5034,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
@@ -4706,6 +5080,7 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ShowEvent(ShowEvent other) : this() {
+          dummy_ = other.dummy_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4713,6 +5088,18 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public ShowEvent Clone() {
           return new ShowEvent(this);
+        }
+
+        /// <summary>Field number for the "dummy" field.</summary>
+        public const int DummyFieldNumber = 1;
+        private bool dummy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public bool Dummy {
+          get { return dummy_; }
+          set {
+            dummy_ = value;
+          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4730,6 +5117,7 @@ namespace Ait {
           if (ReferenceEquals(other, this)) {
             return true;
           }
+          if (Dummy != other.Dummy) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4737,6 +5125,7 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
+          if (Dummy != false) hash ^= Dummy.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4755,6 +5144,10 @@ namespace Ait {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4765,6 +5158,10 @@ namespace Ait {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+          if (Dummy != false) {
+            output.WriteRawTag(8);
+            output.WriteBool(Dummy);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(ref output);
           }
@@ -4775,6 +5172,9 @@ namespace Ait {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
+          if (Dummy != false) {
+            size += 1 + 1;
+          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4786,6 +5186,9 @@ namespace Ait {
         public void MergeFrom(ShowEvent other) {
           if (other == null) {
             return;
+          }
+          if (other.Dummy != false) {
+            Dummy = other.Dummy;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4806,6 +5209,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         #endif
@@ -4825,6 +5232,10 @@ namespace Ait {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
                 break;
+              case 8: {
+                Dummy = input.ReadBool();
+                break;
+              }
             }
           }
         }
