@@ -45,6 +45,7 @@ message LoadAdEvent {
   message ClickedEvent {bool dummy = 1;}
   message DismissedEvent {bool dummy = 1;}
   message FailedToShowEvent {bool dummy = 1;}
+  message ImpressionEvent {bool dummy = 1;}
   message ShowEvent {bool dummy = 1;}
 
   oneof event {
