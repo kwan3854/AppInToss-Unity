@@ -63,6 +63,7 @@ export class AdServiceImpl extends AdServiceBase {
                   ad_source_instance_name: event.data.responseInfo.loadedAdNetworkInfo.adSourceInstanceName,
                   ad_network_class_name: event.data.responseInfo.loadedAdNetworkInfo.adNetworkClassName ?? "",
                 } : undefined,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ad_network_info_array: event.data.responseInfo.adNetworkInfoArray.map((info: any) => ({
                   ad_source_id: info.adSourceId,
                   ad_source_name: info.adSourceName,

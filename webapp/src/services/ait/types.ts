@@ -3,8 +3,8 @@
  * - useUnityContext hook's return type excluding unityProvider
  */
 export type UnityContextType = {
-  addEventListener: (eventName: string, callback: (payload: any) => void) => void;
-  removeEventListener: (eventName: string, callback: (payload: any) => void) => void;
+  addEventListener: (eventName: string, callback: (payload: string | number | boolean) => void) => void;
+  removeEventListener: (eventName:string, callback: (payload: string | number | boolean) => void) => void;
   sendMessage: (gameObjectName: string, methodName: string, parameter?: string | number) => void;
 };
 

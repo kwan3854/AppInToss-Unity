@@ -2,11 +2,9 @@ import {
   GameServiceBase,
 } from '../../generated/GameService/ait_game_GameServiceBase';
 import type {
-  GetUserKeyForGameRequest,
   GetUserKeyForGameResponse,
   GrantPromotionRewardRequest,
   GrantPromotionRewardResponse,
-  OpenGameCenterLeaderboardRequest,
   OpenGameCenterLeaderboardResponse,
   SubmitGameCenterLeaderboardScoreRequest,
   SubmitGameCenterLeaderboardScoreResponse
@@ -19,7 +17,7 @@ import {
 } from '@apps-in-toss/web-framework';
 
 export class GameServiceImpl extends GameServiceBase {
-  async GetUserKeyForGame(_request: GetUserKeyForGameRequest): Promise<GetUserKeyForGameResponse> {
+  async GetUserKeyForGame(): Promise<GetUserKeyForGameResponse> {
     const result = await getUserKeyForGame();
 
     if (!result) {
@@ -108,7 +106,7 @@ export class GameServiceImpl extends GameServiceBase {
     };
   }
 
-  async OpenGameCenterLeaderboard(_request: OpenGameCenterLeaderboardRequest): Promise<OpenGameCenterLeaderboardResponse> {
+  async OpenGameCenterLeaderboard(): Promise<OpenGameCenterLeaderboardResponse> {
     await openGameCenterLeaderboard();
     return {};
   }

@@ -1,15 +1,12 @@
 import { IAP } from "@apps-in-toss/web-framework";
 import { IapServiceBase } from "../../generated/IapService/ait_iap_IapServiceBase";
 import type {
-  GetProductItemListRequest,
   GetProductItemListResponse,
   CreateOneTimePurchaseOrderRequest,
   CreateOneTimePurchaseOrderResponse,
   PollPurchaseEventsRequest,
   PollPurchaseEventsResponse,
-  GetPendingOrdersRequest,
   GetPendingOrdersResponse,
-  GetCompletedOrRefundedOrdersRequest,
   GetCompletedOrRefundedOrdersResponse,
   CompleteProductGrantRequest,
   CompleteProductGrantResponse,
@@ -26,9 +23,15 @@ interface PurchaseOperationState {
 
 const purchaseOperationStore = new Map<string, PurchaseOperationState>();
 
+// A helper type for the Toss IAP error structure
+interface TossIapError {
+  code?: string;
+  message?: string;
+}
+
 export class IapServiceImpl extends IapServiceBase {
   // 1. GetProductItemList
-  async GetProductItemList(_request: GetProductItemListRequest): Promise<GetProductItemListResponse> {
+  async GetProductItemList(): Promise<GetProductItemListResponse> {
     const result = await IAP.getProductItemList();
     if (!result) {
       return { products: [] };
@@ -80,14 +83,15 @@ export class IapServiceImpl extends IapServiceBase {
         }
         state.isFinished = true;
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         const state = purchaseOperationStore.get(operationId);
         if (!state) return;
 
+        const tossError = error as TossIapError; // Type assertion
         state.events.push({
           error: {
-            error_code: error?.code ?? 'UNKNOWN_ERROR',
-            error_message: error?.message ?? 'An unknown error occurred.',
+            error_code: tossError?.code ?? 'UNKNOWN_ERROR',
+            error_message: tossError?.message ?? 'An unknown error occurred.',
           },
         });
         state.isFinished = true;
@@ -119,7 +123,7 @@ export class IapServiceImpl extends IapServiceBase {
   }
 
   // 4. GetPendingOrders
-  async GetPendingOrders(_request: GetPendingOrdersRequest): Promise<GetPendingOrdersResponse> {
+  async GetPendingOrders(): Promise<GetPendingOrdersResponse> {
     const result = await IAP.getPendingOrders();
     if (!result) {
       return { orders: [] };
@@ -133,7 +137,7 @@ export class IapServiceImpl extends IapServiceBase {
   }
 
   // 5. GetCompletedOrRefundedOrders
-  async GetCompletedOrRefundedOrders(_request: GetCompletedOrRefundedOrdersRequest): Promise<GetCompletedOrRefundedOrdersResponse> {
+  async GetCompletedOrRefundedOrders(): Promise<GetCompletedOrRefundedOrdersResponse> {
     const result = await IAP.getCompletedOrRefundedOrders();
     if (!result) {
       return { has_next: false, next_key: "", orders: [] };

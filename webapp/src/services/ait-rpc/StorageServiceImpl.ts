@@ -7,7 +7,6 @@ import type {
   SetItemResponse,
   RemoveItemRequest,
   RemoveItemResponse,
-  ClearItemsRequest,
   ClearItemsResponse
 } from "../../generated/StorageService/StorageService";
 
@@ -27,7 +26,7 @@ export class StorageServiceImpl extends StorageServiceBase {
     return { dummy: true };
   }
 
-  async ClearItems(_request: ClearItemsRequest): Promise<ClearItemsResponse> {
+  async ClearItems(): Promise<ClearItemsResponse> {
     await Storage.clearItems();
     return { dummy: true };
   }

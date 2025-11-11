@@ -18,7 +18,7 @@ namespace AIT.Test
         [Tooltip("Button to trigger the ShowContactsViral RPC.")]
         public Button showContactsViralButton;
 
-        [Tooltip("Text field to log responses from the RPC stream.")]
+        [Tooltip("Text field to log the response from the RPC call.")]
         public Text logText;
 
         void Start()
@@ -28,13 +28,11 @@ namespace AIT.Test
                 Debug.LogError("[ShareServiceTester] ShowContactsViralButton is not assigned.", this);
                 return;
             }
-
             if (logText == null)
             {
                 Debug.LogError("[ShareServiceTester] LogText is not assigned.", this);
                 return;
             }
-
             showContactsViralButton.onClick.AddListener(OnShowContactsViralClicked);
         }
 
@@ -46,18 +44,20 @@ namespace AIT.Test
                 Debug.LogError("[ShareServiceTester] Module ID is not set.");
                 return;
             }
-
             ShowContactsViralFlow().Forget();
         }
 
         private async UniTaskVoid ShowContactsViralFlow()
         {
-            logText.text = $"Starting ShowContactsViral flow with Module ID: {moduleId}";
+            logText.text = $"Calling ShowContactsViral with Module ID: {moduleId}";
             var request = new ShowContactsViralRequest { ModuleId = moduleId };
 
             try
             {
+                // This is now a unary RPC call, not a stream.
                 var response = await AitRpcBridge.Instance.ShareServiceClient.ShowContactsViral(request);
+
+                logText.text += "\nResponse received:";
 
                 switch (response.EventCase)
                 {
@@ -81,10 +81,13 @@ namespace AIT.Test
                         Debug.LogError(errorLog);
                         logText.text += $"\n{errorLog}";
                         break;
+                    
+                    case ShowContactsViralResponse.EventOneofCase.None:
+                        var noneLog = "[None] No event was set in the response.";
+                        Debug.Log(noneLog);
+                        logText.text += $"\n{noneLog}";
+                        break;
                 }
-
-                logText.text += "\nStream finished.";
-                Debug.Log("[ShareServiceTester] Stream finished.");
             }
             catch (Exception e)
             {

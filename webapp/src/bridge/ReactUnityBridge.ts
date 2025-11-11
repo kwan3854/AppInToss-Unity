@@ -23,7 +23,7 @@ export class ReactUnityBridge {
 
     // Listen for messages from Unity
     // Unity will dispatch events with name "WebViewRPC_Message"
-    unityContext.addEventListener("WebViewRPC_Message", (message: any) => {
+    unityContext.addEventListener("WebViewRPC_Message", (message: string) => {
       const messageStr = String(message);
       if (this._onMessageCallback) {
         this._onMessageCallback(messageStr);
