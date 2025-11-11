@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ait.share;
+
+option csharp_namespace = "Ait.Share";
+
+service ShareService {
+  // Shows the contacts viral share screen.
+  // This is a server-streaming RPC that sends events back to the client.
+  rpc ShowContactsViral(ShowContactsViralRequest) returns (stream ShowContactsViralResponse);
+}
+
+message ShowContactsViralRequest {
+  // The module ID from the Apps-in-Toss console.
+  string module_id = 1;
+}
+
+message ShowContactsViralResponse {
+  oneof event {
+    RewardEvent reward = 1;
+    CloseEvent close = 2;
+    ErrorEvent error = 3;
+  }
+}
+
+// Event sent when the user successfully shares and earns a reward.
+// Corresponds to the 'sendViral' event.
+message RewardEvent {
+  float reward_amount = 1;
+  string reward_unit = 2;
+}
+
+// Event sent when the contacts viral module closes.
+// Corresponds to the 'close' event.
+message CloseEvent {
+  string close_reason = 1; // "clickBackButton" or "noReward"
+  int32 sent_rewards_count = 2;
+  optional float sent_reward_amount = 3;
+  optional int32 sendable_rewards_count = 4;
+  optional string reward_unit = 5;
+}
+
+// Event sent when an unexpected error occurs.
+message ErrorEvent {
+    string message = 1;
+}
