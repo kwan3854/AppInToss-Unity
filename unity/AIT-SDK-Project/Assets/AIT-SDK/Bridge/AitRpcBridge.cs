@@ -1,4 +1,5 @@
 using Ait;
+using Ait.Device;
 using Ait.Game;
 using Ait.Iap;
 using Ait.Storage;
@@ -42,6 +43,7 @@ namespace AitBridge.RPC
         private AdServiceClient _adServiceClient;
         private IapServiceClient _iapServiceClient;
         private StorageServiceClient _storageServiceClient;
+        private DeviceServiceClient _deviceServiceClient;
 
         // Public accessor for OpenURL service
         public OpenURLServiceClient OpenURLService => _openURLServiceClient;
@@ -49,6 +51,7 @@ namespace AitBridge.RPC
         public AdServiceClient AdService => _adServiceClient;
         public IapServiceClient IapService => _iapServiceClient;
         public StorageServiceClient StorageService => _storageServiceClient;
+        public DeviceServiceClient DeviceServiceClient => _deviceServiceClient;
 
 
         private void Awake()
@@ -75,6 +78,7 @@ namespace AitBridge.RPC
             _adServiceClient = new AdServiceClient(_rpcClient);
             _iapServiceClient = new IapServiceClient(_rpcClient);
             _storageServiceClient = new StorageServiceClient(_rpcClient);
+            _deviceServiceClient = new DeviceServiceClient(_rpcClient);
 
 
             // Add more service clients here:
