@@ -2,6 +2,7 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 // WebView RPC hook for Unity ↔ React communication
 import { useWebViewRpc } from "./hooks/useWebViewRpc";
 import { useEffect, useState } from "react";
+import { setScreenAwakeMode } from "@apps-in-toss/web-framework";
 
 function App() {
   // 3. useUnityContext에서 provider와 *나머지 컨텍스트*를 분리합니다.
@@ -54,10 +55,9 @@ function App() {
   // This enables Unity to call AIT SDK functions via RPC
   useWebViewRpc(unityContext, isLoaded, "AitRpcBridge");
 
-  // --- Safe Area를 고려한 전체 화면 ---
-  // 100vh(전체 높이) 크기의 컨테이너를 만들고,
-  // AIT SDK가 알려준 'insets' 값을 padding(안쪽 여백)으로 적용합니다.
-  // Unity 컴포넌트는 그 안에서 100%를 채웁니다。
+  // 화면 항상 켜짐 모드 설정 (게임은 화면이 항상 켜져있어야 함)
+  setScreenAwakeMode({ enabled: true });
+
   return (
     <div style={{
       width: '100vw',
