@@ -20,6 +20,8 @@ namespace AitBridge.RPC
         /// </summary>
         [DllImport("__Internal")]
         private static extern void dispatchReactUnityEvent(string eventName, string payload);
+        
+        private const string RPC_EVENT_NAME = "WebViewRPC_Message";
 #endif
 
         public ReactUnityWebGLBridge()
