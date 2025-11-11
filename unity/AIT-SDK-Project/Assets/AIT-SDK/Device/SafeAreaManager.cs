@@ -38,14 +38,11 @@ namespace AIT.Device
                 // Call RPC to get safe area insets from web app
                 var insets = await AitRpcBridge.Instance.DeviceServiceClient.GetSafeAreaInsets(new GetSafeAreaInsetsRequest { Dummy = true });
 
-                // Convert CSS pixels to device pixels
-                float devicePixelRatio = Screen.dpi / 96f; // Standard DPI is 96
-                if (devicePixelRatio == 0) devicePixelRatio = 1; // Fallback if DPI is not available
-
-                float leftPx = insets.Left * devicePixelRatio;
-                float rightPx = insets.Right * devicePixelRatio;
-                float topPx = insets.Top * devicePixelRatio;
-                float bottomPx = insets.Bottom * devicePixelRatio;
+                // The response `insets` from the RPC call are already in DEVICE PIXELS.
+                float leftPx = insets.Left;
+                float rightPx = insets.Right;
+                float topPx = insets.Top;
+                float bottomPx = insets.Bottom;
 
                 // Convert device pixels to Unity UI Canvas units
                 float canvasScaleFactor = _canvas.scaleFactor;
