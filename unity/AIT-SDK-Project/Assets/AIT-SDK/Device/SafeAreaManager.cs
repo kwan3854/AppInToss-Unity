@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
+using Ait.Device;
+using AitBridge.RPC;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +36,7 @@ namespace AIT.Device
             try
             {
                 // Call RPC to get safe area insets from web app
-                var insets = await AIT.RPC.DeviceService.GetSafeAreaInsets(new AIT.RPC.GetSafeAreaInsetsRequest());
+                var insets = await AitRpcBridge.Instance.DeviceServiceClient.GetSafeAreaInsets(new GetSafeAreaInsetsRequest { Dummy = true });
 
                 // Convert CSS pixels to device pixels
                 float devicePixelRatio = Screen.dpi / 96f; // Standard DPI is 96
