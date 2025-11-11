@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AIT.AIT_SDK.ExtensionMethods;
 using Ait.Iap;
 using AitBridge.RPC;
 using Cysharp.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace AIT.AIT_SDK.Test
             Log("Calling GetProductItemList...");
             try
             {
-                var response = await _iapServiceClient.GetProductItemList(new GetProductItemListRequest());
+                var response = await _iapServiceClient.GetProductItemList();
                 Log($"GetProductItemList success: Found {response.Products.Count} products.");
                 foreach (var product in response.Products)
                 {
@@ -125,7 +126,7 @@ namespace AIT.AIT_SDK.Test
             Log("Calling GetPendingOrders...");
             try
             {
-                var response = await _iapServiceClient.GetPendingOrders(new GetPendingOrdersRequest());
+                var response = await _iapServiceClient.GetPendingOrders();
                 Log($"GetPendingOrders success: Found {response.Orders.Count} pending orders.");
                 foreach (var order in response.Orders)
                 {
@@ -165,7 +166,7 @@ namespace AIT.AIT_SDK.Test
             Log("Calling GetCompletedOrRefundedOrders...");
             try
             {
-                var response = await _iapServiceClient.GetCompletedOrRefundedOrders(new GetCompletedOrRefundedOrdersRequest());
+                var response = await _iapServiceClient.GetCompletedOrRefundedOrders();
                 Log($"GetCompletedOrRefundedOrders success: Found {response.Orders.Count} orders. HasNext: {response.HasNext}");
                 foreach (var order in response.Orders)
                 {

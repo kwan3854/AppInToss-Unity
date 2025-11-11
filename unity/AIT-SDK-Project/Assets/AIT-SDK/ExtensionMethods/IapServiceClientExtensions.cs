@@ -17,7 +17,10 @@ namespace AIT.AIT_SDK.ExtensionMethods
         
         public static UniTask<GetCompletedOrRefundedOrdersResponse> GetCompletedOrRefundedOrders(this IapServiceClient client)
         {
-            return client.GetCompletedOrRefundedOrders(new GetCompletedOrRefundedOrdersRequest { NextKey = "" });
+            return client.GetCompletedOrRefundedOrders(new GetCompletedOrRefundedOrdersRequest
+            {
+                NextKey = "empty"
+            });
         }
     }
 }
