@@ -167,7 +167,7 @@ namespace AIT.AIT_SDK.Test
             try
             {
                 var response = await _iapServiceClient.GetCompletedOrRefundedOrders();
-                Log($"GetCompletedOrRefundedOrders success: Found {response.Orders.Count} orders. HasNext: {response.HasNext}");
+                Log($"GetCompletedOrRefundedOrders success: Found {response.Orders.Count} orders. HasNext: {response.HasNext}, NextKey: {response.NextKey}");
                 foreach (var order in response.Orders)
                 {
                     Log($"  - Order ID: {order.OrderId}, SKU: {order.Sku}, Status: {order.Status}");
