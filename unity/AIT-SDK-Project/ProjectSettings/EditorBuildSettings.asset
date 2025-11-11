@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StorageServiceTestScene.unity
     guid: 2ad3fa6948e8b4b5c977a867e204a7e2
+  - enabled: 1
+    path: Assets/Scenes/ShareServiceTestScene.unity
+    guid: a510818bebfc8408087ac0a4dc613d74
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

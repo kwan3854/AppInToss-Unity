@@ -30,6 +30,11 @@ namespace AIT.AIT_SDK.Test
         {
             SceneManager.LoadScene("StorageServiceTestScene");
         }
+        
+        public void LoadShareTestScene()
+        {
+            SceneManager.LoadScene("ShareServiceTestScene");
+        }
 
         public void LoadInitScene()
         {

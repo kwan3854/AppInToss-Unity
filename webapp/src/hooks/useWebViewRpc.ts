@@ -20,6 +20,8 @@ import { StorageService } from '../generated/StorageService/ait_storage_StorageS
 import { StorageServiceImpl } from '../services/ait-rpc/StorageServiceImpl'; // Added
 import { DeviceService } from '../generated/DeviceService/ait_device_DeviceServiceBase';
 import { DeviceServiceImpl } from '../services/ait-rpc/DeviceServiceImpl';
+import { ShareService } from '../generated/ShareService/ait_share_ShareServiceBase';
+import { ShareServiceImpl } from '../services/ait-rpc/ShareServiceImpl';
 import type { UnityContextType } from "../services/ait/types";
 
 /**
@@ -59,6 +61,9 @@ export const useWebViewRpc = (
 
       const deviceServiceDef = DeviceService.bindService(new DeviceServiceImpl());
       rpcServer.addService(deviceServiceDef); // Add DeviceService
+
+      const shareServiceDef = ShareService.bindService(new ShareServiceImpl());
+      rpcServer.addService(shareServiceDef);
 
       // Add more services here as you implement them:
       // const paymentServiceDef = PaymentService.bindService(new PaymentServiceImpl());
