@@ -52,7 +52,7 @@ namespace AIT.Device
             try
             {
                 // Call RPC to get safe area insets (already in device pixels)
-                var insets = await AitRpcBridge.Instance.DeviceServiceClient.GetSafeAreaInsets(new GetSafeAreaInsetsRequest { Dummy = true });
+                var insets = await AitRpcBridge.Instance.DeviceServiceClient.GetSafeAreaInsets();
 
                 InsetsDevicePixels = new Rect(insets.Left, insets.Bottom, insets.Right, insets.Top);
 
