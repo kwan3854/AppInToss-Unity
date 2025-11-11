@@ -69,56 +69,28 @@ namespace AIT.AIT_SDK.Test
                 return;
             }
 
-            Log($"Calling CreateOneTimePurchaseOrder with SKU: {sku}...");
+            Log($"Calling CreateOneTimePurchaseOrder and polling events for SKU: {sku}...");
             try
             {
                 var request = new CreateOneTimePurchaseOrderRequest { Sku = sku };
-                var response = await _iapServiceClient.CreateOneTimePurchaseOrder(request);
-                Log($"CreateOneTimePurchaseOrder success, operation_id: {response.OperationId}");
-                PollPurchaseEvents(response.OperationId).Forget();
+                await foreach (var ev in _iapServiceClient.CreateOrderAsStream(request))
+                {
+                    Log($"  - Polled Event: {ev.EventCase}");
+                    if (ev.EventCase == PurchaseEvent.EventOneofCase.Success)
+                    {
+                        Log($"    Success! Order ID: {ev.Success.OrderId}");
+                    }
+                    else if (ev.EventCase == PurchaseEvent.EventOneofCase.Error)
+                    {
+                        Log($"    Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
+                    }
+                }
+                Log("Finished polling purchase events.");
             }
             catch (Exception e)
             {
-                Log($"CreateOneTimePurchaseOrder exception: {e.Message}");
+                Log($"CreateOrderAsStream exception: {e.Message}");
             }
-        }
-
-        private async UniTaskVoid PollPurchaseEvents(string operationId)
-        {
-            Log($"Starting to poll purchase events for op: {operationId}");
-            var isFinished = false;
-            while (!isFinished)
-            {
-                try
-                {
-                    var pollRequest = new PollPurchaseEventsRequest { OperationId = operationId };
-                    var pollResponse = await _iapServiceClient.PollPurchaseEvents(pollRequest);
-                    isFinished = pollResponse.IsFinished;
-
-                    foreach (var ev in pollResponse.Events)
-                    {
-                        Log($"  - Polled Event: {ev.EventCase}");
-                        if (ev.EventCase == PurchaseEvent.EventOneofCase.Success)
-                        {
-                            Log($"    Success! Order ID: {ev.Success.OrderId}");
-                        }
-                        else if (ev.EventCase == PurchaseEvent.EventOneofCase.Error)
-                        {
-                            Log($"    Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Log($"PollPurchaseEvents exception: {e.Message}");
-                    isFinished = true; // Stop polling on error
-                }
-                if (!isFinished)
-                {
-                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
-                }
-            }
-            Log($"Finished polling purchase events for op: {operationId}");
         }
 
         private async void TestGetPendingOrders()

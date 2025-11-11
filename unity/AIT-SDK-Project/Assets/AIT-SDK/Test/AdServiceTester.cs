@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Ait;
 using AitBridge.RPC;
+using AIT.AIT_SDK.ExtensionMethods; // Added
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,61 +44,28 @@ namespace AIT.AIT_SDK.Test
                 return;
             }
 
-            Log($"Calling LoadAd with AdGroupId: {adGroupId}...");
+            Log($"Calling LoadAd and polling events for AdGroupId: {adGroupId}...");
             try
             {
                 var request = new LoadAdRequest { AdGroupId = adGroupId };
-                var response = await _adServiceClient.LoadAd(request);
-                if (string.IsNullOrEmpty(response.OperationId))
+                await foreach (var ev in _adServiceClient.LoadAdAsStream(request))
                 {
-                    Log("LoadAd failed to start (is it supported?).");
-                    return;
+                    Log($"  - Polled LoadAd Event: {ev.EventCase}");
+                    if (ev.EventCase == LoadAdEvent.EventOneofCase.Loaded)
+                    {
+                        Log($"    Ad Loaded! Response ID: {ev.Loaded.Data.ResponseId}");
+                    }
+                    else
+                    {
+                        Log($"    Event data: {ev}");
+                    }
                 }
-                Log($"LoadAd started, operation_id: {response.OperationId}");
-                PollLoadAdEvents(response.OperationId).Forget();
+                Log("Finished polling LoadAd events.");
             }
             catch (Exception e)
             {
-                Log($"LoadAd exception: {e.Message}");
+                Log($"LoadAdAsStream exception: {e.Message}");
             }
-        }
-
-        private async UniTaskVoid PollLoadAdEvents(string operationId)
-        {
-            Log($"Starting to poll LoadAd events for op: {operationId}");
-            var isFinished = false;
-            while (!isFinished)
-            {
-                try
-                {
-                    var pollRequest = new PollLoadAdEventsRequest { OperationId = operationId };
-                    var pollResponse = await _adServiceClient.PollLoadAdEvents(pollRequest);
-                    isFinished = pollResponse.IsFinished;
-
-                    foreach (var ev in pollResponse.Events)
-                    {
-                        Log($"  - Polled LoadAd Event: {ev.EventCase}");
-                        if (ev.EventCase == LoadAdEvent.EventOneofCase.Loaded)
-                        {
-                            Log($"    Ad Loaded! Response ID: {ev.Loaded.Data.ResponseId}");
-                        }
-                        else
-                        {
-                            Log($"    Event data: {ev}");
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Log($"PollLoadAdEvents exception: {e.Message}");
-                    isFinished = true; // Stop polling on error
-                }
-                if (!isFinished)
-                {
-                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
-                }
-            }
-            Log($"Finished polling LoadAd events for op: {operationId}");
         }
 
         private async void TestShowAd()
@@ -109,61 +77,32 @@ namespace AIT.AIT_SDK.Test
                 return;
             }
 
-            Log($"Calling ShowAd with AdGroupId: {adGroupId}...");
+            Log($"Calling ShowAd and polling events for AdGroupId: {adGroupId}...");
             try
             {
                 var request = new ShowAdRequest { AdGroupId = adGroupId };
-                var response = await _adServiceClient.ShowAd(request);
-                if (string.IsNullOrEmpty(response.OperationId))
+                await foreach (var ev in _adServiceClient.ShowAdAsStream(request))
                 {
-                    Log("ShowAd failed to start (is it supported?).");
-                    return;
+                    Log($"  - Polled ShowAd Event: {ev.EventCase}");
+                    if (ev.EventCase == ShowAdEvent.EventOneofCase.UserEarnedReward)
+                    {
+                        Log($"    User Earned Reward! Type: {ev.UserEarnedReward.UnitType}, Amount: {ev.UserEarnedReward.UnitAmount}");
+                    }
+                    else if (ev.EventCase == ShowAdEvent.EventOneofCase.FailedToShow)
+                    {
+                        Log($"    Ad failed to show.");
+                    }
+                    else
+                    {
+                        Log($"    Event data: {ev}");
+                    }
                 }
-                Log($"ShowAd started, operation_id: {response.OperationId}");
-                PollShowAdEvents(response.OperationId).Forget();
+                Log("Finished polling ShowAd events.");
             }
             catch (Exception e)
             {
-                Log($"ShowAd exception: {e.Message}");
+                Log($"ShowAdAsStream exception: {e.Message}");
             }
-        }
-
-        private async UniTaskVoid PollShowAdEvents(string operationId)
-        {
-            Log($"Starting to poll ShowAd events for op: {operationId}");
-            var isFinished = false;
-            while (!isFinished)
-            {
-                try
-                {
-                    var pollRequest = new PollShowAdEventsRequest { OperationId = operationId };
-                    var pollResponse = await _adServiceClient.PollShowAdEvents(pollRequest);
-                    isFinished = pollResponse.IsFinished;
-
-                    foreach (var ev in pollResponse.Events)
-                    {
-                        Log($"  - Polled ShowAd Event: {ev.EventCase}");
-                        if (ev.EventCase == ShowAdEvent.EventOneofCase.UserEarnedReward)
-                        {
-                            Log($"    User Earned Reward! Type: {ev.UserEarnedReward.UnitType}, Amount: {ev.UserEarnedReward.UnitAmount}");
-                        }
-                        else
-                        {
-                             Log($"    Event data: {ev}");
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Log($"PollShowAdEvents exception: {e.Message}");
-                    isFinished = true; // Stop polling on error
-                }
-                if (!isFinished)
-                {
-                    await UniTask.Delay(TimeSpan.FromSeconds(1)); // Poll every second
-                }
-            }
-            Log($"Finished polling ShowAd events for op: {operationId}");
         }
 
         private void Log(string message)
