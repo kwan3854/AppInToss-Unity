@@ -35,9 +35,9 @@ message RewardEvent {
 message CloseEvent {
   string close_reason = 1; // "clickBackButton" or "noReward"
   int32 sent_rewards_count = 2;
-  optional float sent_reward_amount = 3;
-  optional int32 sendable_rewards_count = 4;
-  optional string reward_unit = 5;
+  float sent_reward_amount = 3;
+  int32 sendable_rewards_count = 4;
+  string reward_unit = 5;
 }
 
 // Event sent when an unexpected error occurs.
