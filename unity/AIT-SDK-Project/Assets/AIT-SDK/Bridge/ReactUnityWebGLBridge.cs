@@ -22,8 +22,6 @@ namespace AitBridge.RPC
         private static extern void dispatchReactUnityEvent(string eventName, string payload);
 #endif
 
-        private const string RPC_EVENT_NAME = "WebViewRPC_Message";
-
         public ReactUnityWebGLBridge()
         {
             Debug.Log("[ReactUnityWebGLBridge] Bridge initialized");
@@ -39,7 +37,7 @@ namespace AitBridge.RPC
             dispatchReactUnityEvent(RPC_EVENT_NAME, message);
             Debug.Log($"[ReactUnityWebGLBridge] Sent message to React (length: {message.Length})");
 #else
-            Debug.LogWarning($"[ReactUnityWebGLBridge] WebGL only. Would send message: {message.Substring(0, Math.Min(50, message.Length))}...");
+            // Debug.LogWarning($"[ReactUnityWebGLBridge] WebGL only. Would send message: {message.Substring(0, Math.Min(50, message.Length))}...");
 #endif
         }
 
