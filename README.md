@@ -1,162 +1,252 @@
-# AppInToss Unity Template
+# AIT Unity SDK (Toss 연동 템플릿)
 
-**Unity WebGL + React 통합 템플릿**
+[![GitHub Actions Status](https://github.com/kwanjoong/AppInToss-Unity/actions/workflows/generate-protobuf.yml/badge.svg)](https://github.com/kwanjoong/AppInToss-Unity/actions/workflows/generate-protobuf.yml)
 
-Unity WebGL을 React 웹앱에 임베드하고, AIT (Apps in Toss) SDK와 통합하여 Toss 앱 환경에서 Unity 게임/앱을 실행할 수 있게 하는 템플릿 프로젝트입니다.
+## 📌 개요
 
-## 🎯 주요 기능
+이 프로젝트는 Unity WebGL 빌드를 토스 앱 내 웹뷰에서 실행되는 React 웹앱에 통합하기 위한 템플릿 및 가이드입니다. `app-webview-rpc`를 기반으로 Protobuf를 사용하여 Unity(C#)와 React(TypeScript) 간의 타입-세이프(type-safe)한 양방향 통신을 구현하는 방법을 제시합니다.
 
-- ✅ **Unity WebGL ↔ React 브릿지**: 양방향 통신 시스템
-- ✅ **AIT SDK 통합**: Toss 앱의 네이티브 기능 사용 (openURL, payment 등)
-- ✅ **서비스 기반 아키텍처**: 확장 가능한 모듈형 구조
-- ✅ **타입 안전성**: TypeScript + C# 강타입 시스템
-- ✅ **Safe Area 지원**: 노치/홈 인디케이터 대응
+이 저장소는 별도의 npm 패키지로 제공될 계획은 없으며, 전체를 클론하여 사용하거나 필요한 부분을 참고하여 사용하는 것을 권장합니다.
 
-## 📁 프로젝트 구조
+## ✨ 주요 기술
 
-```
-AppInTossUnity/
-├── webapp/              # React 웹앱 (템플릿)
-│   ├── src/
-│   │   ├── hooks/       # React 훅 (브릿지)
-│   │   ├── services/    # AIT SDK 서비스
-│   │   └── App.tsx      # Unity 로더
-│   └── public/
-│       └── unity-build/ # Unity WebGL 빌드 출력
-│
-├── unity/               # Unity 샘플 프로젝트 (사용자 생성)
-│   └── Assets/
-│       └── Scripts/     # C# 브릿지 & 서비스
-│
-├── unity-code/          # Unity 코드 템플릿 (복사용)
-│   ├── Bridge/          # 브릿지 시스템
-│   ├── Services/        # 서비스 구현
-│   └── Test/            # 테스트 UI
-│
-└── ARCHITECTURE.md      # 아키텍처 문서
-```
+- **Unity (C#)**: 게임 클라이언트
+- **React (TypeScript)**: 웹 프론트엔드 및 토스 앱 브릿지 연동
+- **Protobuf**: Unity-React 간 통신을 위한 스키마 정의
+- **WebView-RPC**: Protobuf 기반의 RPC 프레임워크
+- **GitHub Actions**: Protobuf 파일 변경 시 C# 및 TypeScript 코드를 자동 생성
 
-## 🚀 빠른 시작
+## 🚀 시작하기
 
-### 1. React 웹앱 실행
+### 1. 웹앱 설정 (React)
 
-```bash
-cd webapp
-npm install
-npm run dev
-```
+1.  **프로젝트 가져오기**
+    이 저장소 전체를 클론하거나, `webapp` 서브 폴더만 복사하여 기존 React 프로젝트에 통합할 수 있습니다.
 
-→ `http://localhost:5173` 접속
+    ```bash
+    # webapp 폴더로 이동
+    cd webapp
+    # 의존성 설치
+    npm install
+    ```
 
-### 2. Unity 프로젝트 설정
+2.  **설정 파일 수정**
+    `webapp/granite.config.ts` 파일을 열어 자신의 토스 앱 설정에 맞게 `appId`, `displayName` 등을 수정합니다.
 
-1. Unity Hub에서 새 프로젝트 생성 (`unity/` 폴더)
-2. `unity-code/` 폴더 내용을 `unity/Assets/Scripts/`로 복사
-3. Scene에 `AitSdkBridge` GameObject 생성
-4. WebGL로 빌드 → `webapp/public/unity-build/`
+3.  **[선택] UI 커스터마이징**
+    필요에 따라 `webapp/src/App.tsx` 파일을 수정하여 원하는 UI와 기능을 구성할 수 있습니다.
 
-자세한 설정은 [`unity-code/SETUP.md`](./unity-code/SETUP.md) 참고
+4.  **Unity 빌드 결과물 연동**
+    -   Unity에서 WebGL 빌드를 완료합니다.
+    -   빌드 결과물 4개 (`.data`, `.framework`, `.loader`, `.wasm`) 파일을 `webapp/public/assets/` 폴더에 복사합니다.
+    -   `webapp/src/App.tsx` 파일 내에서 Unity 빌드 파일명이 올바르게 지정되었는지 확인하고, 다를 경우 수정합니다.
 
-### 3. 통합 테스트
+### 2. Unity SDK 설정
 
-1. Unity WebGL 빌드
-2. `webapp/src/App.tsx`에서 빌드 파일 경로 수정
-3. `npm run dev` 실행
-4. 브라우저에서 Unity 로드 및 통신 테스트
+1.  **NuGetForUnity 설치**
+    Unity 프로젝트에서 `GlitchEnzo/NuGetForUnity`를 Unity Package Manager를 통해 설치합니다.
+    -   Package Manager > "Add package from git URL..." 선택
+    -   `https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src` 입력
 
-## 📚 문서
+2.  **Google.Protobuf 설치**
+    -   NuGetForUnity 설치 후 상단 메뉴 `NuGet` > `Manage NuGet Packages`를 엽니다.
+    -   `Google.Protobuf`를 검색하여 최신 버전을 설치합니다.
 
-- **전체 아키텍처**: [`ARCHITECTURE.md`](./ARCHITECTURE.md)
-- **React 가이드**: [`webapp/README.md`](./webapp/README.md)
-- **Unity 가이드**: [`unity-code/README.md`](./unity-code/README.md)
-- **Unity 설정**: [`unity-code/SETUP.md`](./unity-code/SETUP.md)
+3.  **AIT-SDK 패키지 설치**
+    -   `OpenUPM-CLI`가 설치되어 있어야 합니다. (`npm install -g openupm-cli`)
+    -   프로젝트 루트에서 다음 명령어를 실행합니다. (의존성을 자동으로 해결해줍니다.)
+    ```bash
+    openupm add com.kwanjoong.ait-sdk
+    ```
 
-## 🏗️ 아키텍처 개요
+4.  **AitSdkBridge 설정**
+    -   Unity의 시작 씬(Scene)의 최상위(root)에 `AitSdkBridge`라는 이름으로 빈 게임 오브젝트를 생성합니다. (이름이 정확해야 합니다.)
+    -   생성된 게임 오브젝트에 `AitRpcBridge` 컴포넌트를 부착합니다.
+    -   이 오브젝트는 게임 시작 시 자동으로 `DontDestroyOnLoad`로 전환되어 게임 세션 동안 RPC 통신을 관리합니다.
 
-### React ↔ Unity 통신 흐름
+## 📚 SDK 사용법
 
-```
-Unity (C#)                React (TypeScript)
-    │                           │
-    │  1. Service Call          │
-    ├──────────────────────────>│
-    │  dispatchReactUnityEvent  │
-    │                           │
-    │  2. AIT SDK Call          │
-    │                      ┌────┤
-    │                      │ AIT│ openURL, payment, etc.
-    │                      └────┤
-    │                           │
-    │  3. Callback              │
-    │<──────────────────────────┤
-    │  SendMessage              │
+모든 RPC 서비스는 `AitRpcBridge` 싱글톤을 통해 접근할 수 있습니다.
+
+```csharp
+// AitRpcBridge는 싱글톤 인스턴스를 제공합니다.
+var iapService = AitRpcBridge.Instance.IapService;
+var adService = AitRpcBridge.Instance.AdService;
+// ...etc
 ```
 
-### 서비스 기반 설계
+### DeviceService (기기 정보)
 
-- **React 측**: `services/ait/` - 각 AIT SDK 기능을 독립 서비스로 구현
-- **Unity 측**: `Services/` - 각 기능별 C# 서비스 클래스
-- **브릿지**: 순수 라우팅 역할, 비즈니스 로직 없음
+**Safe Area (안전 영역) 적용**
 
-## 🔧 새 서비스 추가하기
+`SafeAreaManager`가 게임 시작 시 자동으로 기기의 Safe Area 값을 가져와 캐싱합니다. 실제 UI에 적용하려면, Safe Area를 적용할 UI Panel 게임 오브젝트에 `SafeAreaPanel` 컴포넌트를 부착하기만 하면 됩니다.
 
-### React 측 (3단계)
+1.  **매니저 설정**: 시작 씬의 `AitSdkBridge` 또는 다른 매니저 오브젝트에 `SafeAreaManager` 컴포넌트를 부착합니다.
+2.  **패널 적용**: 안전 영역을 적용할 모든 UI Panel에 `SafeAreaPanel` 컴포넌트를 부착합니다.
 
-1. `webapp/src/services/ait/payment.ts` 생성
-2. `AitService` 인터페이스 구현
-3. `services/ait/index.ts`의 `aitServices` 배열에 추가
+### StorageService (영구 저장소)
 
-### Unity 측 (3단계)
+토스 앱 내에서 Key-Value 기반으로 데이터를 영구적으로 저장하고 불러옵니다.
 
-1. `unity/Assets/Scripts/Services/PaymentService.cs` 생성
-2. `IAitService` 인터페이스 구현
-3. `AitSdkBridge.cs`의 `Awake()`에서 `RegisterService()` 호출
+```csharp
+using AitBridge.RPC;
+using AIT.AIT_SDK.ExtensionMethods; // 확장 메서드 using 필수!
+using Cysharp.Threading.Tasks;
 
-→ 완료! 브릿지가 자동으로 통신 처리
+// 데이터 저장
+await AitRpcBridge.Instance.StorageService.SetItem(new () { Key = "BestScore", Value = "100" });
 
-## 🎮 현재 구현된 서비스
+// 데이터 불러오기
+var response = await AitRpcBridge.Instance.StorageService.GetItem(new () { Key = "BestScore" });
+string score = response.Value; // "100"
 
-| 서비스 | Event Name | 설명 |
-|--------|------------|------|
-| OpenURL | `AIT_OpenURL` | URL을 브라우저에서 열기 |
+// 데이터 삭제
+await AitRpcBridge.Instance.StorageService.RemoveItem(new () { Key = "BestScore" });
 
-## 🚧 향후 추가 예정
+// 전체 데이터 삭제
+await AitRpcBridge.Instance.StorageService.ClearItems();
+```
 
-- [ ] Payment Service (인앱 결제)
-- [ ] Share Service (공유하기)
-- [ ] User Info Service (사용자 정보)
-- [ ] Analytics Service (분석)
-- [ ] Notification Service (알림)
-- [ ] WebView RPC 통합 (Protobuf 기반)
+### IAPService (인앱 결제)
 
-## 🛠️ 기술 스택
+`CreateOrderAsStream` 확장 메서드를 통해 결제 과정을 `await foreach`로 간결하게 처리할 수 있습니다.
 
-### React 웹앱
-- React 19 + TypeScript
-- Vite (빌드 도구)
-- react-unity-webgl (Unity 통합)
-- @apps-in-toss/web-framework (AIT SDK)
+```csharp
+using Ait.Iap;
+using AitBridge.RPC;
+using AIT.AIT_SDK.ExtensionMethods; // 확장 메서드 using 필수!
+using Cysharp.Threading.Tasks;
 
-### Unity
-- Unity 2021.3+ (LTS)
-- WebGL Platform
-- C# (.NET Standard 2.1)
+public class IapTest : MonoBehaviour
+{
+    public async UniTask TestPurchase(string sku)
+    {
+        var request = new CreateOneTimePurchaseOrderRequest { Sku = sku };
 
-## 📝 라이선스
+        try
+        {
+            await foreach (var ev in AitRpcBridge.Instance.IapService.CreateOrderAsStream(request))
+            {
+                switch (ev.EventCase)
+                {
+                    case PurchaseEvent.EventOneofCase.Success:
+                        Debug.Log($"Purchase Success! Order ID: {ev.Success.OrderId}");
+                        // 여기서 게임 아이템 지급 처리
+                        break;
+                    
+                    case PurchaseEvent.EventOneofCase.Error:
+                        Debug.LogError($"Purchase Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
+                        break;
+                }
+            }
+            Debug.Log("Purchase flow finished.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Purchase stream failed: {e.Message}");
+        }
+    }
+}
+```
 
-MIT License
+### AdService (광고)
 
-## 🤝 기여
+광고 로드 및 표시 과정을 `...AsStream` 확장 메서드를 통해 이벤트 스트림으로 받을 수 있습니다.
 
-이슈와 PR을 환영합니다!
+```csharp
+using Ait.Ad;
+using AitBridge.RPC;
+using AIT.AIT_SDK.ExtensionMethods; // 확장 메서드 using 필수!
+using Cysharp.Threading.Tasks;
 
-1. Fork this repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+public class AdTest : MonoBehaviour
+{
+    public async UniTask TestShowAd(string adGroupId)
+    {
+        var request = new ShowAdRequest { AdGroupId = adGroupId };
 
-## 📮 문의
+        try
+        {
+            await foreach (var ev in AitRpcBridge.Instance.AdService.ShowAdAsStream(request))
+            {
+                switch (ev.EventCase)
+                {
+                    case ShowAdEvent.EventOneofCase.UserEarnedReward:
+                        Debug.Log($"User Earned Reward! Type: {ev.UserEarnedReward.UnitType}, Amount: {ev.UserEarnedReward.UnitAmount}");
+                        // 리워드 지급 로직
+                        break;
 
-프로젝트 관련 문의사항은 Issues를 통해 남겨주세요.
+                    case ShowAdEvent.EventOneofCase.Dismissed:
+                        Debug.Log("Ad was dismissed.");
+                        break;
 
+                    case ShowAdEvent.EventOneofCase.FailedToShow:
+                        Debug.Log("Ad failed to show.");
+                        break;
+                }
+            }
+            Debug.Log("Ad flow finished.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"ShowAdAsStream failed: {e.Message}");
+        }
+    }
+}
+```
+
+### ShareService (공유 및 리워드)
+
+공유하기 기능을 호출하고, 그 결과를 단일 응답으로 받습니다.
+
+```csharp
+using Ait.Share;
+using AitBridge.RPC;
+using Cysharp.Threading.Tasks;
+
+public class ShareTest : MonoBehaviour
+{
+    public async UniTask TestShare(string moduleId)
+    {
+        var request = new ShowContactsViralRequest { ModuleId = moduleId };
+        try
+        {
+            var response = await AitRpcBridge.Instance.ShareService.ShowContactsViral(request);
+            
+            switch (response.EventCase)
+            {
+                case ShowContactsViralResponse.EventOneofCase.Reward:
+                    Debug.Log($"Share Reward! Amount: {response.Reward.RewardAmount}, Unit: {response.Reward.RewardUnit}");
+                    break;
+                case ShowContactsViralResponse.EventOneofCase.Close:
+                    Debug.Log($"Share Closed! Reason: {response.Close.CloseReason}, Sent Count: {response.Close.SentRewardsCount}");
+                    break;
+                case ShowContactsViralResponse.EventOneofCase.Error:
+                    Debug.LogError($"Share Error: {response.Error.Message}");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"ShowContactsViral RPC failed: {e.Message}");
+        }
+    }
+}
+```
+
+## 📐 아키텍처
+
+이 프로젝트는 Protobuf를 이용한 코드 생성 기반의 RPC 아키텍처를 사용합니다.
+
+1.  `proto/` 폴더 내의 `.proto` 파일에 서비스와 메시지를 정의합니다.
+2.  변경사항을 Git에 Push하면, GitHub Action이 `.github/workflows/generate-protobuf.yml` 워크플로우를 실행합니다.
+3.  워크플로우는 `protoc-gen-webviewrpc` 코드 생성기를 사용하여 Unity용 C# 코드와 React용 TypeScript 코드를 자동으로 생성하고, `generated-code` 브랜치에 커밋합니다.
+4.  개발자는 `generated-code` 브랜치의 변경사항을 자신의 개발 브랜치로 가져와(`pull` 또는 `cherry-pick`) 구현을 계속합니다.
+
+## 🤝 기여하기
+
+프로젝트에 기여하고 싶으시다면, 이슈를 생성하거나 Pull Request를 보내주세요.
+
+## 📜 라이선스
+
+이 프로젝트는 [MIT License](LICENSE.txt)를 따릅니다.
