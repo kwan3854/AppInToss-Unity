@@ -56,11 +56,14 @@ namespace AitBridge.RPC
         // Public accessor for OpenURL service
         public OpenURLServiceClient OpenURLService => _openURLServiceClient;
         public GameServiceClient GameService => _gameServiceClient;
-        public AdServiceClient AdService => _adServiceClient;
-        public IapServiceClient IapService => _iapServiceClient;
+        internal AdServiceClient AdService => _adServiceClient;
+        internal IapServiceClient IapService => _iapServiceClient;
         public StorageServiceClient StorageService => _storageServiceClient;
         public DeviceServiceClient DeviceServiceClient => _deviceServiceClient;
         public ShareServiceClient ShareServiceClient => _shareServiceClient;
+
+        public AppsInTossAdUseCase Ads => AppsInTossAdUseCase.Instance;
+        public AppsInTossIapUseCase Iaps => AppsInTossIapUseCase.Instance;
         public AppsInTossMonetizationConfig MonetizationConfig => monetizationConfig;
         public event Action<bool> HostVisibilityChanged;
 

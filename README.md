@@ -66,14 +66,20 @@
 
 ## 📚 SDK 사용법
 
-모든 RPC 서비스는 `AitRpcBridge` 싱글톤을 통해 접근할 수 있습니다.
+모든 기능은 `AitRpcBridge` 싱글톤을 통해 접근합니다.
 
 ```csharp
 // AitRpcBridge는 싱글톤 인스턴스를 제공합니다.
-var iapService = AitRpcBridge.Instance.IapService;
-var adService = AitRpcBridge.Instance.AdService;
-// ...etc
+var ads = AitRpcBridge.Instance.Ads;   // 고수준 광고 유즈케이스
+var iaps = AitRpcBridge.Instance.Iaps; // 고수준 IAP 유즈케이스
+var storageService = AitRpcBridge.Instance.StorageService; // 저수준 RPC 클라이언트 (필요 시)
 ```
+
+> **레이어 안내**
+>
+> 1. **UseCase Layer (권장)** – `Ads`, `Iaps`처럼 프로젝트에서 바로 호출할 진입점입니다. 토스 정책 준수 로직이 포함된 모범 구현입니다.
+> 2. **Generated RPC Layer** – `AdServiceClient`, `IapServiceClient` 등 자동 생성된 Stub. 특수한 커스터마이징이 필요할 때만 사용하세요.
+> 3. **Extension Methods** – RPC 호출 패턴을 단순화한 Helper (`ShowAdAsStream` 등). 고급 섹션에서 소개합니다.
 
 ### DeviceService (기기 정보)
 
@@ -107,14 +113,54 @@ await AitRpcBridge.Instance.StorageService.RemoveItem(new () { Key = "BestScore"
 await AitRpcBridge.Instance.StorageService.ClearItems();
 ```
 
-### IAPService (인앱 결제)
+### IAP (AppsInTossIapUseCase)
 
-`CreateOrderAsStream` 확장 메서드를 통해 결제 과정을 `await foreach`로 간결하게 처리할 수 있습니다.
+`AitRpcBridge.Instance.Iaps`를 통해 접근합니다. 리모트 카탈로그, 커스텀 Spot 정보, 결제 플로우를 한 곳에서 책임집니다.
+
+```csharp
+using AIT.AIT_SDK.Bridge;
+using Cysharp.Threading.Tasks;
+
+public class ShopPanel : MonoBehaviour
+{
+    public async UniTask InitializeAsync()
+    {
+        // 1) Toss 리모트 카탈로그로 상점 리스트 렌더링
+        var catalog = await AitRpcBridge.Instance.Iaps.GetRemoteCatalogAsync();
+        RenderStore(catalog);
+
+        // 2) 특정 Spot(예: remove_ads_button) 노출
+        var curated = await AitRpcBridge.Instance.Iaps.GetCuratedProductAsync("remove_ads_button");
+        if (curated != null)
+        {
+            RenderFeaturedTile(curated.Value);
+        }
+    }
+
+    public async UniTask PurchaseRemoveAdsAsync()
+    {
+        var result = await AitRpcBridge.Instance.Iaps.PurchaseCuratedSpotAsync("remove_ads_button");
+        if (result.IsSuccess)
+        {
+            UnlockRemoveAds();
+        }
+        else
+        {
+            ShowPurchaseError(result.ErrorEvent?.ErrorMessage);
+        }
+    }
+}
+```
+
+UseCase는 내부적으로 Toss `GetProductItemList` / `CreateOneTimePurchaseOrder` / `PollPurchaseEvents`를 호출하고, ScriptableObject(`AppsInTossMonetizationConfig.asset`)에 등록된 SKU 정보를 참고합니다.
+
+<details>
+<summary>🔧 고급: 로우 레벨 RPC 직접 사용</summary>
 
 ```csharp
 using Ait.Iap;
 using AitBridge.RPC;
-using AIT.AIT_SDK.ExtensionMethods; // 확장 메서드 using 필수!
+using AIT.AIT_SDK.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 
 public class IapTest : MonoBehaviour
@@ -131,9 +177,7 @@ public class IapTest : MonoBehaviour
                 {
                     case PurchaseEvent.EventOneofCase.Success:
                         Debug.Log($"Purchase Success! Order ID: {ev.Success.OrderId}");
-                        // 여기서 게임 아이템 지급 처리
                         break;
-                    
                     case PurchaseEvent.EventOneofCase.Error:
                         Debug.LogError($"Purchase Error! Code: {ev.Error.ErrorCode}, Msg: {ev.Error.ErrorMessage}");
                         break;
@@ -149,14 +193,43 @@ public class IapTest : MonoBehaviour
 }
 ```
 
-### AdService (광고)
+</details>
 
-광고 로드 및 표시 과정을 `...AsStream` 확장 메서드를 통해 이벤트 스트림으로 받을 수 있습니다.
+### Ads (AppsInTossAdUseCase)
+
+`AitRpcBridge.Instance.Ads`가 광고 호출과 Toss 규정 준수를 모두 담당합니다.
+
+```csharp
+using AIT.AIT_SDK.Bridge;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+public class RewardedButton : MonoBehaviour
+{
+    public async void OnClick()
+    {
+        var result = await AitRpcBridge.Instance.Ads.ShowRewardedAsync();
+        if (result.IsRewardGranted)
+        {
+            GrantReward();
+        }
+        else if (result.Status == AppsInTossAdStatus.FailedToShow)
+        {
+            ShowRetryPopup();
+        }
+    }
+}
+```
+
+광고 재생 중 `Time.timeScale`/`AudioListener.pause`를 어떻게 처리할지는 `AppsInTossMonetizationConfig`의 토글에 따라 자동으로 결정됩니다. Toss WebView가 숨겨졌을 때의 처리 역시 같은 설정을 따릅니다.
+
+<details>
+<summary>🔧 고급: 로우 레벨 RPC 직접 사용</summary>
 
 ```csharp
 using Ait.Ad;
 using AitBridge.RPC;
-using AIT.AIT_SDK.ExtensionMethods; // 확장 메서드 using 필수!
+using AIT.AIT_SDK.ExtensionMethods;
 using Cysharp.Threading.Tasks;
 
 public class AdTest : MonoBehaviour
@@ -173,13 +246,10 @@ public class AdTest : MonoBehaviour
                 {
                     case ShowAdEvent.EventOneofCase.UserEarnedReward:
                         Debug.Log($"User Earned Reward! Type: {ev.UserEarnedReward.UnitType}, Amount: {ev.UserEarnedReward.UnitAmount}");
-                        // 리워드 지급 로직
                         break;
-
                     case ShowAdEvent.EventOneofCase.Dismissed:
                         Debug.Log("Ad was dismissed.");
                         break;
-
                     case ShowAdEvent.EventOneofCase.FailedToShow:
                         Debug.Log("Ad failed to show.");
                         break;
@@ -194,6 +264,8 @@ public class AdTest : MonoBehaviour
     }
 }
 ```
+
+</details>
 
 ## 💰 수익화 구성 (Ads & IAP)
 
@@ -216,10 +288,14 @@ public class AdTest : MonoBehaviour
   - `Pause Time During Ads`, `Mute Audio During Ads`: 광고 재생 동안 `Time.timeScale`과 오디오를 어떻게 처리할지 선택.
   - `Pause Time When Host Hidden`, `Mute Audio When Host Hidden`: 사용자가 홈 버튼·잠금 등으로 WebView 화면을 벗어났을 때의 처리.
 
+> **참고**: 광고/IAP용 저수준 RPC 클라이언트(`AdServiceClient`, `IapServiceClient`)는 패키지 내부에서만 사용되며, 게임 코드는 반드시 UseCase 계층을 통해 접근합니다.
+
 ### 2. AppsInTossAdUseCase (통합 광고 진입점)
 
+`AitRpcBridge.Instance.Ads`를 통해 언제든 접근할 수 있습니다. (직접 `AppsInTossAdUseCase.Instance`를 호출할 필요가 없습니다.)
+
 ```csharp
-var adResult = await AppsInTossAdUseCase.Instance.ShowRewardedAsync();
+var adResult = await AitRpcBridge.Instance.Ads.ShowRewardedAsync();
 if (adResult.IsRewardGranted)
 {
     GrantRewardToPlayer();
@@ -232,19 +308,21 @@ if (adResult.IsRewardGranted)
 
 ### 3. AppsInTossIapUseCase (리모트 카탈로그 + 커스텀 노출)
 
+`AitRpcBridge.Instance.Iaps`를 통해 접근합니다.
+
 ```csharp
 // 1) 상점 전체 목록 (리모트 카탈로그)
-var catalog = await AppsInTossIapUseCase.Instance.GetRemoteCatalogAsync();
+var catalog = await AitRpcBridge.Instance.Iaps.GetRemoteCatalogAsync();
 
 // 2) 특정 Spot (예: remove_ads 버튼)
-var curated = await AppsInTossIapUseCase.Instance.GetCuratedProductAsync("remove_ads_button");
+var curated = await AitRpcBridge.Instance.Iaps.GetCuratedProductAsync("remove_ads_button");
 if (curated != null)
 {
     RenderCustomCard(curated.Value);
 }
 
 // 3) 구매
-var result = await AppsInTossIapUseCase.Instance.PurchaseCuratedSpotAsync("remove_ads_button");
+var result = await AitRpcBridge.Instance.Iaps.PurchaseCuratedSpotAsync("remove_ads_button");
 ```
 
 - **리모트 카탈로그**: Toss에서 내려주는 상품 리스트/이미지/가격을 그대로 UI에 뿌릴 때 사용합니다.
