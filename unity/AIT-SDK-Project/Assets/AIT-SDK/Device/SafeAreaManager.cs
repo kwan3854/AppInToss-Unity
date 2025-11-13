@@ -24,9 +24,7 @@ namespace AIT.Device
         /// </summary>
         public bool IsInitialized { get; private set; }
 
-        private UniTask _initializationTask;
-
-        private void Awake()
+        private async void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -36,7 +34,7 @@ namespace AIT.Device
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _initializationTask = Initialize();
+            await Initialize();
         }
 
         /// <summary>
@@ -44,20 +42,41 @@ namespace AIT.Device
         /// </summary>
         public async UniTask WaitUntilInitialized()
         {
-            await _initializationTask;
+            await UniTask.WaitUntil(() => IsInitialized);
         }
 
+        [Obsolete("Obsolete")]
         private async UniTask Initialize()
         {
             try
             {
+#if UNITY_WEBGL && !UNITY_EDITOR
                 // Call RPC to get safe area insets (already in device pixels)
                 var insets = await AitRpcBridge.Instance.DeviceServiceClient.GetSafeAreaInsets();
 
                 InsetsDevicePixels = new Rect(insets.Left, insets.Bottom, insets.Right, insets.Top);
 
                 IsInitialized = true;
+#else
+                // In editor/standalone we calculate insets from Unity's Screen.safeArea.
+                // Screen.safeArea is already in pixel coordinates and represents the safe rect,
+                // so we need to convert that rect into edge insets (left/bottom/right/top).
+                var safeArea = Screen.safeArea;
+                var screenWidth = Screen.width;
+                var screenHeight = Screen.height;
+
+                var left = safeArea.xMin;
+                var bottom = safeArea.yMin;
+                var right = Mathf.Max(0f, screenWidth - safeArea.xMax);
+                var top = Mathf.Max(0f, screenHeight - safeArea.yMax);
+
+                InsetsDevicePixels = new Rect(left, bottom, right, top);
+
+                IsInitialized = true;
+#endif
                 Debug.Log($"[SafeAreaManager] Initialized. Insets (Device Pixels): {InsetsDevicePixels}");
+
+                await UniTask.CompletedTask;
             }
             catch (Exception e)
             {
