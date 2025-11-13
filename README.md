@@ -195,6 +195,90 @@ public class AdTest : MonoBehaviour
 }
 ```
 
+## 💰 수익화 구성 (Ads & IAP)
+
+### 1. AppsInTossMonetizationConfig (ScriptableObject)
+
+`Assets/AppsInTossMonetizationConfig.asset`은 광고 그룹 ID와 커스텀 IAP 노출을 한 곳에서 관리하는 중앙 설정입니다.
+
+- **Ad Group IDs**
+  - `Interstitial Ad Group Id`: 모든 중간 광고가 사용할 Toss `adGroupId`.
+  - `Rewarded Ad Group Id`: 모든 보상형 광고의 `adGroupId`.
+- **Curated IAP Spots** (Spot 리스트는 원하는 만큼 추가 가능)
+  - `Spot ID`: 게임 코드가 참조하는 로컬 식별자 (`remove_ads_button`, `gem_shop_featured` 등).
+  - `Product ID`: Toss 대시보드에서 발급 받은 SKU. 결제 요청 시 이 값이 전달됩니다.
+  - `Icon`: Toss에서 내려주는 이미지 대신 클라이언트가 쓰고 싶은 스프라이트.
+  - `Title Override`: 노출명 커스터마이징 (미입력 시 Toss `display_name` 사용).
+  - `Subtitle`: 보조 설명(“광고 제거”, “베스트 밸류” 등).
+  - `Call To Action Override`: 버튼 라벨 지정 (“구매”, “충전하기” 등).
+  - `Highlight Color`: 카드/뱃지에 사용할 포인트 색상.
+- **Playback Behavior Toggles**
+  - `Pause Time During Ads`, `Mute Audio During Ads`: 광고 재생 동안 `Time.timeScale`과 오디오를 어떻게 처리할지 선택.
+  - `Pause Time When Host Hidden`, `Mute Audio When Host Hidden`: 사용자가 홈 버튼·잠금 등으로 WebView 화면을 벗어났을 때의 처리.
+
+### 2. AppsInTossAdUseCase (통합 광고 진입점)
+
+```csharp
+var adResult = await AppsInTossAdUseCase.Instance.ShowRewardedAsync();
+if (adResult.IsRewardGranted)
+{
+    GrantRewardToPlayer();
+}
+```
+
+- `ShowInterstitialAsync`, `ShowRewardedAsync` 두 메서드만 노출됩니다.
+- 어떤 `adGroupId`를 쓸지, 광고 중에 시간을 멈출지/음소거할지는 ScriptableObject 설정을 그대로 따릅니다.
+- 내부적으로 `AppsInTossPlaybackPause`를 사용해 `Time.timeScale`과 `AudioListener.pause`를 안전하게 참조 카운트 방식으로 관리하므로, 다른 시스템과 충돌하지 않습니다.
+
+### 3. AppsInTossIapUseCase (리모트 카탈로그 + 커스텀 노출)
+
+```csharp
+// 1) 상점 전체 목록 (리모트 카탈로그)
+var catalog = await AppsInTossIapUseCase.Instance.GetRemoteCatalogAsync();
+
+// 2) 특정 Spot (예: remove_ads 버튼)
+var curated = await AppsInTossIapUseCase.Instance.GetCuratedProductAsync("remove_ads_button");
+if (curated != null)
+{
+    RenderCustomCard(curated.Value);
+}
+
+// 3) 구매
+var result = await AppsInTossIapUseCase.Instance.PurchaseCuratedSpotAsync("remove_ads_button");
+```
+
+- **리모트 카탈로그**: Toss에서 내려주는 상품 리스트/이미지/가격을 그대로 UI에 뿌릴 때 사용합니다.
+- **Curated Spot**: 특정 UI 위치(예: 홈 화면 광고 제거 버튼)에 대해, 현지화·강조 색상 등을 커스터마이징하면서도 실제 결제는 Toss SKU와 1:1로 연결됩니다.
+- **결제 흐름**: `PurchaseCuratedSpotAsync`가 주문 생성 → 이벤트 폴링 → 성공/실패 반환까지 전부 처리하며, `PurchaseCompleted` 이벤트로도 결과를 수신할 수 있습니다.
+
+### 4. WebView 가시성 & 자동 재생 제어
+
+토스 정책상 WebView가 화면에 보이지 않는 동안에는 게임이 자동으로 멈추고 소리가 나지 않아야 합니다. 이를 위해 React/Unity 양쪽에 훅을 추가했습니다.
+
+```tsx
+// webapp/src/App.tsx
+useEffect(() => {
+  const notify = (state: "hidden" | "visible") =>
+    unityContext.sendMessage?.("AitRpcBridge", "OnHostVisibilityChanged", state);
+  const handleVisibility = () => notify(document.hidden ? "hidden" : "visible");
+  document.addEventListener("visibilitychange", handleVisibility);
+  window.addEventListener("blur", () => notify("hidden"));
+  window.addEventListener("focus", () => notify("visible"));
+  handleVisibility(); // 초기 상태 전달
+  return () => {
+    document.removeEventListener("visibilitychange", handleVisibility);
+    window.removeEventListener("blur", () => notify("hidden"));
+    window.removeEventListener("focus", () => notify("visible"));
+  };
+}, [unityContext]);
+```
+
+Unity의 `AitRpcBridge.OnHostVisibilityChanged`는 위 ScriptableObject 설정에 따라 `AppsInTossPlaybackPause`를 호출하여 `Time.timeScale`과 오디오 상태를 자동으로 관리합니다.
+
+### 5. Safe Area 모킹
+
+`SafeAreaManager`는 WebGL (실 디바이스)에서는 Toss RPC로 안전 영역을 받고, Unity 에디터/Standalone에서는 `Screen.safeArea`를 이용해 인셋을 계산합니다. 별도의 모킹 설정 없이도 에디터에서 UI를 맞출 수 있습니다.
+
 ### ShareService (공유 및 리워드)
 
 공유하기 기능을 호출하고, 그 결과를 단일 응답으로 받습니다.

@@ -51,8 +51,6 @@ namespace AIT.AIT_SDK.Bridge
         [SerializeField] AppsInTossMonetizationConfig monetizationConfig;
 
         CancellationTokenSource _activeAdCts;
-        float? _cachedTimeScale;
-        bool? _cachedAudioPause;
 
         public bool IsAdPlaying => _activeAdCts != null;
 
@@ -134,10 +132,12 @@ namespace AIT.AIT_SDK.Bridge
             var adService = AitRpcBridge.Instance.AdService;
             var request = new ShowAdRequest { AdGroupId = adGroupId };
             var rewardEarned = false;
+            var channels = ResolveAdPauseChannels();
+            AppsInTossPlaybackPause.PauseHandle pauseHandle = null;
 
             try
             {
-                PauseApp();
+                pauseHandle = AppsInTossPlaybackPause.Acquire(channels, $"Ad:{placement}");
 
                 await foreach (var ev in adService.ShowAdAsStream(request, token))
                 {
@@ -175,7 +175,7 @@ namespace AIT.AIT_SDK.Bridge
             }
             finally
             {
-                ResumeApp();
+                pauseHandle?.Dispose();
 
                 cts.Dispose();
                 if (_activeAdCts == cts)
@@ -192,34 +192,26 @@ namespace AIT.AIT_SDK.Bridge
             return result;
         }
 
-        void PauseApp()
+        AppsInTossPlaybackPause.PauseChannels ResolveAdPauseChannels()
         {
-            if (!_cachedTimeScale.HasValue)
+            var channels = AppsInTossPlaybackPause.PauseChannels.None;
+
+            if (monetizationConfig == null)
             {
-                _cachedTimeScale = Time.timeScale;
-                Time.timeScale = 0f;
+                return AppsInTossPlaybackPause.PauseChannels.All;
             }
 
-            if (!_cachedAudioPause.HasValue)
+            if (monetizationConfig.PauseTimeDuringAds)
             {
-                _cachedAudioPause = AudioListener.pause;
-            }
-            AudioListener.pause = true;
-        }
-
-        void ResumeApp()
-        {
-            if (_cachedTimeScale.HasValue)
-            {
-                Time.timeScale = _cachedTimeScale.Value;
-                _cachedTimeScale = null;
+                channels |= AppsInTossPlaybackPause.PauseChannels.Time;
             }
 
-            if (_cachedAudioPause.HasValue)
+            if (monetizationConfig.MuteAudioDuringAds)
             {
-                AudioListener.pause = _cachedAudioPause.Value;
-                _cachedAudioPause = null;
+                channels |= AppsInTossPlaybackPause.PauseChannels.Audio;
             }
+
+            return channels;
         }
     }
 }

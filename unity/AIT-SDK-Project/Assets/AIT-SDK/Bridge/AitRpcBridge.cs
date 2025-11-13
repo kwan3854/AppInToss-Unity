@@ -1,3 +1,4 @@
+using System;
 using Ait;
 using Ait.Device;
 using Ait.Game;
@@ -7,6 +8,8 @@ using Ait.Storage;
 using UnityEngine;
 using WebViewRPC;
 using AitBridge.Generated;
+using AIT.AIT_SDK.Bridge;
+using AIT.AIT_SDK.Config;
 
 namespace AitBridge.RPC
 {
@@ -35,6 +38,8 @@ namespace AitBridge.RPC
             }
         }
 
+        [SerializeField] AppsInTossMonetizationConfig monetizationConfig;
+
         private ReactUnityWebGLBridge _bridge;
         private WebViewRpcClient _rpcClient;
         
@@ -46,6 +51,7 @@ namespace AitBridge.RPC
         private StorageServiceClient _storageServiceClient;
         private DeviceServiceClient _deviceServiceClient;
         private ShareServiceClient _shareServiceClient;
+        private AppsInTossPlaybackPause.PauseHandle _hostVisibilityPauseHandle;
 
         // Public accessor for OpenURL service
         public OpenURLServiceClient OpenURLService => _openURLServiceClient;
@@ -55,6 +61,8 @@ namespace AitBridge.RPC
         public StorageServiceClient StorageService => _storageServiceClient;
         public DeviceServiceClient DeviceServiceClient => _deviceServiceClient;
         public ShareServiceClient ShareServiceClient => _shareServiceClient;
+        public AppsInTossMonetizationConfig MonetizationConfig => monetizationConfig;
+        public event Action<bool> HostVisibilityChanged;
 
 
         private void Awake()
@@ -102,8 +110,57 @@ namespace AitBridge.RPC
             _bridge.ReceiveMessageFromWeb(message);
         }
 
+        /// <summary>
+        /// Called from React (App.tsx) whenever the host webview becomes hidden or visible.
+        /// Ensures Unity playback is paused to satisfy Toss requirements when the webview is not visible.
+        /// </summary>
+        public void OnHostVisibilityChanged(string state)
+        {
+            var isHidden = string.Equals(state, "hidden", StringComparison.OrdinalIgnoreCase);
+
+            if (isHidden)
+            {
+                if (_hostVisibilityPauseHandle == null)
+                {
+                    var channels = ResolveHostHiddenPauseChannels();
+                    _hostVisibilityPauseHandle = AppsInTossPlaybackPause.Acquire(channels, "HostHidden");
+                }
+            }
+            else
+            {
+                _hostVisibilityPauseHandle?.Dispose();
+                _hostVisibilityPauseHandle = null;
+            }
+
+            HostVisibilityChanged?.Invoke(isHidden);
+        }
+
+        private AppsInTossPlaybackPause.PauseChannels ResolveHostHiddenPauseChannels()
+        {
+            var channels = AppsInTossPlaybackPause.PauseChannels.All;
+            if (monetizationConfig == null)
+            {
+                return channels;
+            }
+
+            channels = AppsInTossPlaybackPause.PauseChannels.None;
+            if (monetizationConfig.PauseTimeWhenHostHidden)
+            {
+                channels |= AppsInTossPlaybackPause.PauseChannels.Time;
+            }
+            if (monetizationConfig.MuteAudioWhenHostHidden)
+            {
+                channels |= AppsInTossPlaybackPause.PauseChannels.Audio;
+            }
+
+            return channels;
+        }
+
         private void OnDestroy()
         {
+            _hostVisibilityPauseHandle?.Dispose();
+            _hostVisibilityPauseHandle = null;
+
             if (_instance == this)
             {
                 _instance = null;
@@ -111,5 +168,3 @@ namespace AitBridge.RPC
         }
     }
 }
-
-

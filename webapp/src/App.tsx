@@ -58,6 +58,40 @@ function App() {
   // 화면 항상 켜짐 모드 설정 (게임은 화면이 항상 켜져있어야 함)
   setScreenAwakeMode({ enabled: true });
 
+  useEffect(() => {
+    // Some OEM browsers only fire either visibilitychange or blur/focus, so we listen to all of them.
+    const notifyUnity = (state: "hidden" | "visible") => {
+      if (typeof unityContext.sendMessage === "function") {
+        unityContext.sendMessage("AitRpcBridge", "OnHostVisibilityChanged", state);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      notifyUnity(document.hidden ? "hidden" : "visible");
+    };
+
+    const handleWindowBlur = () => {
+      notifyUnity("hidden");
+    };
+
+    const handleWindowFocus = () => {
+      notifyUnity("visible");
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleWindowBlur);
+    window.addEventListener("focus", handleWindowFocus);
+
+    // Run once so Unity knows our initial visibility state.
+    handleVisibilityChange();
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("blur", handleWindowBlur);
+      window.removeEventListener("focus", handleWindowFocus);
+    };
+  }, [unityContext]);
+
   return (
     <div style={{
       width: '100vw',

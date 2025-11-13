@@ -45,7 +45,6 @@ namespace AIT.Device
             await UniTask.WaitUntil(() => IsInitialized);
         }
 
-        [Obsolete("Obsolete")]
         private async UniTask Initialize()
         {
             try
