@@ -1,9 +1,9 @@
 {
     "name": "com.kwanjoong.ait-sdk",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "displayName": "AppInToss SDK",
     "description": "Unofficial AppInToss SDK for Unity",
-    "unity": "6000.0.0",
+    "unity": "6000.0.62f1",
     "documentationUrl": "https://github.com/kwan3854/AppInToss-Unity",
     "keywords": [
         "Toss",
