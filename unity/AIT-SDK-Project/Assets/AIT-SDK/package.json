@@ -3,7 +3,7 @@
     "version": "0.5.2",
     "displayName": "AppInToss SDK",
     "description": "Unofficial AppInToss SDK for Unity",
-    "unity": "6000.0.62f1",
+    "unity": "6000.0",
     "documentationUrl": "https://github.com/kwan3854/AppInToss-Unity",
     "keywords": [
         "Toss",
