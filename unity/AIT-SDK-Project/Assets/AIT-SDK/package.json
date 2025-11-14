@@ -1,6 +1,6 @@
 {
     "name": "com.kwanjoong.ait-sdk",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "displayName": "AppInToss SDK",
     "description": "Unofficial AppInToss SDK for Unity",
     "unity": "6000.0.0",
@@ -20,7 +20,7 @@
     "dependencies": {
       "com.kwanjoong.webviewrpc": "2.1.0",
       "com.github-glitchenzo.nugetforunity": "4.5.0",
-      "com.cysharp.uniatask": "2.5.10"
+      "com.cysharp.unitask": "2.5.10"
     },
     "license": "MIT"
   }
