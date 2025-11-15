@@ -23,6 +23,14 @@ interface PurchaseOperationState {
 
 const purchaseOperationStore = new Map<string, PurchaseOperationState>();
 
+interface GrantResolver {
+  resolve: (result: boolean) => void;
+  timeoutId: ReturnType<typeof setTimeout>;
+}
+
+const GRANT_TIMEOUT_MS = 60_000;
+const grantResolverStore = new Map<string, GrantResolver>();
+
 // A helper type for the Toss IAP error structure
 interface TossIapError {
   code?: string;
@@ -60,8 +68,29 @@ export class IapServiceImpl extends IapServiceBase {
       options: {
         sku: request.sku,
         processProductGrant: ({ orderId }) => {
-          console.log(`[IapService] processProductGrant called for orderId: ${orderId}. Client should handle this.`);
-          return true;
+          if (!orderId) {
+            console.warn("[IapService] processProductGrant received empty orderId.");
+            return false;
+          }
+
+          console.log(`[IapService] processProductGrant waiting for completion: ${orderId}`);
+
+          return new Promise<boolean>((resolve) => {
+            const timeoutId = setTimeout(() => {
+              console.warn(`[IapService] processProductGrant timed out for ${orderId}`);
+              grantResolverStore.delete(orderId);
+              resolve(false);
+            }, GRANT_TIMEOUT_MS);
+
+            grantResolverStore.set(orderId, {
+              resolve: (result: boolean) => {
+                clearTimeout(timeoutId);
+                grantResolverStore.delete(orderId);
+                resolve(result);
+              },
+              timeoutId,
+            });
+          });
         },
       },
       onEvent: (event) => {
@@ -159,7 +188,22 @@ export class IapServiceImpl extends IapServiceBase {
     if (!request.order_id) {
       throw new Error("CompleteProductGrant requires an order_id.");
     }
-    const result = await IAP.completeProductGrant({ params: { orderId: request.order_id } });
-    return { success: result ?? false };
+    try {
+      const result = await IAP.completeProductGrant({ params: { orderId: request.order_id } });
+
+      const resolver = grantResolverStore.get(request.order_id);
+      if (resolver) {
+        resolver.resolve(Boolean(result));
+      }
+
+      return { success: result ?? false };
+    } catch (error) {
+      const resolver = grantResolverStore.get(request.order_id);
+      if (resolver) {
+        resolver.resolve(false);
+      }
+
+      throw error;
+    }
   }
 }
