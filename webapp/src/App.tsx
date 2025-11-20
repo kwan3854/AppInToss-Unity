@@ -4,25 +4,45 @@ import { useWebViewRpc } from "./hooks/useWebViewRpc";
 import { useEffect, useState } from "react";
 import { setScreenAwakeMode } from "@apps-in-toss/web-framework";
 
+declare global {
+  interface Window {
+    unityInstance?: any;
+    FirebaseWebGL_FlushMessages?: () => void;
+  }
+}
+
 function App() {
   // 3. useUnityContext에서 provider와 *나머지 컨텍스트*를 분리합니다.
   const { 
     unityProvider, 
     isLoaded,
     loadingProgression,
+    UNSAFE__unityInstance,
     ...unityContext // (sendMessage, addEventListener 등)
   } = useUnityContext({
     // (Unity 빌드가 완료되면) 적절한 파일 경로와 이름으로 수정하세요.
-    loaderUrl: "assets/AIT-SDK-Test.loader.js",
-    dataUrl: "  assets/AIT-SDK-Test.data.unityweb",
-    frameworkUrl: "assets/AIT-SDK-Test.framework.js.unityweb",
-    codeUrl: "assets/AIT-SDK-Test.wasm.unityweb",
+    loaderUrl: "assets/project-mahjong.loader.js",
+    dataUrl: "  assets/project-mahjong.data.gz",
+    frameworkUrl: "assets/project-mahjong.framework.js.gz",
+    codeUrl: "assets/project-mahjong.wasm.gz",
   });
 
   // We'll use a state to store the device pixel ratio.
   const [devicePixelRatio, setDevicePixelRatio] = useState(
     window.devicePixelRatio
   );
+
+  useEffect(() => {
+    if (UNSAFE__unityInstance) {
+      window.unityInstance = UNSAFE__unityInstance;
+      window.FirebaseWebGL_FlushMessages?.();
+      return () => {
+        if (window.unityInstance === UNSAFE__unityInstance) {
+          delete window.unityInstance;
+        }
+      };
+    }
+  }, [UNSAFE__unityInstance]);
 
   useEffect(
     function () {
