@@ -9,6 +9,23 @@
     <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-remote-config-compat.js"></script>
+    <script>
+      (function setFirebaseDebugFlag() {
+        try {
+          const host = window.location.hostname.toLowerCase();
+          const prodSuffixes = [".apps.tossmini.com", ".private-apps.tossmini.com"];
+          const isProd = prodSuffixes.some((suf) => host.endsWith(suf));
+          if (!isProd) {
+            localStorage.setItem("firebase:debug", "true");
+            console.log("[Firebase] Debug mode enabled (non-prod host):", host);
+          }
+        } catch (e) {
+          console.warn("[Firebase] Failed to set debug flag", e);
+        }
+      })();
+    </script>
     <script type="module">
       (function initializeFirebase() {
         if (!window.firebase) {
@@ -51,6 +68,54 @@
         window.firebaseApp = app;
         window.firebaseAuth = app.auth();
         window.firebaseFirestore = app.firestore();
+        window.firebaseRemoteConfig = app.remoteConfig();
+
+        try {
+          if (window.firebase.analytics) {
+            window.firebaseAnalytics = window.firebase.analytics(app);
+            console.info("[Firebase] Analytics initialized");
+            try {
+              // Enable debug_mode for non-prod hosts so events appear in DebugView.
+              const prodSuffixes = [".apps.tossmini.com", ".private-apps.tossmini.com"];
+              const host = window.location.hostname.toLowerCase();
+              const isProd = prodSuffixes.some((suf) => host.endsWith(suf));
+              if (!isProd && window.gtag && firebaseConfig.measurementId) {
+                window.gtag("config", firebaseConfig.measurementId, {debug_mode: true});
+                console.info("[Firebase] gtag debug_mode enabled");
+              }
+            } catch (dbgErr) {
+              console.warn("[Firebase] Failed to enable analytics debug_mode", dbgErr);
+            }
+          } else {
+            console.warn("[Firebase] Analytics SDK not available");
+          }
+        } catch (err) {
+          console.warn("[Firebase] Analytics init failed", err);
+        }
+
+        try {
+          if (window.firebaseRemoteConfig) {
+            // Example: 1h minimum fetch interval, defaults can be set as needed.
+            window.firebaseRemoteConfig.settings = { minimumFetchIntervalMillis: 3600000 };
+            window.firebaseRemoteConfig.defaultConfig = {};
+            window.firebaseRemoteConfig
+              .fetchAndActivate()
+              .then(() => {
+                window.FirebaseWebGL = window.FirebaseWebGL || {};
+                window.FirebaseWebGL.RCReady = true;
+                console.info("[Firebase] Remote Config fetchAndActivate succeeded");
+              })
+              .catch((err) => {
+                window.FirebaseWebGL = window.FirebaseWebGL || {};
+                window.FirebaseWebGL.RCReady = false;
+                console.warn("[Firebase] Remote Config fetchAndActivate failed", err);
+              });
+          } else {
+            console.warn("[Firebase] Remote Config SDK not available");
+          }
+        } catch (err) {
+          console.warn("[Firebase] Remote Config init failed", err);
+        }
       })();
     </script>
   </head>
