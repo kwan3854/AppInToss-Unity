@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package ait.interaction;
+
+option csharp_namespace = "Ait.Interaction";
+
+// InteractionService handles user-facing tactile feedback such as haptics.
+service InteractionService {
+  // Triggers a haptic vibration on the device.
+  rpc GenerateHapticFeedback(GenerateHapticFeedbackRequest) returns (GenerateHapticFeedbackResponse);
+}
+
+message GenerateHapticFeedbackRequest {
+  // Type of haptic feedback to generate.
+  // Valid values: "tickWeak", "tap", "tickMedium", "softMedium", "basicWeak",
+  // "basicMedium", "success", "error", "wiggle", "confetti".
+  string type = 1;
+}
+
+// Empty response. Presence of the message keeps request/response symmetry.
+message GenerateHapticFeedbackResponse {
+  bool dummy = 1;
+}
