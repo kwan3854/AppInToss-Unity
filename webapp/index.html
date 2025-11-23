@@ -5,6 +5,54 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>webapp</title>
+    <!-- Firebase compat SDKs are required so the Unity FirebaseWebGL bridge can call firebase.* APIs -->
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
+    <script type="module">
+      (function initializeFirebase() {
+        if (!window.firebase) {
+          console.error("[Firebase] SDK failed to load.");
+          return;
+        }
+
+        if (window.firebase.apps && window.firebase.apps.length > 0) {
+          return;
+        }
+
+        const firebaseConfig = {
+          apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+          authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+          projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+          storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+          messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+          appId: import.meta.env.VITE_FIREBASE_APP_ID,
+          measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+        };
+
+        const requiredKeys = [
+          "apiKey",
+          "authDomain",
+          "projectId",
+          "storageBucket",
+          "messagingSenderId",
+          "appId",
+        ];
+
+        const missingKeys = requiredKeys.filter((key) => !firebaseConfig[key]);
+        if (missingKeys.length > 0) {
+          console.warn(
+            `[Firebase] Missing config value(s): ${missingKeys.join(", ")}. Firebase won't be initialized.`
+          );
+          return;
+        }
+
+        const app = window.firebase.initializeApp(firebaseConfig);
+        window.firebaseApp = app;
+        window.firebaseAuth = app.auth();
+        window.firebaseFirestore = app.firestore();
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -89,6 +89,9 @@ webapp/public/unity-build/*.js
 webapp/public/unity-build/*.br
 webapp/public/unity-build/*.gz
 
+# Unity WebGL outputs copied to the webapp assets folder
+webapp/public/assets/
+
 # Environment files
 webapp/.env
 webapp/.env.local
