@@ -52,6 +52,7 @@ namespace AitBridge.RPC
         private DeviceServiceClient _deviceServiceClient;
         private ShareServiceClient _shareServiceClient;
         private AppsInTossPlaybackPause.PauseHandle _hostVisibilityPauseHandle;
+        private InteractionServiceClient _interactionServiceClient;
 
         // Public accessor for OpenURL service
         public OpenURLServiceClient OpenURLService => _openURLServiceClient;
@@ -61,6 +62,7 @@ namespace AitBridge.RPC
         public StorageServiceClient StorageService => _storageServiceClient;
         public DeviceServiceClient DeviceServiceClient => _deviceServiceClient;
         public ShareServiceClient ShareServiceClient => _shareServiceClient;
+        public InteractionServiceClient InteractionService => _interactionServiceClient;
 
         public AppsInTossAdUseCase Ads => AppsInTossAdUseCase.Instance;
         public AppsInTossIapUseCase Iaps => AppsInTossIapUseCase.Instance;
@@ -94,7 +96,7 @@ namespace AitBridge.RPC
             _storageServiceClient = new StorageServiceClient(_rpcClient);
             _deviceServiceClient = new DeviceServiceClient(_rpcClient);
             _shareServiceClient = new ShareServiceClient(_rpcClient);
-
+            _interactionServiceClient = new InteractionServiceClient(_rpcClient);
 
             // Add more service clients here:
             // _paymentServiceClient = new PaymentServiceClient(_rpcClient);
