@@ -10,6 +10,7 @@ using WebViewRPC;
 using AitBridge.Generated;
 using AIT.AIT_SDK.Bridge;
 using AIT.AIT_SDK.Config;
+using Ait.Interaction;
 
 namespace AitBridge.RPC
 {
