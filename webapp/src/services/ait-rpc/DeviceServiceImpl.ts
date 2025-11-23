@@ -10,6 +10,7 @@ export class DeviceServiceImpl extends DeviceServiceBase {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _request: GetSafeAreaInsetsRequest
   ): Promise<GetSafeAreaInsetsResponse> {
+    console.log(`[DeviceService] GetSafeAreaInsets`);
     const insets = getSafeAreaInsets();
     const ratio = window.devicePixelRatio || 1;
 

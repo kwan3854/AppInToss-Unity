@@ -2,7 +2,7 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 // WebView RPC hook for Unity ↔ React communication
 import { useWebViewRpc } from "./hooks/useWebViewRpc";
 import { useEffect, useState } from "react";
-import { setScreenAwakeMode } from "@apps-in-toss/web-framework";
+import { getSafeAreaInsets, setScreenAwakeMode } from "@apps-in-toss/web-framework";
 
 declare global {
   interface Window {
