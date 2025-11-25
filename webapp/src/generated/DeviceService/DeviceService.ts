@@ -134,6 +134,100 @@ function _decodeGetSafeAreaInsetsResponse(bb: ByteBuffer): GetSafeAreaInsetsResp
   return message;
 }
 
+export interface GetPlatformOSRequest {
+  dummy?: boolean;
+}
+
+export function encodeGetPlatformOSRequest(message: GetPlatformOSRequest): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeGetPlatformOSRequest(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeGetPlatformOSRequest(message: GetPlatformOSRequest, bb: ByteBuffer): void {
+  // optional bool dummy = 1;
+  let $dummy = message.dummy;
+  if ($dummy !== undefined) {
+    writeVarint32(bb, 8);
+    writeByte(bb, $dummy ? 1 : 0);
+  }
+}
+
+export function decodeGetPlatformOSRequest(binary: Uint8Array): GetPlatformOSRequest {
+  return _decodeGetPlatformOSRequest(wrapByteBuffer(binary));
+}
+
+function _decodeGetPlatformOSRequest(bb: ByteBuffer): GetPlatformOSRequest {
+  let message: GetPlatformOSRequest = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional bool dummy = 1;
+      case 1: {
+        message.dummy = !!readByte(bb);
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
+export interface GetPlatformOSResponse {
+  platform_os?: string;
+}
+
+export function encodeGetPlatformOSResponse(message: GetPlatformOSResponse): Uint8Array {
+  let bb = popByteBuffer();
+  _encodeGetPlatformOSResponse(message, bb);
+  return toUint8Array(bb);
+}
+
+function _encodeGetPlatformOSResponse(message: GetPlatformOSResponse, bb: ByteBuffer): void {
+  // optional string platform_os = 1;
+  let $platform_os = message.platform_os;
+  if ($platform_os !== undefined) {
+    writeVarint32(bb, 10);
+    writeString(bb, $platform_os);
+  }
+}
+
+export function decodeGetPlatformOSResponse(binary: Uint8Array): GetPlatformOSResponse {
+  return _decodeGetPlatformOSResponse(wrapByteBuffer(binary));
+}
+
+function _decodeGetPlatformOSResponse(bb: ByteBuffer): GetPlatformOSResponse {
+  let message: GetPlatformOSResponse = {} as any;
+
+  end_of_message: while (!isAtEnd(bb)) {
+    let tag = readVarint32(bb);
+
+    switch (tag >>> 3) {
+      case 0:
+        break end_of_message;
+
+      // optional string platform_os = 1;
+      case 1: {
+        message.platform_os = readString(bb, readVarint32(bb));
+        break;
+      }
+
+      default:
+        skipUnknownField(bb, tag & 7);
+    }
+  }
+
+  return message;
+}
+
 export interface Long {
   low: number;
   high: number;

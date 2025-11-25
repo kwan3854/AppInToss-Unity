@@ -10,6 +10,8 @@ namespace Ait.Device
         
         UniTask<GetSafeAreaInsetsResponse> GetSafeAreaInsets(GetSafeAreaInsetsRequest request);
         
+        UniTask<GetPlatformOSResponse> GetPlatformOS(GetPlatformOSRequest request);
+        
     }
 
     public class DeviceServiceClient : IDeviceServiceClient
@@ -25,6 +27,12 @@ namespace Ait.Device
         public async UniTask<GetSafeAreaInsetsResponse> GetSafeAreaInsets(GetSafeAreaInsetsRequest request)
         {
             var response = await _rpcClient.CallMethod<GetSafeAreaInsetsResponse>("DeviceService.GetSafeAreaInsets", request);
+            return response;
+        }
+        
+        public async UniTask<GetPlatformOSResponse> GetPlatformOS(GetPlatformOSRequest request)
+        {
+            var response = await _rpcClient.CallMethod<GetPlatformOSResponse>("DeviceService.GetPlatformOS", request);
             return response;
         }
         

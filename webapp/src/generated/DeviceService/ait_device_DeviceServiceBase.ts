@@ -2,7 +2,7 @@
 // TypeScript Server: DeviceServiceServiceBase
 
 // Import encoding/decoding functions for each method
-import { decodeGetSafeAreaInsetsRequest, encodeGetSafeAreaInsetsResponse, } from './DeviceService';
+import { decodeGetSafeAreaInsetsRequest, encodeGetSafeAreaInsetsResponse,decodeGetPlatformOSRequest, encodeGetPlatformOSResponse, } from './DeviceService';
 
 // Type definitions for request/response messages
 
@@ -11,6 +11,14 @@ export interface GetSafeAreaInsetsRequest {
 }
 
 export interface GetSafeAreaInsetsResponse {
+  [key: string]: any;
+}
+
+export interface GetPlatformOSRequest {
+  [key: string]: any;
+}
+
+export interface GetPlatformOSResponse {
   [key: string]: any;
 }
 
@@ -27,6 +35,13 @@ export abstract class DeviceServiceBase {
    * @returns Promise resolving to GetSafeAreaInsetsResponse
    */
   abstract GetSafeAreaInsets(requestObj: GetSafeAreaInsetsRequest): Promise<GetSafeAreaInsetsResponse>;
+  
+  /**
+   * GetPlatformOS method
+   * @param requestObj - GetPlatformOSRequest object
+   * @returns Promise resolving to GetPlatformOSResponse
+   */
+  abstract GetPlatformOS(requestObj: GetPlatformOSRequest): Promise<GetPlatformOSResponse>;
   
 }
 
@@ -45,6 +60,12 @@ export class DeviceService {
       const reqObj = decodeGetSafeAreaInsetsRequest(reqBytes);
       const respObj = await impl.GetSafeAreaInsets(reqObj);
       return encodeGetSafeAreaInsetsResponse(respObj);
+    };
+    
+    def.methodHandlers["DeviceService.GetPlatformOS"] = async (reqBytes: Uint8Array): Promise<Uint8Array> => {
+      const reqObj = decodeGetPlatformOSRequest(reqBytes);
+      const respObj = await impl.GetPlatformOS(reqObj);
+      return encodeGetPlatformOSResponse(respObj);
     };
     
 

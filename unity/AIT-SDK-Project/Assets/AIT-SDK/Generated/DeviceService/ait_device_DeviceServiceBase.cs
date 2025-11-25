@@ -13,6 +13,8 @@ namespace Ait.Device
         
         public abstract UniTask<GetSafeAreaInsetsResponse> GetSafeAreaInsets(GetSafeAreaInsetsRequest request);
         
+        public abstract UniTask<GetPlatformOSResponse> GetPlatformOS(GetPlatformOSRequest request);
+        
     }
 
     /// <summary>
@@ -31,6 +33,14 @@ namespace Ait.Device
                 var req = new GetSafeAreaInsetsRequest();
                 req.MergeFrom(reqBytes);
                 var resp = await impl.GetSafeAreaInsets(req);
+                return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
+            };
+            
+            def.MethodHandlers["DeviceService.GetPlatformOS"] = async (reqBytes) =>
+            {
+                var req = new GetPlatformOSRequest();
+                req.MergeFrom(reqBytes);
+                var resp = await impl.GetPlatformOS(req);
                 return Google.Protobuf.ByteString.CopyFrom(resp.ToByteArray());
             };
             
