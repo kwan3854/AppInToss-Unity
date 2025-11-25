@@ -1,9 +1,10 @@
-import { getSafeAreaInsets } from "@apps-in-toss/web-framework";
+import { getPlatformOS, getSafeAreaInsets } from "@apps-in-toss/web-framework";
 import { DeviceServiceBase } from "../../generated/DeviceService/ait_device_DeviceServiceBase";
-import { getPlatformOS } from "@apps-in-toss/web-framework";
 import type {
   GetSafeAreaInsetsRequest,
   GetSafeAreaInsetsResponse,
+  GetPlatformOSRequest,
+  GetPlatformOSResponse,
 } from "../../generated/DeviceService/DeviceService";
 
 export class DeviceServiceImpl extends DeviceServiceBase {
@@ -36,6 +37,21 @@ export class DeviceServiceImpl extends DeviceServiceBase {
 
     console.log(`[DeviceService] Safe Area Insets (Device Pixels):`, response);
 
+    return response;
+  }
+
+  async GetPlatformOS(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _request: GetPlatformOSRequest
+  ): Promise<GetPlatformOSResponse> {
+    console.log(`[DeviceService] GetPlatformOS`);
+    const platform = getPlatformOS();
+
+    const response: GetPlatformOSResponse = {
+      platform_os: platform,
+    };
+
+    console.log(`[DeviceService] Platform OS:`, platform);
 
     return response;
   }
