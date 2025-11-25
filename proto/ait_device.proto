@@ -6,6 +6,8 @@ option csharp_namespace = "Ait.Device";
 
 service DeviceService {
   rpc GetSafeAreaInsets(GetSafeAreaInsetsRequest) returns (GetSafeAreaInsetsResponse);
+  // Returns the current platform identifier from React Native's Platform.OS ("ios" or "android").
+  rpc GetPlatformOS(GetPlatformOSRequest) returns (GetPlatformOSResponse);
 }
 
 message GetSafeAreaInsetsRequest {
@@ -17,4 +19,14 @@ message GetSafeAreaInsetsResponse {
   float bottom = 2;
   float left = 3;
   float right = 4;
+}
+
+// Empty request for GetPlatformOS.
+message GetPlatformOSRequest {
+  bool dummy = 1;
+}
+
+message GetPlatformOSResponse {
+  // Platform identifier. Valid values: "ios" or "android".
+  string platform_os = 1;
 }
